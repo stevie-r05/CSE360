@@ -3,4 +3,7 @@
 // are changed infrequently
 #pragma once
 
+#include <ctime>
+#include <limits>
+
 // TODO: reference additional headers your program requires here

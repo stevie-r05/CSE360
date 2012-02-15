@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "main_form.h"
+#include "timingClass.h"
 
 using namespace CSE360Project;
 

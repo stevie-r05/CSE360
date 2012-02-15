@@ -30,6 +30,9 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="timingClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="main_form.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="timingClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
