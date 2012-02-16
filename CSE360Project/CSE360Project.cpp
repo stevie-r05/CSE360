@@ -9,8 +9,6 @@ using namespace CSE360Project;
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
 {
-	timingClass *timing = new timingClass();
-	timing->
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 
