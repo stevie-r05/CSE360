@@ -58,7 +58,7 @@ namespace CSE360Project {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(440, 439);
+			this->ClientSize = System::Drawing::Size(437, 476);
 			this->Name = L"main_form";
 			this->Text = L"JITL - Team DITS, LLC";
 			this->Load += gcnew System::EventHandler(this, &main_form::main_form_Load);
