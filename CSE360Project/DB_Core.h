@@ -1,28 +1,32 @@
+#pragma once
+
+#include "stdafx.h"
+
 using namespace std;
 
 namespace CSE360Project {
 
-class DB_Core {
-public:
-	DB_Core();
+	class DB_Core {
+	public:
+		DB_Core();
 
-	virtual void Open()=0;
-	virtual void LoadData()=0;
-	virtual void Write()=0;
-	virtual void Close()=0;
+		virtual void Open()=0;
+		virtual void LoadData()=0;
+		virtual void Write()=0;
+		virtual void Close()=0;
 
-	int getLastID();
-	int getRecordCount();
+		int getLastID();
+		int getRecordCount();
 
-	virtual ~DB_Core();
+		virtual ~DB_Core();
 
-protected:
-	ofstream out;
-	ifstream in;
+	protected:
+		ofstream out;
+		ifstream in;
 
-	int lastID;
-	int record_count;
+		int lastID;
+		int record_count;
 
-};
+	};
 
 } /* namespace CSE360Project */

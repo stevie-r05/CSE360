@@ -45,6 +45,9 @@
     <ClCompile Include="DB_Users.cpp">
       <Filter>Source Files\Database</Filter>
     </ClCompile>
+    <ClCompile Include="DateClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="DB_Users.h">
       <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="DateClass.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
