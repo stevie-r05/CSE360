@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DateClass.h" />
+    <ClInclude Include="date_constants.h" />
     <ClInclude Include="DB_Core.h" />
     <ClInclude Include="DB_Users.h" />
     <ClInclude Include="main_form.h">

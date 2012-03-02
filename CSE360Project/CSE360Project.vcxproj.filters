@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Database">
       <UniqueIdentifier>{32c0a307-8751-48ee-9b08-a925218c1056}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Constants">
+      <UniqueIdentifier>{dd8dabda-a858-4f52-9f22-549867cb3e28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="DateClass.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="date_constants.h">
+      <Filter>Header Files\Constants</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
