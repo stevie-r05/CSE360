@@ -89,6 +89,7 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CSE360Project.cpp" />
     <ClCompile Include="DB_Core.cpp" />
+    <ClCompile Include="DB_Users.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -97,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DB_Core.h" />
+    <ClInclude Include="DB_Users.h" />
     <ClInclude Include="main_form.h">
       <FileType>CppForm</FileType>
     </ClInclude>
