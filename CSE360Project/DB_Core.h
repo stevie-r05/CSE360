@@ -10,15 +10,20 @@ namespace CSE360Project {
 	public:
 		DB_Core();
 
-		virtual void Open()=0;
+		virtual void Open();
 		virtual void LoadData()=0;
 		virtual void Write()=0;
-		virtual void Close()=0;
+		virtual void Close();
 
 		int getLastID();
 		int getRecordCount();
 
 		virtual ~DB_Core();
+
+		template<class dataType>
+		void clearDataArray(vector<dataType> &data_array) {
+			data_array.clear();
+		}
 
 	protected:
 		ofstream out;
@@ -27,6 +32,7 @@ namespace CSE360Project {
 		int lastID;
 		int record_count;
 
+		string database_file;
 	};
 
 } /* namespace CSE360Project */

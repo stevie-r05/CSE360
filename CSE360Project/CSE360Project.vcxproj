@@ -98,6 +98,7 @@
     <ClCompile Include="timingClass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Database_Structures.h" />
     <ClInclude Include="DateClass.h" />
     <ClInclude Include="date_constants.h" />
     <ClInclude Include="DB_Core.h" />

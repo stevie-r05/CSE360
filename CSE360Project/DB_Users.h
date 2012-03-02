@@ -7,12 +7,24 @@ namespace CSE360Project {
 	public:
 		DB_Users();
 
-		void Open();
 		void LoadData();
 		void Write();
-		void Close();
+
+		int Insert(db_users_data *user_data);
+
+		bool checkPassword(string username, string password);
+		bool checkSecurityAnswer(string username, string answer);
+
+		user_roles_t getUserRole(int uid);
+		string getUsername(int uid);
+		string getFirstname(int uid);
+		string getLastname(int uid);
+		string getSecurityQuestion(string username);
 
 		virtual ~DB_Users();
+
+	private:
+		std::vector<db_users_data> user_data;
 	};
 
 } /* namespace CSE360Project */

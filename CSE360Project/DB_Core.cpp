@@ -14,12 +14,18 @@ namespace CSE360Project {
 		lastID = 0;
 	}
 
+	void DB_Core::Open() {
+	}
+
 	int DB_Core::getLastID() {
 		return lastID;
 	}
 
 	int DB_Core::getRecordCount() {
 		return record_count;
+	}
+
+	void DB_Core::Close() {
 	}
 
 	DB_Core::~DB_Core() {
