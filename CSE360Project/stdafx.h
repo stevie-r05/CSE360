@@ -36,15 +36,29 @@ struct db_users_data {
 };
 
 //Courses
+struct db_courses_data {
+
+};
 
 //Enrolled
+struct db_enrolled_data {
+
+}; 
 
 //Quizzes
+struct db_quizzes_data {
+};
 
 //Quiz Questions
+struct db_questions_data {
+};
 
 //Answered
+struct db_answered_data {
+};
 
 //Scores
+struct db_scores_data {
+};
 
 }
