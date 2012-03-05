@@ -79,11 +79,28 @@ namespace CSE360Project {
 		time_data->tm_mon++;
 	}
 
-
-
 	void DateClass::processTimeInput(time_t inputTime) {
 		this->inputTime = inputTime;
 		this->processTimeInput();
+	}
+
+	/*
+	 * Implement comparison checks between two different date objects using operator overloading.
+	 */
+	bool DateClass::operator > (DateClass param) {
+		return this->inputTime > param.inputTime;
+	}
+
+	bool DateClass::operator >= (DateClass param) {
+		return this->inputTime >= param.inputTime;
+	}
+
+	bool DateClass::operator < (DateClass param) {
+		return this->inputTime < param.inputTime;
+	}
+
+	bool DateClass::operator <= (DateClass param) {
+		return this->inputTime <= param.inputTime;
 	}
 
 	DateClass::~DateClass() {

@@ -21,6 +21,13 @@ namespace CSE360Project {
 		void processTimeInput();
 		void processTimeInput(time_t inputTime); //Automatically replace current time with this one
 
+		bool operator > (DateClass);
+		bool operator >= (DateClass);
+		bool operator < (DateClass);
+		bool operator <= (DateClass);
+
+		bool hasTimeElapsed(time_t targetTime, time_t testTime);
+
 		virtual ~DateClass();
 		
 	private:

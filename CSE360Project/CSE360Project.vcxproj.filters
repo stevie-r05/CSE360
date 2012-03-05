@@ -22,11 +22,17 @@
     <Filter Include="Header Files\Constants">
       <UniqueIdentifier>{dd8dabda-a858-4f52-9f22-549867cb3e28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Databases">
+      <UniqueIdentifier>{c80ed418-e87c-4685-bbf3-ff7ac4009309}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
     <None Include="app.ico">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Users.db">
+      <Filter>Resource Files\Databases</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
