@@ -1,6 +1,7 @@
-
 #include "stdafx.h"
 #include "timingClass.h"
+
+using namespace std;
 
 /*
  * Created by Ian Coast
@@ -34,87 +35,87 @@
  *		cout << "This calculation took " << timing->getElapsedTimer(timer_index) << " seconds to complete." << endl;
  *
  */
-
-using namespace std;
-
 timingClass::timingClass()
 {
 	numOfTimers = 0;
-
-	//Start quick timer from when class was initialized.
-	this->tic();
 }
 
-/*
- * returns an int value representing the index that this timer is being stored at.
- */
 int timingClass::startNewTimer()
 {
 	//Find current level of array, expand by 1
 	++numOfTimers;
 
 	//Create temporary array to hold old values.
-	time_t *newArray = new time_t[numOfTimers];
+	elapsed_time_t *newArray = new elapsed_time_t[numOfTimers];
 
 	//Save old timers into temporary array.
 	if (numOfTimers > 1)
 	{
-		for (int i = 0; i < numOfTimers-1; i++)
-		{
-			newArray[i] = savedTimers[i];
-		}
+		//copy old array into new array.  memcpy is used due to speed/efficiency.
+		memcpy(newArray, savedTimers, sizeof(elapsed_time_t) * (numOfTimers-1));
+
+		//Delete the current timers in preparing to restore list.
+		delete []savedTimers;
 	}
 
 	//Dynmically resize to fit new index.
-	if (numOfTimers > 1) {
-		delete []savedTimers;
-	}
-	savedTimers = new time_t[numOfTimers];
+	savedTimers = new elapsed_time_t[numOfTimers];
 
 	//Save old timers in new from temporary array
-	for (int i = 0; i < numOfTimers; i++)
-	{
-		savedTimers[i] = newArray[i];
-	}
+	//copy old array into new array.  memcpy is used due to speed/efficiency.
+	memcpy(savedTimers,newArray, sizeof(elapsed_time_t) * (numOfTimers-1));
 
 	//Preserve memory, delete temporary array.
 	delete []newArray;
 
 	//Finally Initialize Time for this index.;
-	savedTimers[numOfTimers-1] = time(NULL);
+	savedTimers[numOfTimers-1].cpu_time = clock();
+	savedTimers[numOfTimers-1].elapsed_time = time(NULL);
+	savedTimers[numOfTimers-1].saved = false;
 
 	//return index of timer
 	return numOfTimers-1;
 }
 
-/*
- * return time in seconds of timer at current index.
- */
+//Returns elapsed time (real time).
 double timingClass::getElapsedTime(int i)
 {
-	return (double) (time(NULL) - savedTimers[i]);
+	if (savedTimers[i].saved) {
+		return (double) (savedTimers[i].elapsed_time_saved - savedTimers[i].elapsed_time);
+	} else {
+		return (double) (time(NULL) - savedTimers[i].elapsed_time);
+	}
 }
 
-/*
- * start quick timer
- */
+double timingClass::getCPUTime(int i)
+{
+	if (savedTimers[i].saved) {
+		return ( savedTimers[i].cpu_time_saved - savedTimers[i].cpu_time ) / (double) CLOCKS_PER_SEC;
+	} else {
+		return ( clock() - savedTimers[i].cpu_time ) / (double) CLOCKS_PER_SEC;
+	}
+}
+
+void timingClass::saveCurrentTime(int timer_index) {
+	savedTimers[timer_index].cpu_time_saved = clock();
+	savedTimers[timer_index].elapsed_time_saved = time(NULL);
+	savedTimers[timer_index].saved = true;
+}
+
 void timingClass::tic()
 {
 	ticValue = clock();
 }
 
-/*
- * reset timer at index to current time.
- */
-void timingClass::resetTimer(int timer_index)
-{
-	savedTimers[timer_index] = time(NULL);
-}
-
-/*
- * return quick timer
- */
 double timingClass::toc()
 {
-	return (double) (time(NULL) - ticValue);
+	return ( clock() - ticValue ) / (double)CLOCKS_PER_SEC;
+
+}
+
+void timingClass::resetTimer(int timer_index)
+{
+	savedTimers[timer_index].cpu_time = clock();
+	savedTimers[timer_index].elapsed_time = time(NULL);
+	savedTimers[timer_index].saved = false;
 }

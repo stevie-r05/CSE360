@@ -6,11 +6,21 @@
 */
 #include "stdafx.h"
 #include "DB_Users.h"
+#include "timingClass.h"
 
 namespace CSE360Project {
 
 	DB_Users::DB_Users() {
 		database_file = "Users.db";
+
+		//Open File
+		this->Open(ios_base::in);
+
+		//Load Data
+		this->LoadData();
+
+		//Close Data
+		this->Close();
 	}
 
 	void DB_Users::LoadData() {
@@ -18,7 +28,7 @@ namespace CSE360Project {
 		clearDataArray<db_users_data>(user_data);
 
 		//Open if not already open
-		this->Open();
+		this->Open(ios_base::in);
 
 		//Load Data
 
@@ -28,7 +38,12 @@ namespace CSE360Project {
 	}
 
 	void DB_Users::Write() {
+		timingClass timing;
+		timing.tic();
 
+		//Write Data
+
+		this->writeBenchmark(record_count,timing.toc());
 	}
 
 	int DB_Users::Insert(db_users_data *user_data) {
@@ -49,14 +64,14 @@ namespace CSE360Project {
 	bool DB_Users::checkSecurityAnswer(string username, string answer) {
 		int vector_index = getVectorIndex(username);
 
-		if (vector_index >= 0 && answer.compare(user_data[vector_index].answer) == 0) {
+		if (vector_index >= 0 && answer.compare(user_data[vector_index].securityAnswer) == 0) {
 			return true;
 		}
 
 		return false;
 	}
 
-	user_roles_t DB_Users::getUserRole(int uid() {
+	user_roles_t DB_Users::getUserRole(int uid) {
 		return user_data[getVectorIndex(uid)].userRole;
 	}
 
@@ -91,7 +106,7 @@ namespace CSE360Project {
 	}
 
 	int DB_Users::getVectorIndex(string username) {
-		for (int i = 0; i < user_data.size(); i++) {
+		for (int i = 0; i < (int) user_data.size(); i++) {
 			if (username.compare(user_data[i].username) == 0) {
 				return i;
 			}
@@ -101,7 +116,7 @@ namespace CSE360Project {
 	}
 
 	int DB_Users::getVectorIndex(int uid) {
-		for (int i = 0; i < user_data.size(); i++) {
+		for (int i = 0; i < (int) user_data.size(); i++) {
 			if (uid == user_data[i].uid) {
 				return i;
 			}

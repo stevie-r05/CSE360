@@ -12,7 +12,7 @@ namespace CSE360Project {
 
 		int Insert(db_users_data *user_data);
 
-		bool checkPassword(string username, string password);
+		bool validateUser(string username, string password);
 		bool checkSecurityAnswer(string username, string answer);
 
 		user_roles_t getUserRole(int uid);
