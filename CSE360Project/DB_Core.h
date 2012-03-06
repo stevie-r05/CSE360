@@ -10,7 +10,7 @@ namespace CSE360Project {
 	public:
 		DB_Core();
 
-		virtual void Open();
+		virtual void Open(ios_base::openmode mode = ios_base::in);
 		virtual void LoadData()=0;
 		virtual void Write()=0;
 		virtual void Close();

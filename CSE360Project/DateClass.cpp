@@ -39,7 +39,7 @@ namespace CSE360Project {
 		time_data->tm_mday = day;
 
 		//this saves the raw timestamp
-		this->inputTime = mktime (time_data);
+		this->inputTime = mktime(time_data);
 
 		//This re-processes the timestamp into a readable time structure
 		this->processTimeInput();
