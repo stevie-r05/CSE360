@@ -70,7 +70,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>
       </AdditionalDependencies>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
@@ -88,7 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="CSE360Project.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="DateClass.cpp" />
     <ClCompile Include="DB_Core.cpp" />
     <ClCompile Include="DB_Users.cpp" />

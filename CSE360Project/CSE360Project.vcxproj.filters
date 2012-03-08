@@ -36,9 +36,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CSE360Project.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AssemblyInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -55,6 +52,9 @@
       <Filter>Source Files\Database</Filter>
     </ClCompile>
     <ClCompile Include="DateClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

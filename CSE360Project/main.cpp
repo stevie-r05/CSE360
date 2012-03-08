@@ -4,11 +4,13 @@
 #include "main_form.h"
 #include "timingClass.h"
 
+using namespace std;
 using namespace CSE360Project;
 
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
 {
+	cout << "test" << endl;
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 
