@@ -12,6 +12,4 @@
 // TODO: reference additional headers your program requires here
 #include "date_constants.h"
 
-
-
 #include "Database_Structures.h"

@@ -1,12 +1,15 @@
 #pragma once
 #include <string.h>
 
+#define DATA_COL_DELIM '\t'
+#define DATA_ROW_TERMINATE '\n'
+
 //User Roles
-typedef enum user_roles {
+enum user_roles_t {
 	student = 0,
 	teacher = 1,
 	admin = 9
-} user_roles_t;
+} ;
 
 //Users
 /*
