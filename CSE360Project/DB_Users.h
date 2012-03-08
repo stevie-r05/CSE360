@@ -22,6 +22,8 @@ namespace CSE360Project {
 		string getSecurityQuestion(string username);
 		int getUID(string username);
 
+		//Debug functions
+		void outputAllUsers();
 
 		virtual ~DB_Users();
 

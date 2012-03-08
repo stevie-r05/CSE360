@@ -8,7 +8,7 @@
 enum user_roles_t {
 	student = 0,
 	teacher = 1,
-	admin = 9
+	admin = 99
 } ;
 
 //Users
