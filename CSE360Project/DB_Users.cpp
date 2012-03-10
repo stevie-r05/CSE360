@@ -168,30 +168,33 @@ namespace CSE360Project {
 		this->writeBenchmark(data_array_size,timing.toc());
 	}
 
+	void DB_Users::Delete(int uid) {
+		int vector_index = getVectorIndex(uid);
+
+		if (vector_index >= 0)
+			user_data.erase(user_data.begin()+vector_index);
+	}
+
 	int DB_Users::Insert(db_users_data *user_data) {
+		//Auto-assign UID
+		user_data->uid = ++lastID;
+
 		//We need to error check, if they are already a user, do nothing.
 		this->user_data.push_back(*user_data);
+
 		return 0;
 	}
 
 	bool DB_Users::validateUser(string username, string password) {
 		int vector_index = getVectorIndex(username);
 
-		if (vector_index >= 0 && password.compare(user_data[vector_index].password) == 0) {
-			return true;
-		}
-
-		return false;
+		return (vector_index >= 0 && password.compare(user_data[vector_index].password) == 0);
 	}
 
 	bool DB_Users::checkSecurityAnswer(string username, string answer) {
 		int vector_index = getVectorIndex(username);
 
-		if (vector_index >= 0 && answer.compare(user_data[vector_index].securityAnswer) == 0) {
-			return true;
-		}
-
-		return false;
+		return (vector_index >= 0 && answer.compare(user_data[vector_index].securityAnswer) == 0);
 	}
 
 	user_roles_t DB_Users::getUserRole(int uid) {
@@ -213,19 +216,13 @@ namespace CSE360Project {
 	string DB_Users::getSecurityQuestion(string username) {
 		int vector_index = getVectorIndex(username);
 
-		if (vector_index >= 0)
-			return user_data[ vector_index ].securityQuestion;
-
-		return "invalid";
+		return (vector_index >= 0 ? user_data[ vector_index ].securityQuestion : "invalid");
 	}
 
 	int DB_Users::getUID(string username) {
 		int vector_index = getVectorIndex(username);
 
-		if (vector_index >= 0)
-			return user_data[vector_index].uid;
-
-		return 0;
+		return (vector_index >= 0 ? user_data[vector_index].uid : 0);
 	}
 
 	int DB_Users::getVectorIndex(string username) {
@@ -249,20 +246,6 @@ namespace CSE360Project {
 	}
 
 	void DB_Users::outputAllUsers() {
-		//write test user
-		/*
-		db_users_data *user = new db_users_data;
-		user->uid = ++lastID;
-		user->username = "dnewton";
-		user->password = "david_password";
-		user->lastName = "Newton";
-		user->firstName = "David";
-		user->securityQuestion = "Hey there?";
-		user->securityAnswer = "Hi.";
-		user->userRole = teacher;
-		*/
-
-		this->Insert(user);
 
 		if (!user_data.empty()) {
 			for (int i = 0; i < (int) user_data.size(); i++) {
@@ -291,8 +274,6 @@ namespace CSE360Project {
 		} else {
 			cout << "User Data is empty." << endl;
 		}
-
-		this->Write();
 	}
 
 	DB_Users::~DB_Users() {

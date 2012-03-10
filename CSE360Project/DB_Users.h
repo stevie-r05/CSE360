@@ -8,6 +8,7 @@ namespace CSE360Project {
 		DB_Users();
 
 		void LoadData();
+		void Delete(int);
 		void Write();
 
 		int Insert(db_users_data *user_data);

@@ -12,6 +12,7 @@ namespace CSE360Project {
 
 		virtual void Open(ios_base::openmode mode);
 		virtual void LoadData()=0;
+		virtual void Delete(int)=0;
 		virtual void Write()=0;
 		virtual void Close();
 
@@ -24,6 +25,9 @@ namespace CSE360Project {
 		ofstream out;
 		ifstream in;
 
+		//Do not edit lastID or record count from outside the class.
+		//-These will be automatically updated into your structure and 
+		//  incremented properly.
 		int lastID;
 		int record_count;
 

@@ -12,7 +12,26 @@ using namespace CSE360Project;
 int main(array<System::String ^> ^args)
 {
 	DB_Users *db = new DB_Users();
+	
 	db->outputAllUsers();
+	
+	//write test user
+	
+	db_users_data *user = new db_users_data;
+	user->username = "dnewton";
+	user->password = "david_password";
+	user->lastName = "Newton";
+	user->firstName = "David";
+	user->securityQuestion = "Hey there?";
+	user->securityAnswer = "Hi.";
+	user->userRole = teacher;
+
+	db->Insert(user);
+
+	db->Write();
+
+	db->outputAllUsers();
+
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 
