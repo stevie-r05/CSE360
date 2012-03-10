@@ -56,7 +56,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>
       </AdditionalDependencies>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
@@ -99,7 +99,7 @@
     <ClCompile Include="timingClass.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Database_Structures.h" />
+    <ClInclude Include="database_structures.h" />
     <ClInclude Include="DateClass.h" />
     <ClInclude Include="date_constants.h" />
     <ClInclude Include="DB_Core.h" />
