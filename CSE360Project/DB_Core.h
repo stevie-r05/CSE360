@@ -10,7 +10,7 @@ namespace CSE360Project {
 	public:
 		DB_Core();
 
-		virtual void Open(ios_base::openmode mode);
+		virtual void Open(ios_base::openmode mode = ios_base::in);
 		virtual void LoadData()=0;
 		virtual void Delete(int)=0;
 		virtual void Write()=0;
@@ -30,10 +30,13 @@ namespace CSE360Project {
 		//  incremented properly.
 		int lastID;
 		int record_count;
+		char input_char;
 
 		string database_file;
 		string benchmark_file;
 		
+		void dbFileHeader();
+		void readLastID();
 		void writeBenchmark(int record_count, double time);
 	};
 

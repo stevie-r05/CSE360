@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.ico" />
+    <None Include="Courses.db" />
     <None Include="ReadMe.txt" />
     <None Include="Users.db" />
   </ItemGroup>

@@ -25,7 +25,6 @@ namespace CSE360Project {
 
 	void DB_Courses::LoadData() {
 		//variable declarations
-		char input_char; //Will hold the character just read and being processed.
 		int struct_position = 0; //Current struct position, will iterate upon reading DATA_COL_DELIM and reset to 0 on DATA_ROW_TERMINATE
 		string in_int; //for reading in arbitrary lengthed numeric fields.
 		bool new_row = true; //Flag new row to create new struct
@@ -34,25 +33,12 @@ namespace CSE360Project {
 		course_data.clear();
 
 		//Open if not already open
-		this->Open(ios_base::in);
+		this->Open();
 
 		//Load last inserted id
-		string lastID = "";
-		while (in.good()) {
-			input_char = in.get();
+		readLastID();
 
-			//If terminate character is read we are done reading lastID
-			if (input_char == DATA_ROW_TERMINATE)
-				break;
-
-			//If terminate character not read, we're still in last id.
-			lastID += input_char;
-		}
-
-		if (!lastID.empty()) {
-			//If last id is not empty, cast it to interger and save it!
-			this->lastID = atoi(lastID.c_str());
-
+		if (lastID > 0) {
 			//Load Data
 			//cid    uid	courseName
 			//	0		1		2
@@ -75,6 +61,7 @@ namespace CSE360Project {
 				}
 
 				input_char = in.get();
+
 				if (in.good()) {
 					if (input_char == DATA_COL_DELIM) {
 						//Col delim found, move to next struct location.
@@ -118,8 +105,8 @@ namespace CSE360Project {
 		//Write Data
 		int data_array_size = (int) course_data.size();
 
-		//Write last ID
-		out << course_data.back().cid << DATA_ROW_TERMINATE;
+		//Write database file header
+		dbFileHeader();
 
 		for (int i = 0; i < data_array_size; i++) {
 			//This adds a termination to the end of the last data row.  This prevents 'ghost records' at the end of the file.
@@ -141,7 +128,6 @@ namespace CSE360Project {
 		if (vector_index >= 0)
 			course_data.erase(course_data.begin()+vector_index);
 	}
-	
 
 	void DB_Courses::DeleteUser(int uid) {
 		for (int i = 0; i < (int) course_data.size(); i++) {
@@ -156,7 +142,6 @@ namespace CSE360Project {
 		//Auto-assign UID
 		course_data->cid = ++lastID;
 
-		//We need to error check, if they are already a user, do nothing.
 		this->course_data.push_back(*course_data);
 
 		return 0;
@@ -173,7 +158,6 @@ namespace CSE360Project {
 	}
 
 	void DB_Courses::outputAllCourses() {
-
 		if (!course_data.empty()) {
 			for (int i = 0; i < (int) course_data.size(); i++) {
 				cout << i+1 << ") ";
@@ -190,5 +174,4 @@ namespace CSE360Project {
 	DB_Courses::~DB_Courses() {
 		course_data.clear();
 	}
-
 } /* namespace CSE360Project */
