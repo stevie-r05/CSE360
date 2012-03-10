@@ -24,6 +24,13 @@ namespace CSE360Project {
 	}
 
 	void DB_Users::LoadData() {
+		//variable declarations
+		char input_char; //Will hold the character just read and being processed.
+		int struct_position = 0; //Current struct position, will iterate upon reading DATA_COL_DELIM and reset to 0 on DATA_ROW_TERMINATE
+		string uid; //for reading in arbitrary lengthed uid.
+		string input_user_role; //for reading in arbitrary lengthed user_role.
+		bool new_row = true; //Flag new row to create new struct
+
 		//Clear data in preparation for loading data.  If it's empty, will have no effect
 		user_data.clear();
 
@@ -32,26 +39,26 @@ namespace CSE360Project {
 
 		//Load last inserted id
 		string lastID = "";
-			char input_char;
 		while (in.good()) {
 			input_char = in.get();
+
+			//If terminate character is read we are done reading lastID
 			if (input_char == DATA_ROW_TERMINATE)
 				break;
 
+			//If terminate character not read, we're still in last id.
 			lastID += input_char;
 		}
 
 		if (!lastID.empty()) {
+			//If last id is not empty, cast it to interger and save it!
 			this->lastID = atoi(lastID.c_str());
 
 			//Load Data
 			//uid    username password lastName firstName securityQuestion securityAnswer userRole
 			//	0		1		2			3		4					5			6       7
-			int struct_position = 0;
-			string uid, input_user_role;
-			bool new_row = true; //Flag new row to create new struct
 
-			cout << "Begin Users Read" << endl;
+			//cout << "Begin Users Read" << endl; //removed, debug only.
 			while (in.good()) {
 				//if new row is flagged, create it.
 				if (new_row) {
@@ -82,6 +89,7 @@ namespace CSE360Project {
 					} else {
 						switch (struct_position) {
 						case 0:
+							//add input_char to uid, cast to int to store.  if uid is partial it will replace itself until it's complete.
 							uid += input_char;
 							user_data.back().uid = atoi(uid.c_str());
 							break;
@@ -130,6 +138,7 @@ namespace CSE360Project {
 		//Open file
 		this->Open(ios_base::out);
 
+		//Create timing class, and tic value.  Tic = start temporary timer variable.
 		timingClass timing;
 		timing.tic();
 
@@ -160,7 +169,8 @@ namespace CSE360Project {
 	}
 
 	int DB_Users::Insert(db_users_data *user_data) {
-
+		//We need to error check, if they are already a user, do nothing.
+		this->user_data.push_back(*user_data);
 		return 0;
 	}
 
@@ -239,6 +249,21 @@ namespace CSE360Project {
 	}
 
 	void DB_Users::outputAllUsers() {
+		//write test user
+		/*
+		db_users_data *user = new db_users_data;
+		user->uid = ++lastID;
+		user->username = "dnewton";
+		user->password = "david_password";
+		user->lastName = "Newton";
+		user->firstName = "David";
+		user->securityQuestion = "Hey there?";
+		user->securityAnswer = "Hi.";
+		user->userRole = teacher;
+		*/
+
+		this->Insert(user);
+
 		if (!user_data.empty()) {
 			for (int i = 0; i < (int) user_data.size(); i++) {
 				cout << i+1 << ") ";
