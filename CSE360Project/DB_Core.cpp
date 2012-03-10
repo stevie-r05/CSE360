@@ -12,6 +12,7 @@ namespace CSE360Project {
 	DB_Core::DB_Core() {
 		record_count = 0;
 		lastID = 0;
+		benchmark_file = "benchmarks_db_write.txt";
 	}
 
 	void DB_Core::Open(ios_base::openmode mode = ios_base::in) {
