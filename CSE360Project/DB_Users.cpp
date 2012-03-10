@@ -272,6 +272,7 @@ namespace CSE360Project {
 
 	DB_Users::~DB_Users() {
 		// TODO Auto-generated destructor stub
+		user_data.clear();
 	}
 
 } /* namespace CSE360Project */
