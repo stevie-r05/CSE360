@@ -20,11 +20,6 @@ namespace CSE360Project {
 
 		virtual ~DB_Core();
 
-		template<class dataType>
-		void clearDataArray(vector<dataType> &data_array) {
-			data_array.clear();
-		}
-
 	protected:
 		ofstream out;
 		ifstream in;

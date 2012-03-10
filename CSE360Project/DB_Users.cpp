@@ -25,7 +25,7 @@ namespace CSE360Project {
 
 	void DB_Users::LoadData() {
 		//Clear data in preparation for loading data.  If it's empty, will have no effect
-		clearDataArray<db_users_data>(user_data);
+		user_data.clear();
 
 		//Open if not already open
 		this->Open(ios_base::in);
@@ -271,7 +271,6 @@ namespace CSE360Project {
 	}
 
 	DB_Users::~DB_Users() {
-		// TODO Auto-generated destructor stub
 		user_data.clear();
 	}
 
