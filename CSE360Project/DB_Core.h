@@ -10,11 +10,8 @@ namespace CSE360Project {
 	public:
 		DB_Core();
 
-		virtual void Open(ios_base::openmode mode = ios_base::in);
-		virtual void LoadData()=0;
 		virtual void Delete(int)=0;
 		virtual void Write()=0;
-		virtual void Close();
 
 		int getLastID();
 		int getRecordCount();
@@ -38,6 +35,12 @@ namespace CSE360Project {
 		void dbFileHeader();
 		void readLastID();
 		void writeBenchmark(int record_count, double time);
+
+		//Other classes should never be able to call these functions.
+		virtual void Open(ios_base::openmode mode = ios_base::in);
+		virtual void LoadData()=0;
+		virtual void ClearData()=0;
+		virtual void Close();
 	};
 
 } /* namespace CSE360Project */

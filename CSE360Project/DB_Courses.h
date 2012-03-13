@@ -7,14 +7,10 @@ namespace CSE360Project {
 	public:
 		DB_Courses();
 
-		void LoadData();
-		
 		void Delete(int cid);
 		void DeleteUser(int uid);
-
-		void Write();
-
 		int Insert(db_course_data *course_data);
+		void Write();
 
 		vector<db_course_data> getCourseData(int uid);
 		string getCourseName(int cid);
@@ -28,9 +24,9 @@ namespace CSE360Project {
 		std::vector<db_course_data> course_data;
 
 		int getVectorIndex(int cid);
-
-		//consider returning a vector.
-		//vector<int> getVectorIndex(int uid);
+		
+		void LoadData();
+		void ClearData();
 	};
 
 } /* namespace CSE360Project */

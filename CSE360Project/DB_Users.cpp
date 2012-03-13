@@ -31,7 +31,7 @@ namespace CSE360Project {
 		bool new_row = true; //Flag new row to create new struct
 
 		//Clear data in preparation for loading data.  If it's empty, will have no effect
-		user_data.clear();
+		this->ClearData();
 
 		//Open if not already open
 		this->Open();
@@ -116,8 +116,12 @@ namespace CSE360Project {
 			}
 		}
 
-		//Close
+		//Close output file.
 		this->Close();
+	}
+
+	void DB_Users::ClearData() {
+		user_data.clear();
 	}
 
 	void DB_Users::Write() {
@@ -262,7 +266,7 @@ namespace CSE360Project {
 	}
 
 	DB_Users::~DB_Users() {
-		user_data.clear();
+		this->ClearData();
 	}
 
 } /* namespace CSE360Project */

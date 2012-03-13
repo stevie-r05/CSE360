@@ -7,11 +7,9 @@ namespace CSE360Project {
 	public:
 		DB_Users();
 
-		void LoadData();
 		void Delete(int);
-		void Write();
-
 		int Insert(db_users_data *user_data);
+		void Write();
 
 		bool validateUser(string username, string password);
 		bool checkSecurityAnswer(string username, string answer);
@@ -33,6 +31,10 @@ namespace CSE360Project {
 
 		int getVectorIndex(string username);
 		int getVectorIndex(int uid);
+
+		
+		void LoadData();
+		void ClearData();
 	};
 
 } /* namespace CSE360Project */
