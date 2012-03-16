@@ -6,10 +6,11 @@ namespace CSE360Project {
 	class DB_Users: public CSE360Project::DB_Core {
 	public:
 		DB_Users();
-
+		
+		///BEGIN PUBLIC METHODS THAT MODIFY DATA - "this->Write()" must be added before each method exits."
 		void Delete(int);
 		int Insert(db_users_data *user_data);
-		void Write();
+		///END PUBLIC METHODS THAT MODIFY DATA
 
 		bool validateUser(string username, string password);
 		bool checkSecurityAnswer(string username, string answer);
@@ -32,8 +33,8 @@ namespace CSE360Project {
 		int getVectorIndex(string username);
 		int getVectorIndex(int uid);
 
-		
-		void LoadData();
+		void Write(bool insert_record = false);
+		void WriteRow(db_users_data &it);
 		void ClearData();
 	};
 

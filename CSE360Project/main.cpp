@@ -4,6 +4,7 @@
 #include "main_form.h"
 #include "timingClass.h"
 #include "DB_Users.h"
+#include "DB_Courses.h"
 
 using namespace std;
 using namespace CSE360Project;
@@ -11,26 +12,42 @@ using namespace CSE360Project;
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
 {
+	/*COURSES DEBUG
+	DB_Courses *courses = new DB_Courses();
+	courses->outputAllCourses();
+	
+	db_course_data *course = new db_course_data;
+	course->courseName = "dnewton";
+	course->uid = 1;
+	courses->Insert(course);
+
+	courses->outputAllCourses();
+	*/
+
 	DB_Users *db = new DB_Users();
 	
 	db->outputAllUsers();
 	
 	//write test user
+	string a;
+	//cin >> a;
 	
-	db_users_data *user = new db_users_data;
-	user->username = "dnewton";
-	user->password = "david_password";
-	user->lastName = "Newton";
-	user->firstName = "David";
-	user->securityQuestion = "Hey there?";
-	user->securityAnswer = "Hi.";
-	user->userRole = teacher;
+		db_users_data *user = new db_users_data;
+		user->username = "David";
+		user->password = "david_password";
+		user->lastName = "Newton";
+		user->firstName = "David";
+		user->securityQuestion = "Hey there?";
+		user->securityAnswer = "Hi.";
+		user->userRole = teacher;
 
 	db->Insert(user);
-
-	db->Write();
+	cout << "------------------------------" << endl;
+	//db->Write();
 
 	db->outputAllUsers();
+
+	
 
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();

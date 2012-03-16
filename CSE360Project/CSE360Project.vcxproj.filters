@@ -31,10 +31,10 @@
     <None Include="app.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Users.db">
+    <None Include="Users.db.info">
       <Filter>Resource Files\Databases</Filter>
     </None>
-    <None Include="Courses.db">
+    <None Include="Courses.db.info">
       <Filter>Resource Files\Databases</Filter>
     </None>
   </ItemGroup>
@@ -80,9 +80,6 @@
     <ClInclude Include="DB_Core.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
-    <ClInclude Include="DB_Users.h">
-      <Filter>Header Files\Database</Filter>
-    </ClInclude>
     <ClInclude Include="DateClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -93,6 +90,9 @@
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
     <ClInclude Include="DB_Courses.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="DB_Users.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
   </ItemGroup>

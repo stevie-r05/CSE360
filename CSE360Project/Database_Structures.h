@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <string.h>
 
-#define DATA_COL_DELIM '\t'
 #define DATA_ROW_TERMINATE '\n'
 
 //User Roles

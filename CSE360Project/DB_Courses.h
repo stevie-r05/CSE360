@@ -7,10 +7,11 @@ namespace CSE360Project {
 	public:
 		DB_Courses();
 
-		void Delete(int cid);
-		void DeleteUser(int uid);
+		///BEGIN PUBLIC METHODS THAT MODIFY DATA - "this->Write()" must be added before each method exits."
+		void Delete(int cid); //Delete course ID
+		void DeleteUser(int uid); //Delete all courses belonging to user UID.
 		int Insert(db_course_data *course_data);
-		void Write();
+		///END PUBLIC METHODS THAT MODIFY DATA
 
 		vector<db_course_data> getCourseData(int uid);
 		string getCourseName(int cid);
@@ -24,8 +25,9 @@ namespace CSE360Project {
 		std::vector<db_course_data> course_data;
 
 		int getVectorIndex(int cid);
-		
-		void LoadData();
+
+		void Write(bool insert_record = false);
+		void WriteRow(db_course_data &it);
 		void ClearData();
 	};
 

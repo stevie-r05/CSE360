@@ -83,9 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.ico" />
-    <None Include="Courses.db" />
+    <None Include="Courses.db.info" />
     <None Include="ReadMe.txt" />
-    <None Include="Users.db" />
+    <None Include="Users.db.info" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
