@@ -18,7 +18,6 @@ namespace CSE360Project {
 		this->LoadData<db_users_data>(user_data);
 	}
 
-
 	void DB_Users::ClearData() {
 		user_data.clear();
 	}

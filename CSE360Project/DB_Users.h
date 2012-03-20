@@ -34,7 +34,6 @@ namespace CSE360Project {
 		int getVectorIndex(int uid);
 
 		void Write(bool insert_record = false);
-		void WriteRow(db_users_data &it);
 		void ClearData();
 	};
 

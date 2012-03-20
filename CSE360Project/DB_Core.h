@@ -46,25 +46,26 @@ namespace CSE360Project {
 
 			//Open data.dat for writing.  ios:binary truncates.
 			ofstream os (database_file, ios::binary);
-		
+
 			//Write size of data vector
 			os.write(( char*)&data_array_size, 4);
 
 			//Write data structure in one large dump. - if data vector is not empty.
+			cout << sizeof(DB_DATA_TYPE) << endl;
 			if (data_array_size > 0)
 				os.write(( char*)&data_vector[0], data_array_size * sizeof(DB_DATA_TYPE));
-		
+
 			//Close connection
 			os.close();
 
 			//Write lastID
 			this->writeLastID();
-		
+
 			//write benchmark
 			this->writeBenchmark(data_array_size,timing.toc());
 		}
 
-		//this->LoadData2<vector<db_users_data>>(user_data);
+		//this->LoadData<vector<db_users_data>>(user_data);
 		template <class DB_DATA_TYPE>
 		void LoadData(vector<DB_DATA_TYPE> &data_vector) {// Read it back in\
 			//Clear Data Array

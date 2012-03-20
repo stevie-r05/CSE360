@@ -30,15 +30,26 @@ int main(array<System::String ^> ^args)
 	
 	//write test user
 	string a;
-	//cin >> a;
+	int i = 1;
+	switch (db->getLastID() % 3) {
+	case 1:
+		a = "Hey there how are you all doing on this fine day today?";
+		break;
+	case 2:
+		a = "I'm well thanks";
+		break;
+	default:
+		a = "Well I'm as happy as a clam";
+	}
 	
 		db_users_data *user = new db_users_data;
-		user->username = "David";
-		user->password = "david_password";
-		user->lastName = "Newton";
-		user->firstName = "David";
-		user->securityQuestion = "Hey there?";
-		user->securityAnswer = "Hi.";
+
+		WriteStructValue(user->username,"David");
+		WriteStructValue(user->password, "david_password");
+		WriteStructValue(user->lastName, "Newton");
+		WriteStructValue(user->firstName, "David");
+		WriteStructValue(user->securityQuestion, a);
+		WriteStructValue(user->securityAnswer, "Hi.");
 		user->userRole = teacher;
 
 	db->Insert(user);

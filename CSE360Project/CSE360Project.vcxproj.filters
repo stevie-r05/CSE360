@@ -25,6 +25,12 @@
     <Filter Include="Resource Files\Databases">
       <UniqueIdentifier>{c80ed418-e87c-4685-bbf3-ff7ac4009309}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\functions">
+      <UniqueIdentifier>{72bfce49-bb56-4e9a-889b-b4716b0a66b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\functions">
+      <UniqueIdentifier>{170b0d70-57f8-4379-b08f-340c95d2cc35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -63,6 +69,9 @@
     <ClCompile Include="DB_Courses.cpp">
       <Filter>Source Files\Database</Filter>
     </ClCompile>
+    <ClCompile Include="standard_functions.cpp">
+      <Filter>Source Files\functions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -94,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="DB_Users.h">
       <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="standard_functions.h">
+      <Filter>Header Files\functions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
