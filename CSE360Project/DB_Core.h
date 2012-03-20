@@ -100,10 +100,7 @@ namespace CSE360Project {
 		void writeBenchmark(int record_count, double time);
 
 		//Other classes should never be able to call these functions.
-		virtual void Open(ios_base::openmode mode = ios_base::in);
-		virtual void Write(bool insert_record = false)=0;
 		virtual void ClearData()=0;
-		virtual void Close();
 	};
 
 } /* namespace CSE360Project */

@@ -22,7 +22,7 @@ namespace CSE360Project {
 		course_data.clear();
 	}
 
-	void DB_Courses::Write(bool insert_record) {
+	void DB_Courses::Write() {
 		this->WriteData<db_course_data>(course_data);	
 	}
 
@@ -46,6 +46,11 @@ namespace CSE360Project {
 		this->Write();
 	}
 
+	vector<db_course_data> DB_Courses::getCourseData(int uid) {
+		//TODO:  Filter by user.
+		return course_data;
+	}
+
 	int DB_Courses::Insert(db_course_data *course_data) {
 		//Auto-assign UID
 		course_data->cid = ++lastID;
@@ -53,7 +58,7 @@ namespace CSE360Project {
 		this->course_data.push_back(*course_data);
 
 		//Parameter lets the writ method know this is insertion.
-		this->Write(true);
+		this->Write();
 
 		return 0;
 	}

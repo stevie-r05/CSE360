@@ -90,6 +90,9 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="DB_Courses.cpp" />
+    <ClCompile Include="DB_Template.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="DateClass.cpp" />
     <ClCompile Include="DB_Core.cpp" />
@@ -107,6 +110,10 @@
     <ClInclude Include="date_constants.h" />
     <ClInclude Include="DB_Core.h" />
     <ClInclude Include="DB_Courses.h" />
+    <ClInclude Include="DB_Template.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="DB_Users.h" />
     <ClInclude Include="main_form.h">
       <FileType>CppForm</FileType>

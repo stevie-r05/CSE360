@@ -72,6 +72,9 @@
     <ClCompile Include="standard_functions.cpp">
       <Filter>Source Files\functions</Filter>
     </ClCompile>
+    <ClCompile Include="DB_Template.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -106,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="standard_functions.h">
       <Filter>Header Files\functions</Filter>
+    </ClInclude>
+    <ClInclude Include="DB_Template.h">
+      <Filter>Header Files\Database</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

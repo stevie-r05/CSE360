@@ -22,7 +22,7 @@ namespace CSE360Project {
 		user_data.clear();
 	}
 
-	void DB_Users::Write(bool insert_record) {
+	void DB_Users::Write() {
 		this->WriteData<db_users_data>(user_data);
 	}
 
@@ -42,7 +42,7 @@ namespace CSE360Project {
 		//We need to error check, if they are already a user, do nothing.
 		this->user_data.push_back(*user_data);
 
-		this->Write(true);
+		this->Write();
 
 		return 0;
 	}
