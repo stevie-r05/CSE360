@@ -41,7 +41,7 @@ int main(array<System::String ^> ^args)
 	default:
 		a = "Well I'm as happy as a clam";
 	}
-	
+
 		db_users_data *user = new db_users_data;
 
 		WriteStructValue(user->username,"David");
@@ -55,6 +55,7 @@ int main(array<System::String ^> ^args)
 	db->Insert(user);
 	cout << "------------------------------" << endl;
 	//db->Write();
+
 
 	db->outputAllUsers();
 

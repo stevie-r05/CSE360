@@ -22,14 +22,14 @@
     <Filter Include="Header Files\Constants">
       <UniqueIdentifier>{dd8dabda-a858-4f52-9f22-549867cb3e28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Databases">
-      <UniqueIdentifier>{c80ed418-e87c-4685-bbf3-ff7ac4009309}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\functions">
       <UniqueIdentifier>{72bfce49-bb56-4e9a-889b-b4716b0a66b2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\functions">
       <UniqueIdentifier>{170b0d70-57f8-4379-b08f-340c95d2cc35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Database Info Files">
+      <UniqueIdentifier>{c80ed418-e87c-4685-bbf3-ff7ac4009309}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -37,11 +37,11 @@
     <None Include="app.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Users.db.info">
-      <Filter>Resource Files\Databases</Filter>
-    </None>
     <None Include="Courses.db.info">
-      <Filter>Resource Files\Databases</Filter>
+      <Filter>Resource Files\Database Info Files</Filter>
+    </None>
+    <None Include="Users.db.info">
+      <Filter>Resource Files\Database Info Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +73,21 @@
       <Filter>Source Files\functions</Filter>
     </ClCompile>
     <ClCompile Include="DB_Template.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="DB_Answered.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="DB_Enrolled.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="DB_QuizQuestions.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="DB_Quizzes.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="DB_Scores.cpp">
       <Filter>Source Files\Database</Filter>
     </ClCompile>
   </ItemGroup>
@@ -111,6 +126,21 @@
       <Filter>Header Files\functions</Filter>
     </ClInclude>
     <ClInclude Include="DB_Template.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="DB_Enrolled.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="DB_Quizzes.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="DB_QuizQuestions.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="DB_Answered.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="DB_Scores.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,7 +11,7 @@
 namespace CSE360Project {
 
 	DB_Users::DB_Users() {
-		database_file = "Users.dat";
+		database_file = "Users.db";
 		database_info_file = database_file+".info";
 
 		//Load Data
