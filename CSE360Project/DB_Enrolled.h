@@ -9,6 +9,7 @@ namespace CSE360Project {
 		DB_Enrolled();
 
 		///BEGIN PUBLIC METHODS THAT MODIFY DATA - "this->Write()" must be added before each method exits."
+		void Delete(int eid);
 		void DeleteUser(int uid);
 		void DeleteCourse(int cid);
 		void Unenroll(int eid);
@@ -17,10 +18,11 @@ namespace CSE360Project {
 		int Insert(int uid, int cid);
 		///END PUBLIC METHODS THAT MODIFY DATA
 
-		vector<db_enrolled_data> getEnrolledUsers(int cid)
+		vector<db_enrolled_data> getEnrolledUsers(int cid);
 		vector<db_enrolled_data> getEnrolledCourses(int uid);
 
 		//Debug functions
+		void ReloadData();
 		void outputAllData();
 
 		virtual ~DB_Enrolled();

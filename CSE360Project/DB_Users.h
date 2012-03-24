@@ -6,6 +6,7 @@ namespace CSE360Project {
 	class DB_Users: public CSE360Project::DB_Core {
 	public:
 		DB_Users();
+
 		
 		///BEGIN PUBLIC METHODS THAT MODIFY DATA - "this->Write()" must be added before each method exits."
 		void Delete(int);
@@ -21,9 +22,11 @@ namespace CSE360Project {
 		string getLastname(int uid);
 		string getSecurityQuestion(string username);
 		int getUID(string username);
+		db_users_data getUserData(int uid);
 
 		//Debug functions
-		void outputAllUsers();
+		void ReloadData();
+		void outputAllData();
 
 		virtual ~DB_Users();
 

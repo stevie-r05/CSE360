@@ -14,8 +14,10 @@ namespace CSE360Project {
 		virtual void Delete(int)=0;
 		///END PUBLIC METHODS THAT MODIFY DATA
 
+		virtual void ReloadData()=0;
 		int getLastID();
 		int getRecordCount();
+		void ResetDatabase(bool confirmed = false);
 
 		virtual ~DB_Core();
 

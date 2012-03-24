@@ -9,11 +9,12 @@ namespace CSE360Project {
 		DB_Scores();
 
 		///BEGIN PUBLIC METHODS THAT MODIFY DATA - "this->Write()" must be added before each method exits."
-		void DeleteScore(int sid);
+		void Insert(vector<db_score_data> score_data);
+		int Insert(db_score_data *score_data);
+		void Delete(int sid);
 		void DeleteQuiz(int qid);
 		void DeleteUser(int uid);
 		void DeleteCourse(int cid);
-		int Insert(vector<db_score_data> score_data);
 		///END PUBLIC METHODS THAT MODIFY DATA
 
 		vector<db_score_data> getQuizScores(int qid);
@@ -22,6 +23,7 @@ namespace CSE360Project {
 		double getUserQuizScore(int uid, int qid);
 
 		//Debug functions
+		void ReloadData();
 		void outputAllData();
 
 		virtual ~DB_Scores();

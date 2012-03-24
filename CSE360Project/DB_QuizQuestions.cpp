@@ -18,24 +18,8 @@ namespace CSE360Project {
 		this->LoadData<db_question_data>(question_data);
 	}
 
-	void DB_QuizQuestions::DeleteQuestion(int question_id) {
-		int vector_index = getVectorIndex(question_id);
-
-		if (vector_index >= 0)
-			question_data.erase(question_data.begin()+vector_index);
-
-		this->Write();
-	}
-
-	void DB_QuizQuestions::DeleteQuiz(int qid) {
-		for (int i = 0; i < (int) question_data.size(); i++) {
-			if (question_data[i].qid == qid) {
-				question_data.erase(question_data.begin()+i);
-				i++;
-			}
-		}
-
-		this->Write();
+	void DB_QuizQuestions::ReloadData() {
+		this->LoadData<db_question_data>(question_data);
 	}
 
 	int DB_QuizQuestions::Insert(db_question_data *question_data) {
@@ -48,6 +32,35 @@ namespace CSE360Project {
 		this->Write();
 		
 		return lastID;
+	}
+
+	void DB_QuizQuestions::Insert(vector<db_question_data> question_data) {
+		for (int i = 0; i < (int) question_data.size(); i++) {
+			question_data[i].question_id = ++lastID;
+			this->question_data.push_back(question_data[i]);
+		}
+
+		//Parameter lets the writ method know this is insertion.
+		this->Write();
+	}
+
+	void DB_QuizQuestions::Delete(int question_id) {
+		int vector_index = getVectorIndex(question_id);
+
+		if (vector_index >= 0)
+			question_data.erase(question_data.begin()+vector_index);
+
+		this->Write();
+	}
+
+	void DB_QuizQuestions::DeleteQuiz(int qid) {
+		for (int i = 0; i < (int) question_data.size(); i++) {
+			if (question_data[i].qid == qid) {
+				question_data.erase(question_data.begin()+i);
+			}
+		}
+
+		this->Write();
 	}
 
 	vector<db_question_data> DB_QuizQuestions::getQuestions(int qid) {

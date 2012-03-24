@@ -17,12 +17,24 @@ namespace CSE360Project {
 		//Load Data
 		this->LoadData<db_answered_data>(answered_data);
 	}
+
+	void DB_Answered::ReloadData() {
+		this->LoadData<db_answered_data>(answered_data);
+	}
+	
+	void DB_Answered::Delete(int aid) {
+		int vector_index = getVectorIndex(aid);
+
+		if (vector_index >= 0)
+			answered_data.erase(answered_data.begin()+vector_index);
+
+		this->Write();
+	}
 	
 	void DB_Answered::DeleteQuiz(int qid) {
 		for (int i = 0; i < (int) answered_data.size(); i++) {
 			if (answered_data[i].qid == qid) {
 				answered_data.erase(answered_data.begin()+i);
-				i++;
 			}
 		}
 
@@ -33,7 +45,6 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) answered_data.size(); i++) {
 			if (answered_data[i].question_id == question_id) {
 				answered_data.erase(answered_data.begin()+i);
-				i++;
 			}
 		}
 
@@ -44,7 +55,6 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) answered_data.size(); i++) {
 			if (answered_data[i].uid == uid) {
 				answered_data.erase(answered_data.begin()+i);
-				i++;
 			}
 		}
 
@@ -62,7 +72,7 @@ namespace CSE360Project {
 		return lastID;
 	}
 
-	int DB_Answered::Insert(vector<db_answered_data> answered_data) {
+	void DB_Answered::Insert(vector<db_answered_data> answered_data) {
 		for (int i = 0; i < (int) answered_data.size(); i++) {
 			answered_data[i].aid = ++lastID;
 			this->answered_data.push_back(answered_data[i]);
@@ -70,8 +80,6 @@ namespace CSE360Project {
 
 		//Parameter lets the writ method know this is insertion.
 		this->Write();
-		
-		return lastID;
 	}
 	
 	int DB_Answered::getUserAnswer(int uid, int question_id) {

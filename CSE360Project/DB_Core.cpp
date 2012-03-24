@@ -16,6 +16,18 @@ namespace CSE360Project {
 		benchmark_file = "benchmarks_db_write.txt";
 	}
 
+	void DB_Core::ResetDatabase(bool confirmed) {
+		if (confirmed) {
+			remove(database_file.c_str());
+			remove(database_info_file.c_str());
+		}
+
+		record_count = 0;
+		lastID = 0;
+
+		this->ReloadData();
+	}
+
 	//DEPRECATED.
 
 	int DB_Core::getLastID() {

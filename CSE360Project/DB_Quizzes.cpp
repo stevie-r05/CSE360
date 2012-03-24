@@ -18,11 +18,25 @@ namespace CSE360Project {
 		this->LoadData<db_quiz_data>(quiz_data);
 	}
 
+	void DB_Quizzes::ReloadData() {
+		this->LoadData<db_quiz_data>(quiz_data);
+	}
+
 	void DB_Quizzes::Delete(int qid) {
 		int vector_index = getVectorIndex(qid);
 
 		if (vector_index >= 0)
 			quiz_data.erase(quiz_data.begin()+vector_index);
+
+		this->Write();
+	}
+
+	void DB_Quizzes::DeleteCourse(int cid) {
+		for (int i = 0; i < (int) quiz_data.size(); i++) {
+			if (quiz_data[i].cid == cid) {
+				quiz_data.erase(quiz_data.begin()+i);
+			}
+		}
 
 		this->Write();
 	}
@@ -57,7 +71,7 @@ namespace CSE360Project {
 		return quiz_data[vector_index];
 	}
 
-	int DB_Quizzes::getOpenDate(int qid) {
+	time_t DB_Quizzes::getOpenDate(int qid) {
 		int vector_index = getVectorIndex(qid);
 
 		if (vector_index >= 0)
@@ -66,7 +80,7 @@ namespace CSE360Project {
 		return -1;
 	}
 
-	int DB_Quizzes::getCloseDate(int qid) {
+	time_t DB_Quizzes::getCloseDate(int qid) {
 		int vector_index = getVectorIndex(qid);
 
 		if (vector_index >= 0)

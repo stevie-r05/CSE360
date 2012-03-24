@@ -15,9 +15,11 @@ namespace CSE360Project {
 
 		vector<db_course_data> getTaughtCourses(int uid);
 		string getCourseName(int cid);
+		vector<db_course_data> getAllCourseData();
 
 		//Debug functions
-		void outputAllCourses();
+		void ReloadData();
+		void outputAllData();
 
 		virtual ~DB_Courses();
 

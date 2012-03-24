@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CSE360Project", "CSE360Project\CSE360Project.vcxproj", "{9B4BE768-3ED1-422D-BA07-30DCE69A6FA2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc_txt", "misc_txt", "{24912CD9-4F46-4640-A3A1-E3520C9FDC11}"
-	ProjectSection(SolutionItems) = preProject
-		CSE360Project\benchmarks_db_write.txt = CSE360Project\benchmarks_db_write.txt
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

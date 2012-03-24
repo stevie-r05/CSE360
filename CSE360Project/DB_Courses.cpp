@@ -18,6 +18,10 @@ namespace CSE360Project {
 		this->LoadData<db_course_data>(course_data);
 	}
 
+	void DB_Courses::ReloadData() {
+		this->LoadData<db_course_data>(course_data);
+	}
+
 	void DB_Courses::Delete(int cid) {
 		int vector_index = getVectorIndex(cid);
 
@@ -31,7 +35,6 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) course_data.size(); i++) {
 			if (course_data[i].uid == uid) {
 				course_data.erase(course_data.begin()+i);
-				i++;
 			}
 		}
 
@@ -61,8 +64,12 @@ namespace CSE360Project {
 
 		return packaged_data;
 	}
+
+	vector<db_course_data> DB_Courses::getAllCourseData() {
+		return course_data;
+	}
 	
-	string getCourseName(int cid) {
+	string DB_Courses::getCourseName(int cid) {
 		int vector_index = getVectorIndex(cid);
 
 		if (vector_index >= 0)
@@ -82,7 +89,7 @@ namespace CSE360Project {
 		return -1;
 	}
 
-	void DB_Courses::outputAllCourses() {
+	void DB_Courses::outputAllData() {
 		if (!course_data.empty()) {
 			for (int i = 0; i < (int) course_data.size(); i++) {
 				cout << i+1 << ") ";

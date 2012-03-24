@@ -18,11 +18,23 @@ namespace CSE360Project {
 		this->LoadData<db_enrolled_data>(enrolled_data);
 	}
 
+	void DB_Enrolled::ReloadData() {
+		this->LoadData<db_enrolled_data>(enrolled_data);
+	}
+
+	void DB_Enrolled::Delete(int eid) {
+		int vector_index = getVectorIndex(eid);
+
+		if (vector_index >= 0)
+			enrolled_data.erase(enrolled_data.begin()+vector_index);
+
+		this->Write();
+	}
+
 	void DB_Enrolled::DeleteUser(int uid) {
 		for (int i = 0; i < (int) enrolled_data.size(); i++) {
 			if (enrolled_data[i].uid == uid) {
 				enrolled_data.erase(enrolled_data.begin()+i);
-				i++;
 			}
 		}
 
@@ -33,7 +45,6 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) enrolled_data.size(); i++) {
 			if (enrolled_data[i].cid == cid) {
 				enrolled_data.erase(enrolled_data.begin()+i);
-				i++;
 			}
 		}
 
@@ -53,7 +64,7 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) enrolled_data.size(); i++) {
 			if (enrolled_data[i].cid == cid && enrolled_data[i].uid == uid) {
 				enrolled_data.erase(enrolled_data.begin()+i);
-				i++;
+				break;
 			}
 		}
 

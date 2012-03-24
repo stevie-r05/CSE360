@@ -90,6 +90,9 @@
     <ClCompile Include="DB_Scores.cpp">
       <Filter>Source Files\Database</Filter>
     </ClCompile>
+    <ClCompile Include="DB.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -141,6 +144,9 @@
       <Filter>Header Files\Database</Filter>
     </ClInclude>
     <ClInclude Include="DB_Scores.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="DB.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
   </ItemGroup>

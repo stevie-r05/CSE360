@@ -18,7 +18,11 @@ namespace CSE360Project {
 		this->LoadData<db_score_data>(score_data);
 	}
 
-	void DB_Scores::DeleteScore(int sid) {
+	void DB_Scores::ReloadData() {
+		this->LoadData<db_score_data>(score_data);
+	}
+
+	void DB_Scores::Delete(int sid) {
 		int vector_index = getVectorIndex(sid);
 
 		if (vector_index >= 0)
@@ -31,7 +35,6 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) score_data.size(); i++) {
 			if (score_data[i].qid == qid) {
 				score_data.erase(score_data.begin()+i);
-				i++;
 			}
 		}
 
@@ -42,7 +45,6 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) score_data.size(); i++) {
 			if (score_data[i].uid == uid) {
 				score_data.erase(score_data.begin()+i);
-				i++;
 			}
 		}
 
@@ -53,14 +55,13 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) score_data.size(); i++) {
 			if (score_data[i].cid == cid) {
 				score_data.erase(score_data.begin()+i);
-				i++;
 			}
 		}
 
 		this->Write();
 	}
 
-	int DB_Scores::Insert(vector<db_score_data> score_data) {
+	void DB_Scores::Insert(vector<db_score_data> score_data) {
 		for (int i = 0; i < (int) score_data.size(); i++) {
 			//Auto-assign UID
 			score_data[i].sid = ++lastID;
@@ -69,15 +70,20 @@ namespace CSE360Project {
 
 		//Parameter lets the writ method know this is insertion.
 		this->Write();
-		
+	}
+	
+	int DB_Scores::Insert(db_score_data *score_data) {
+		score_data->sid = ++lastID;
+
+		this->score_data.push_back(*score_data);
+
 		return lastID;
 	}
 
-	vector<db_score_data> DB_Scores::getQuizScores(int sid) {
+	vector<db_score_data> DB_Scores::getQuizScores(int qid) {
 		vector<db_score_data> packaged_data;
-
 		for (int i = 0; i < (int) score_data.size(); i++) {
-			if (score_data[i].sid == sid) {
+			if (score_data[i].qid == qid) {
 				packaged_data.push_back(score_data[i]);
 			}
 		}
