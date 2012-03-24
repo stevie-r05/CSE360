@@ -43,8 +43,8 @@ namespace CSE360Project {
 		this->user_data.push_back(*user_data);
 
 		this->Write();
-
-		return 0;
+		
+		return lastID;
 	}
 
 	bool DB_Users::validateUser(string username, string password) {

@@ -2,28 +2,32 @@
 #include "stdafx.h"
 #include "DB_Core.h"
 
-
 namespace CSE360Project {
-	class DB_Template: public CSE360Project::DB_Core {
+	class DB_Quizzes: public CSE360Project::DB_Core {
 	public:
-		DB_Template();
+		DB_Quizzes();
 
 		///BEGIN PUBLIC METHODS THAT MODIFY DATA - "this->Write()" must be added before each method exits."
-		void Delete(int primary_id);
-		int Insert(DB_TEMPLATE_DATA *template_data);
+		void Delete(int qid);
+		int Insert(db_quiz_data *quiz_data);
 		///END PUBLIC METHODS THAT MODIFY DATA
 
-		vector<DB_TEMPLATE_DATA> getTemplateData(int some_id);
+		vector<db_quiz_data> getCourseQuizzes(int cid);
+		db_quiz_data getQuizData(int qid);
+		int getOpenDate(int qid);
+		int getCloseDate(int qid);
+		int getTimeLimit(int qid);
+		int getCID(int qid);
 
 		//Debug functions
 		void outputAllData();
 
-		virtual ~DB_Template();
+		virtual ~DB_Quizzes();
 
 	private:
-		std::vector<DB_TEMPLATE_DATA> template_data;
+		std::vector<db_quiz_data> quiz_data;
 
-		int getVectorIndex(int primary_id);
+		int getVectorIndex(int qid);
 
 		void Write();
 		void ClearData();

@@ -29,19 +29,26 @@ namespace CSE360Project {
 
 	int DB_Template::Insert(DB_TEMPLATE_DATA *template_data) {
 		//Auto-assign UID
-		template_data->cid = ++lastID;
+		template_data-> = ++lastID;
 
 		this->template_data.push_back(*template_data);
 
 		//Parameter lets the writ method know this is insertion.
 		this->Write();
-
-		return 0;
+		
+		return lastID;
 	}
 
-	vector<db_course_data> DB_Template::getTemplateData(int some_id) {
-		//TODO:  Filter by some_id.
-		return template_data;
+	vector<DB_TEMPLATE_DATA> DB_Template::getTemplateData(int SOME_ID) {
+		vector<DB_TEMPLATE_DATA> packaged_data;
+
+		for (int i = 0; i < (int) quiz_data.size(); i++) {
+			if (template_data[i].SOME_ID == SOME_ID) {
+				packaged_data.push_back(template_data[i]);
+			}
+		}
+
+		return packaged_data;
 	}
 
 	void DB_Template::outputAllData() {

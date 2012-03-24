@@ -58,12 +58,31 @@ namespace CSE360Project {
 		//Parameter lets the writ method know this is insertion.
 		this->Write();
 
-		return 0;
+		return lastID;
+	}
+
+	int DB_Enrolled::Insert(int uid, int cid) {
+		enrolled_data.push_back(*(new db_enrolled_data));
+		enrolled_data.back().eid = ++lastID;
+		enrolled_data.back().uid = uid;
+		enrolled_data.back().cid = cid;
+
+		//Parameter lets the writ method know this is insertion.
+		this->Write();
+
+		return lastID;
 	}
 
 	vector<db_enrolled_data> DB_Enrolled::getEnrolledUsers(int cid) {
-		//TODO:  Filter by some_id.
-		return enrolled_data;
+		vector<db_enrolled_data> packaged_data;
+
+		for (int i = 0; i < (int) enrolled_data.size(); i++) {
+			if (enrolled_data[i].cid == cid) {
+				packaged_data.push_back(enrolled_data[i]);
+			}
+		}
+
+		return packaged_data;
 	}
 
 	void DB_Enrolled::outputAllData() {

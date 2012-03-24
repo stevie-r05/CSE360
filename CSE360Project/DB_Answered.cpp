@@ -59,8 +59,8 @@ namespace CSE360Project {
 
 		//Parameter lets the writ method know this is insertion.
 		this->Write();
-
-		return 0;
+		
+		return lastID;
 	}
 	
 	int DB_Answered::getUserAnswer(int uid, int question_id) {
@@ -75,8 +75,15 @@ namespace CSE360Project {
 	}
 
 	vector<db_answered_data> DB_Answered::getUsersAnswers(int uid) {
-		//TODO:  Filter by some_id.
-		return answered_data;
+		vector<db_answered_data> packaged_data;
+
+		for (int i = 0; i < (int) answered_data.size(); i++) {
+			if (answered_data[i].uid == uid) {
+				packaged_data.push_back(answered_data[i]);
+			}
+		}
+
+		return packaged_data;
 	}
 
 	void DB_Answered::outputAllData() {

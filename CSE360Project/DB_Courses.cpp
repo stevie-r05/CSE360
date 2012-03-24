@@ -47,8 +47,15 @@ namespace CSE360Project {
 	}
 
 	vector<db_course_data> DB_Courses::getCourseData(int uid) {
-		//TODO:  Filter by user.
-		return course_data;
+		vector<db_course_data> packaged_data;
+
+		for (int i = 0; i < (int) course_data.size(); i++) {
+			if (course_data[i].uid == uid) {
+				packaged_data.push_back(course_data[i]);
+			}
+		}
+
+		return packaged_data;
 	}
 
 	int DB_Courses::Insert(db_course_data *course_data) {
@@ -59,8 +66,8 @@ namespace CSE360Project {
 
 		//Parameter lets the writ method know this is insertion.
 		this->Write();
-
-		return 0;
+		
+		return lastID;
 	}
 
 	int DB_Courses::getVectorIndex(int cid) {
