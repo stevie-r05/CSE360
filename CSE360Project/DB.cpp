@@ -28,6 +28,15 @@ namespace CSE360Project {
 			this->DeleteCourse(taughtCourses[i].cid);
 		}
 
+		//Delete enrolled courses (redundent if this was caught in teacher, but if they aren't a teacher...necessary
+		enrolled->DeleteUser(uid);
+
+		//Delete answered questions
+		answered->DeleteUser(uid);
+
+		//Delete Scores
+		scores->DeleteUser(uid);
+
 		//Delete user
 		users->Delete(uid);
 
@@ -43,6 +52,8 @@ namespace CSE360Project {
 		//Delete enrolled
 		enrolled->DeleteCourse(cid);
 
+		//Delete scores - this should have alreayd been taken care of...
+		scores->DeleteCourse(cid);
 
 		courses->Delete(cid);
 	}

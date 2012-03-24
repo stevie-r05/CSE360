@@ -136,6 +136,7 @@ int main(array<System::String ^> ^args)
 
 		} else if (choice == 2) {
 			db->users->outputAllData();
+			db_users_data user = db->users->getUserData(1);
 		} else if (choice == 3) {
 			cout << "cid\tcourse name\ttaught by" << endl;
 			vector<db_course_data> courses = db->courses->getAllCourseData();
