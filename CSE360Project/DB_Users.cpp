@@ -26,15 +26,13 @@ namespace CSE360Project {
 		user_data.clear();
 	}
 
-	void DB_Users::Write() {
-		this->WriteData<db_users_data>(user_data);
-	}
-
 	void DB_Users::Delete(int uid) {
 		int vector_index = getVectorIndex(uid);
 
-		if (vector_index >= 0)
+		if (vector_index >= 0) {
 			user_data.erase(user_data.begin()+vector_index);
+			record_change_count++;
+		}
 
 		this->Write();
 	}
@@ -45,6 +43,7 @@ namespace CSE360Project {
 
 		//We need to error check, if they are already a user, do nothing.
 		this->user_data.push_back(*user_data);
+		record_change_count++;
 
 		this->Write();
 		
@@ -142,8 +141,13 @@ namespace CSE360Project {
 		}
 	}
 
+	void DB_Users::Write(bool force_write) {
+		if (record_change_count % record_change_mod_value == 0 || force_write)
+			this->WriteData<db_users_data>(user_data);
+	}
+
 	DB_Users::~DB_Users() {
-		this->Write();
+		this->Write(true);
 
 		this->ClearData();
 	}

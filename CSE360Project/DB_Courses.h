@@ -28,7 +28,7 @@ namespace CSE360Project {
 
 		int getVectorIndex(int cid);
 
-		void Write();
+		void Write(bool force_write = false);
 		void ClearData();
 	};
 

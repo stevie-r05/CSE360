@@ -1,4 +1,4 @@
-/*
+
 * DBCourses.cpp
 *
 *  Created on: Mar 1, 2012
@@ -25,8 +25,10 @@ namespace CSE360Project {
 	void DB_Courses::Delete(int cid) {
 		int vector_index = getVectorIndex(cid);
 
-		if (vector_index >= 0)
+		if (vector_index >= 0) {
 			course_data.erase(course_data.begin()+vector_index);
+			record_change_count++;
+		}
 
 		this->Write();
 	}
@@ -35,6 +37,7 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) course_data.size(); i++) {
 			if (course_data[i].uid == uid) {
 				course_data.erase(course_data.begin()+i);
+				record_change_count++;
 			}
 		}
 
@@ -46,6 +49,7 @@ namespace CSE360Project {
 		course_data->cid = ++lastID;
 
 		this->course_data.push_back(*course_data);
+			record_change_count++;
 
 		//Parameter lets the writ method know this is insertion.
 		this->Write();
@@ -107,11 +111,13 @@ namespace CSE360Project {
 		course_data.clear();
 	}
 
-	void DB_Courses::Write() {
-		this->WriteData<db_course_data>(course_data);	
+	void DB_Courses::Write(bool force_write) {
+		if (record_change_count % record_change_mod_value == 0 || force_write)
+			this->WriteData<db_course_data>(course_data);	
 	}
 
 	DB_Courses::~DB_Courses() {
+		this->Write(true);
 		this->ClearData();
 	}
 } /* namespace CSE360Project */

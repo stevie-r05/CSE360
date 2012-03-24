@@ -13,6 +13,7 @@ namespace CSE360Project {
 	DB_QuizQuestions::DB_QuizQuestions() {
 		database_file = "Quiz_questions.db";
 		database_info_file = database_file+".info";
+		record_change_mod_value = 50;
 
 		//Load Data
 		this->LoadData<db_question_data>(question_data);
@@ -27,6 +28,7 @@ namespace CSE360Project {
 		question_data->question_id = ++lastID;
 
 		this->question_data.push_back(*question_data);
+		record_change_count++;
 
 		//Parameter lets the writ method know this is insertion.
 		this->Write();
@@ -38,6 +40,7 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) question_data.size(); i++) {
 			question_data[i].question_id = ++lastID;
 			this->question_data.push_back(question_data[i]);
+			record_change_count++;
 		}
 
 		//Parameter lets the writ method know this is insertion.
@@ -47,20 +50,23 @@ namespace CSE360Project {
 	void DB_QuizQuestions::Delete(int question_id) {
 		int vector_index = getVectorIndex(question_id);
 
-		if (vector_index >= 0)
+		if (vector_index >= 0) {
 			question_data.erase(question_data.begin()+vector_index);
+			record_change_count++;
+		}
 
-		this->Write();
+		//this->Write();
 	}
 
 	void DB_QuizQuestions::DeleteQuiz(int qid) {
 		for (int i = 0; i < (int) question_data.size(); i++) {
 			if (question_data[i].qid == qid) {
 				question_data.erase(question_data.begin()+i);
+				record_change_count++;
 			}
 		}
 
-		this->Write();
+		//this->Write();
 	}
 
 	vector<db_question_data> DB_QuizQuestions::getQuestions(int qid) {
@@ -125,8 +131,9 @@ namespace CSE360Project {
 		return -1;
 	}
 
-	void DB_QuizQuestions::Write() {
-		this->WriteData<db_question_data>(question_data);	
+	void DB_QuizQuestions::Write(bool force_write) {
+		if (record_change_count % record_change_mod_value == 0 || force_write)
+			this->WriteData<db_question_data>(question_data);	
 	}
 
 	void DB_QuizQuestions::ClearData() {
@@ -140,6 +147,7 @@ namespace CSE360Project {
 	}
 
 	DB_QuizQuestions::~DB_QuizQuestions() {
+		this->Write(true);
 		this->ClearData();
 	}
 } /* namespace CSE360Project */

@@ -30,7 +30,7 @@ namespace CSE360Project {
 	private:
 		std::vector<db_answered_data> answered_data;
 
-		void Write();
+		void Write(bool force_write = false);
 		void ClearData();
 		int getVectorIndex(int aid);
 	};

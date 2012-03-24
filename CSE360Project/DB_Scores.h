@@ -33,7 +33,7 @@ namespace CSE360Project {
 
 		int getVectorIndex(int sid);
 
-		void Write();
+		void Write(bool force_write = false);
 		void ClearData();
 	};
 

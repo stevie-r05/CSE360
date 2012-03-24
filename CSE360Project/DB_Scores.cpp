@@ -25,8 +25,10 @@ namespace CSE360Project {
 	void DB_Scores::Delete(int sid) {
 		int vector_index = getVectorIndex(sid);
 
-		if (vector_index >= 0)
+		if (vector_index >= 0) {
 			score_data.erase(score_data.begin()+vector_index);
+			record_change_count++;
+		}
 
 		this->Write();
 	}
@@ -35,6 +37,7 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) score_data.size(); i++) {
 			if (score_data[i].qid == qid) {
 				score_data.erase(score_data.begin()+i);
+				record_change_count++;
 			}
 		}
 
@@ -45,6 +48,7 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) score_data.size(); i++) {
 			if (score_data[i].uid == uid) {
 				score_data.erase(score_data.begin()+i);
+				record_change_count++;
 			}
 		}
 
@@ -55,6 +59,7 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) score_data.size(); i++) {
 			if (score_data[i].cid == cid) {
 				score_data.erase(score_data.begin()+i);
+				record_change_count++;
 			}
 		}
 
@@ -66,6 +71,7 @@ namespace CSE360Project {
 			//Auto-assign UID
 			score_data[i].sid = ++lastID;
 			this->score_data.push_back(score_data[i]);
+			record_change_count++;
 		}
 
 		//Parameter lets the writ method know this is insertion.
@@ -76,6 +82,9 @@ namespace CSE360Project {
 		score_data->sid = ++lastID;
 
 		this->score_data.push_back(*score_data);
+		record_change_count++;
+
+		this->Write();
 
 		return lastID;
 	}
@@ -152,8 +161,9 @@ namespace CSE360Project {
 		return -1;
 	}
 
-	void DB_Scores::Write() {
-		this->WriteData<db_score_data>(score_data);	
+	void DB_Scores::Write(bool force_write) {
+		if (record_change_count % record_change_mod_value == 0 || force_write)
+			this->WriteData<db_score_data>(score_data);	
 	}
 
 	void DB_Scores::ClearData() {
@@ -161,6 +171,7 @@ namespace CSE360Project {
 	}
 
 	DB_Scores::~DB_Scores() {
+		this->Write(true);
 		this->ClearData();
 	}
 } /* namespace CSE360Project */

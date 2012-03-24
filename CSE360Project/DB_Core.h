@@ -30,6 +30,8 @@ namespace CSE360Project {
 		//  incremented properly.
 		int lastID;
 		int record_count;
+		int record_change_count;
+		int record_change_mod_value; //save to database after every record_change_mod_value number of records modified
 		char input_char;
 
 		string database_file;
@@ -102,6 +104,7 @@ namespace CSE360Project {
 
 		//Other classes should never be able to call these functions.
 		virtual void ClearData()=0;
+		virtual void Write(bool force_write = false)=0;
 	};
 
 } /* namespace CSE360Project */

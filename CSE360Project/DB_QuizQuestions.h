@@ -35,6 +35,7 @@ namespace CSE360Project {
 		void ReloadData();
 		void outputAllData();
 
+
 		virtual ~DB_QuizQuestions();
 
 	private:
@@ -42,7 +43,7 @@ namespace CSE360Project {
 
 		int getVectorIndex(int question_id);
 
-		void Write();
+		void Write(bool force_write = false);
 		void ClearData();
 		void orderQuestions();
 	};

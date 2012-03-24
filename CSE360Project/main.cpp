@@ -133,7 +133,6 @@ int main(array<System::String ^> ^args)
 				db->enrolled->Insert(uid,i+1);
 			}
 
-
 		} else if (choice == 2) {
 			db->users->outputAllData();
 			db_users_data user = db->users->getUserData(1);
@@ -183,7 +182,7 @@ int main(array<System::String ^> ^args)
 
 	} while (choice != 0);
 
-
+	delete db;
 
 	/*DB_Users *db = new DB_Users();
 

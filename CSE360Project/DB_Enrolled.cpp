@@ -25,8 +25,10 @@ namespace CSE360Project {
 	void DB_Enrolled::Delete(int eid) {
 		int vector_index = getVectorIndex(eid);
 
-		if (vector_index >= 0)
+		if (vector_index >= 0) {
 			enrolled_data.erase(enrolled_data.begin()+vector_index);
+			record_change_count++;
+		}
 
 		this->Write();
 	}
@@ -35,6 +37,7 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) enrolled_data.size(); i++) {
 			if (enrolled_data[i].uid == uid) {
 				enrolled_data.erase(enrolled_data.begin()+i);
+				record_change_count++;
 			}
 		}
 
@@ -45,6 +48,7 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) enrolled_data.size(); i++) {
 			if (enrolled_data[i].cid == cid) {
 				enrolled_data.erase(enrolled_data.begin()+i);
+				record_change_count++;
 			}
 		}
 
@@ -54,8 +58,10 @@ namespace CSE360Project {
 	void DB_Enrolled::Unenroll(int eid) {
 		int vector_index = getVectorIndex(eid);
 
-		if (vector_index >= 0)
+		if (vector_index >= 0) {
 			enrolled_data.erase(enrolled_data.begin()+vector_index);
+			record_change_count++;
+		}
 
 		this->Write();
 	}
@@ -64,6 +70,7 @@ namespace CSE360Project {
 		for (int i = 0; i < (int) enrolled_data.size(); i++) {
 			if (enrolled_data[i].cid == cid && enrolled_data[i].uid == uid) {
 				enrolled_data.erase(enrolled_data.begin()+i);
+				record_change_count++;
 				break;
 			}
 		}
@@ -76,6 +83,7 @@ namespace CSE360Project {
 		enrolled_data->eid = ++lastID;
 
 		this->enrolled_data.push_back(*enrolled_data);
+		record_change_count++;
 
 		//Parameter lets the writ method know this is insertion.
 		this->Write();
@@ -88,6 +96,7 @@ namespace CSE360Project {
 		enrolled_data.back().eid = ++lastID;
 		enrolled_data.back().uid = uid;
 		enrolled_data.back().cid = cid;
+		record_change_count++;
 
 		//Parameter lets the writ method know this is insertion.
 		this->Write();
@@ -144,8 +153,9 @@ namespace CSE360Project {
 		return -1;
 	}
 
-	void DB_Enrolled::Write() {
-		this->WriteData<db_enrolled_data>(enrolled_data);	
+	void DB_Enrolled::Write(bool force_write) {
+		if (record_change_count % record_change_mod_value == 0 || force_write)
+			this->WriteData<db_enrolled_data>(enrolled_data);	
 	}
 
 	void DB_Enrolled::ClearData() {
@@ -153,6 +163,7 @@ namespace CSE360Project {
 	}
 
 	DB_Enrolled::~DB_Enrolled() {
+		this->Write(true);
 		this->ClearData();
 	}
 } /* namespace CSE360Project */
