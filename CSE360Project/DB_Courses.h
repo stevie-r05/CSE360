@@ -13,7 +13,7 @@ namespace CSE360Project {
 		int Insert(db_course_data *course_data);
 		///END PUBLIC METHODS THAT MODIFY DATA
 
-		vector<db_course_data> getCourseData(int uid);
+		vector<db_course_data> getTaughtCourses(int uid);
 		string getCourseName(int cid);
 
 		//Debug functions

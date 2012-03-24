@@ -11,11 +11,14 @@ namespace CSE360Project {
 		void DeleteQuiz(int qid);
 		void DeleteQuestion(int question_id);
 		void DeleteUser(int primary_id);
-		int Insert(db_answered_data *answered_data);
+		int Insert(vector<db_answered_data> answered_data);
+		int Insert(db_answered_data *answered_data) ;
 		///END PUBLIC METHODS THAT MODIFY DATA
 		
 		int getUserAnswer(int uid, int question_id);
-		vector<db_answered_data> getUsersAnswers(int uid);
+		vector<db_answered_data> getUsersQuizAnswers(int uid, int qid);
+		int getQID(int aid);
+		int getUID(int aid);
 
 		//Debug functions
 		void outputAllData();
@@ -27,6 +30,7 @@ namespace CSE360Project {
 
 		void Write();
 		void ClearData();
+		int getVectorIndex(int aid);
 	};
 
 } /* namespace CSE360Project */

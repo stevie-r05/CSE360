@@ -52,10 +52,21 @@ namespace CSE360Project {
 	}
 
 	int DB_Answered::Insert(db_answered_data *answered_data) {
-		//Auto-assign UID
 		answered_data->aid = ++lastID;
 
 		this->answered_data.push_back(*answered_data);
+
+		//Parameter lets the writ method know this is insertion.
+		this->Write();
+		
+		return lastID;
+	}
+
+	int DB_Answered::Insert(vector<db_answered_data> answered_data) {
+		for (int i = 0; i < (int) answered_data.size(); i++) {
+			answered_data[i].aid = ++lastID;
+			this->answered_data.push_back(answered_data[i]);
+		}
 
 		//Parameter lets the writ method know this is insertion.
 		this->Write();
@@ -66,7 +77,7 @@ namespace CSE360Project {
 	int DB_Answered::getUserAnswer(int uid, int question_id) {
 		for (int i = 0; i < (int) answered_data.size(); i++) {
 			if (uid == answered_data[i].uid && question_id == answered_data[i].question_id) {
-				return i;
+				return answered_data[i].answer;
 			}
 		}
 
@@ -74,16 +85,45 @@ namespace CSE360Project {
 		return -1;
 	}
 
-	vector<db_answered_data> DB_Answered::getUsersAnswers(int uid) {
+	vector<db_answered_data> DB_Answered::getUsersQuizAnswers(int uid, int qid) {
 		vector<db_answered_data> packaged_data;
 
 		for (int i = 0; i < (int) answered_data.size(); i++) {
-			if (answered_data[i].uid == uid) {
+			if (answered_data[i].uid == uid && answered_data[i].qid == qid) {
 				packaged_data.push_back(answered_data[i]);
 			}
 		}
 
 		return packaged_data;
+	}
+
+	int DB_Answered::getQID(int aid) {
+		int vector_index = getVectorIndex(aid);
+
+		if (vector_index >= 0)
+			return answered_data[vector_index].qid;
+
+		return -1;
+	}
+
+	int DB_Answered::getUID(int aid) {
+		int vector_index = getVectorIndex(aid);
+
+		if (vector_index >= 0)
+			return answered_data[vector_index].uid;
+
+		return -1;
+	}
+
+	int DB_Answered::getVectorIndex(int aid) {
+		for (int i = 0; i < (int) answered_data.size(); i++) {
+			if (aid == answered_data[i].aid) {
+				return i;
+			}
+		}
+
+		//Vector index of < 0 indicates failure to locate record.
+		return -1;
 	}
 
 	void DB_Answered::outputAllData() {

@@ -18,14 +18,6 @@ namespace CSE360Project {
 		this->LoadData<db_course_data>(course_data);
 	}
 
-	void DB_Courses::ClearData() {
-		course_data.clear();
-	}
-
-	void DB_Courses::Write() {
-		this->WriteData<db_course_data>(course_data);	
-	}
-
 	void DB_Courses::Delete(int cid) {
 		int vector_index = getVectorIndex(cid);
 
@@ -46,18 +38,6 @@ namespace CSE360Project {
 		this->Write();
 	}
 
-	vector<db_course_data> DB_Courses::getCourseData(int uid) {
-		vector<db_course_data> packaged_data;
-
-		for (int i = 0; i < (int) course_data.size(); i++) {
-			if (course_data[i].uid == uid) {
-				packaged_data.push_back(course_data[i]);
-			}
-		}
-
-		return packaged_data;
-	}
-
 	int DB_Courses::Insert(db_course_data *course_data) {
 		//Auto-assign UID
 		course_data->cid = ++lastID;
@@ -68,6 +48,27 @@ namespace CSE360Project {
 		this->Write();
 		
 		return lastID;
+	}
+
+	vector<db_course_data> DB_Courses::getTaughtCourses(int uid) {
+		vector<db_course_data> packaged_data;
+
+		for (int i = 0; i < (int) course_data.size(); i++) {
+			if (course_data[i].uid == uid) {
+				packaged_data.push_back(course_data[i]);
+			}
+		}
+
+		return packaged_data;
+	}
+	
+	string getCourseName(int cid) {
+		int vector_index = getVectorIndex(cid);
+
+		if (vector_index >= 0)
+			return course_data[vector_index].courseName;
+
+		return "Invalid Course ID";
 	}
 
 	int DB_Courses::getVectorIndex(int cid) {
@@ -93,6 +94,14 @@ namespace CSE360Project {
 		} else {
 			cout << "Course Data is empty." << endl;
 		}
+	}
+
+	void DB_Courses::ClearData() {
+		course_data.clear();
+	}
+
+	void DB_Courses::Write() {
+		this->WriteData<db_course_data>(course_data);	
 	}
 
 	DB_Courses::~DB_Courses() {

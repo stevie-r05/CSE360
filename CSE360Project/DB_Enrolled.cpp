@@ -19,10 +19,12 @@ namespace CSE360Project {
 	}
 
 	void DB_Enrolled::DeleteUser(int uid) {
-		int vector_index = getVectorIndex(uid);
-
-		if (vector_index >= 0)
-			enrolled_data.erase(enrolled_data.begin()+vector_index);
+		for (int i = 0; i < (int) enrolled_data.size(); i++) {
+			if (enrolled_data[i].uid == uid) {
+				enrolled_data.erase(enrolled_data.begin()+i);
+				i++;
+			}
+		}
 
 		this->Write();
 	}
@@ -34,6 +36,15 @@ namespace CSE360Project {
 				i++;
 			}
 		}
+
+		this->Write();
+	}
+
+	void DB_Enrolled::Unenroll(int eid) {
+		int vector_index = getVectorIndex(eid);
+
+		if (vector_index >= 0)
+			enrolled_data.erase(enrolled_data.begin()+vector_index);
 
 		this->Write();
 	}
@@ -78,6 +89,18 @@ namespace CSE360Project {
 
 		for (int i = 0; i < (int) enrolled_data.size(); i++) {
 			if (enrolled_data[i].cid == cid) {
+				packaged_data.push_back(enrolled_data[i]);
+			}
+		}
+
+		return packaged_data;
+	}
+
+	vector<db_enrolled_data> DB_Enrolled::getEnrolledCourses(int uid) {
+		vector<db_enrolled_data> packaged_data;
+
+		for (int i = 0; i < (int) enrolled_data.size(); i++) {
+			if (enrolled_data[i].uid == uid) {
 				packaged_data.push_back(enrolled_data[i]);
 			}
 		}

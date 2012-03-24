@@ -60,9 +60,8 @@ namespace CSE360Project {
 		this->Write();
 	}
 
-
 	int DB_Scores::Insert(vector<db_score_data> score_data) {
-		for (int i = 0; i < score_data.size(); i++) {
+		for (int i = 0; i < (int) score_data.size(); i++) {
 			//Auto-assign UID
 			score_data[i].sid = ++lastID;
 			this->score_data.push_back(score_data[i]);

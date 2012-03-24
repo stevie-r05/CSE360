@@ -30,34 +30,41 @@ int main(array<System::String ^> ^args)
 	
 	//write test user
 	string a;
-	int i = 1;
-	switch (db->getLastID() % 3) {
-	case 1:
-		a = "Hey there how are you all doing on this fine day today?";
-		break;
-	case 2:
-		a = "I'm well thanks";
-		break;
-	default:
-		a = "Well I'm as happy as a clam";
+	for (int j = 0; j < 5; j++) {
+		int i = 1;
+		switch (db->getLastID() % 3) {
+		case 1:
+			a = "Hey there how are you all doing on this fine day today?";
+			break;
+		case 2:
+			a = "I'm well thanks";
+			break;
+		default:
+			a = "Well I'm as happy as a clam";
+		}
+
+			db_users_data *user = new db_users_data;
+
+			WriteStructValue(user->username,"David");
+			WriteStructValue(user->password, "david_password");
+			WriteStructValue(user->lastName, "Newton");
+			WriteStructValue(user->firstName, "David");
+			WriteStructValue(user->securityQuestion, a);
+			WriteStructValue(user->securityAnswer, "Hi.");
+			user->userRole = teacher;
+
+		db->Insert(user);
 	}
-
-		db_users_data *user = new db_users_data;
-
-		WriteStructValue(user->username,"David");
-		WriteStructValue(user->password, "david_password");
-		WriteStructValue(user->lastName, "Newton");
-		WriteStructValue(user->firstName, "David");
-		WriteStructValue(user->securityQuestion, a);
-		WriteStructValue(user->securityAnswer, "Hi.");
-		user->userRole = teacher;
-
-	db->Insert(user);
 	cout << "------------------------------" << endl;
 	//db->Write();
-
-
 	db->outputAllUsers();
+	
+	cout << "-----------DELETE UID 2 & 3-------------------" << endl;
+	db->Delete(2);
+	db->Delete(3);
+	db->outputAllUsers();
+
+	system("pause");
 
 	
 

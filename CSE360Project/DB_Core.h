@@ -51,7 +51,6 @@ namespace CSE360Project {
 			os.write(( char*)&data_array_size, 4);
 
 			//Write data structure in one large dump. - if data vector is not empty.
-			cout << sizeof(DB_DATA_TYPE) << endl;
 			if (data_array_size > 0)
 				os.write(( char*)&data_vector[0], data_array_size * sizeof(DB_DATA_TYPE));
 
