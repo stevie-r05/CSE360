@@ -22,6 +22,37 @@ namespace CSE360Project {
 	void DB_QuizQuestions::ReloadData() {
 		this->LoadData<db_question_data>(question_data);
 	}
+	
+	void DB_QuizQuestions::Update(db_question_data question_data) {
+		int vector_index = getVectorIndex(question_data.question_id);
+
+		if (vector_index >= 0) {
+			this->Delete(question_data.question_id);
+
+			this->question_data.push_back(question_data);
+			record_change_count++;
+
+			this->Write();
+		}
+	}
+	
+	void DB_QuizQuestions::Update(vector<db_question_data> question_data) {
+		int vector_index;
+		for (int i = 0; i < (int) question_data.size(); i++) {
+			vector_index = getVectorIndex(question_data[i].question_id);
+
+			if (vector_index >= 0) {
+				this->Delete(question_data[i].question_id);
+
+				this->question_data.push_back(question_data[i]);
+			} else {
+				this->Insert(question_data);
+			}
+			record_change_count++;
+
+			this->Write();
+		}
+	}
 
 	int DB_QuizQuestions::Insert(db_question_data *question_data) {
 		//Auto-assign UID

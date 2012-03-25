@@ -15,7 +15,9 @@ using namespace CSE360Project;
 int main(array<System::String ^> ^args)
 {
 	int choice;
-
+	vector<db_users_data> *usrs = new vector<db_users_data>;
+	usrs->push_back(*(new db_users_data));
+	usrs->back().uid = 3;
 	/*COURSES DEBUG*/
 	DB *db = new DB();
 
@@ -25,6 +27,7 @@ int main(array<System::String ^> ^args)
 		cout << "2 - List Users" << endl;
 		cout << "3 - List Courses (Enrolled/Taught)" << endl;
 		cout << "4 - List Enrolled/Taught Courses" << endl;
+		cout << "5 - Test User Update" << endl;
 		cout << "9 - RESET AND POPULATE" << endl;
 		cout << "0 - Exit" << endl;
 		cout << "ANYTHING ELSE - menu with different commands" << endl;
@@ -135,11 +138,18 @@ int main(array<System::String ^> ^args)
 
 		} else if (choice == 2) {
 			db->users->outputAllData();
-			db_users_data user = db->users->getUserData(1);
+
+			if (db->users->getRecordCount() > 0) {
+				cout << "Input uid to display (0 to exit): ";
+				int uid;
+				cin >> uid;
+				if (uid != 0)
+					db_users_data user = db->users->getUserData(uid);
+			}
 		} else if (choice == 3) {
 			cout << "cid\tcourse name\ttaught by" << endl;
 			vector<db_course_data> courses = db->courses->getAllCourseData();
-			for (int i = 0; i < courses.size(); i++) {
+			for (int i = 0; i < (int) courses.size(); i++) {
 				cout << courses[i].cid << "\t" << courses[i].courseName << "\t\t" << db->users->getLastname(courses[i].uid) << endl;
 			}
 
@@ -162,6 +172,14 @@ int main(array<System::String ^> ^args)
 				cout << taught[i].cid << " - " << taught[i].courseName << endl;
 			}
 
+		} else if (choice == 5) {
+			db_users_data user = db->users->getUserData(2);
+			db->users->outputAllData();
+			
+			WriteStructValue(user.firstName, "Ryan");
+			WriteStructValue(user.lastName, "Smith");
+			db->users->Update(user);
+			db->users->outputAllData();
 		}
 
 

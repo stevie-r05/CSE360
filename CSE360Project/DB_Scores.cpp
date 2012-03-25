@@ -21,6 +21,37 @@ namespace CSE360Project {
 	void DB_Scores::ReloadData() {
 		this->LoadData<db_score_data>(score_data);
 	}
+	
+	void DB_Scores::Update(db_score_data score_data) {
+		int vector_index = getVectorIndex(score_data.sid);
+
+		if (vector_index >= 0) {
+			this->Delete(score_data.sid);
+
+			this->score_data.push_back(score_data);
+			record_change_count++;
+
+			this->Write();
+		}
+	}
+	
+	void DB_Scores::Update(vector<db_score_data> score_data) {
+		int vector_index;
+		for (int i = 0; i < (int) score_data.size(); i++) {
+			vector_index = getVectorIndex(score_data[i].sid);
+
+			if (vector_index >= 0) {
+				this->Delete(score_data[i].sid);
+
+				this->score_data.push_back(score_data[i]);
+				record_change_count++;
+			} else {
+				this->Insert(score_data);
+			}
+
+			this->Write();
+		}
+	}
 
 	void DB_Scores::Delete(int sid) {
 		int vector_index = getVectorIndex(sid);

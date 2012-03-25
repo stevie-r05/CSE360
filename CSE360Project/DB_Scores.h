@@ -15,6 +15,9 @@ namespace CSE360Project {
 		void DeleteQuiz(int qid);
 		void DeleteUser(int uid);
 		void DeleteCourse(int cid);
+
+		void Update(db_score_data score_data);
+		void Update(vector<db_score_data> score_data);
 		///END PUBLIC METHODS THAT MODIFY DATA
 
 		vector<db_score_data> getQuizScores(int qid);

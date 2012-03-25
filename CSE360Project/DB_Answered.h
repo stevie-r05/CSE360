@@ -14,6 +14,9 @@ namespace CSE360Project {
 		void DeleteUser(int primary_id);
 		void Insert(vector<db_answered_data> answered_data);
 		int Insert(db_answered_data *answered_data) ;
+		
+		void Update(db_answered_data answered_data);
+		void Update(vector<db_answered_data> answered_data);
 		///END PUBLIC METHODS THAT MODIFY DATA
 		
 		int getUserAnswer(int uid, int question_id);

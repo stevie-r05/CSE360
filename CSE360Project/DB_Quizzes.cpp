@@ -21,6 +21,19 @@ namespace CSE360Project {
 	void DB_Quizzes::ReloadData() {
 		this->LoadData<db_quiz_data>(quiz_data);
 	}
+	
+	void DB_Quizzes::Update(db_quiz_data quiz_data) {
+		int vector_index = getVectorIndex(quiz_data.qid);
+
+		if (vector_index >= 0) {
+			this->Delete(quiz_data.qid);
+
+			this->quiz_data.push_back(quiz_data);
+			record_change_count++;
+
+			this->Write();
+		}
+	}
 
 	void DB_Quizzes::Delete(int qid) {
 		int vector_index = getVectorIndex(qid);

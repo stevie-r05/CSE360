@@ -21,6 +21,19 @@ namespace CSE360Project {
 	void DB_Courses::ReloadData() {
 		this->LoadData<db_course_data>(course_data);
 	}
+	
+	void DB_Courses::Update(db_course_data course_data) {
+		int vector_index = getVectorIndex(course_data.cid);
+
+		if (vector_index >= 0) {
+			this->Delete(course_data.cid);
+
+			this->course_data.push_back(course_data);
+			record_change_count++;
+
+			this->Write();
+		}
+	}
 
 	void DB_Courses::Delete(int cid) {
 		int vector_index = getVectorIndex(cid);

@@ -16,6 +16,7 @@ namespace CSE360Project {
 		void Unenroll(int uid, int cid);
 		int Insert(db_enrolled_data *enrolled_data);
 		int Insert(int uid, int cid);
+		void Update(db_enrolled_data enrolled_data);
 		///END PUBLIC METHODS THAT MODIFY DATA
 
 		vector<db_enrolled_data> getEnrolledUsers(int cid);

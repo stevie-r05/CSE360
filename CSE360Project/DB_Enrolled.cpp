@@ -21,6 +21,19 @@ namespace CSE360Project {
 	void DB_Enrolled::ReloadData() {
 		this->LoadData<db_enrolled_data>(enrolled_data);
 	}
+	
+	void DB_Enrolled::Update(db_enrolled_data enrolled_data) {
+		int vector_index = getVectorIndex(enrolled_data.eid);
+
+		if (vector_index >= 0) {
+			this->Delete(enrolled_data.eid);
+
+			this->enrolled_data.push_back(enrolled_data);
+			record_change_count++;
+
+			this->Write();
+		}
+	}
 
 	void DB_Enrolled::Delete(int eid) {
 		int vector_index = getVectorIndex(eid);

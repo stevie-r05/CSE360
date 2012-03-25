@@ -11,6 +11,7 @@ namespace CSE360Project {
 		///BEGIN PUBLIC METHODS THAT MODIFY DATA - "this->Write()" must be added before each method exits."
 		void Delete(int);
 		int Insert(db_users_data *user_data);
+		void Update(db_users_data user_data);
 		///END PUBLIC METHODS THAT MODIFY DATA
 
 		bool validateUser(string username, string password);

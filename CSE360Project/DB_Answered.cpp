@@ -22,6 +22,37 @@ namespace CSE360Project {
 		this->LoadData<db_answered_data>(answered_data);
 	}
 	
+	void DB_Answered::Update(db_answered_data answered_data) {
+		int vector_index = getVectorIndex(answered_data.aid);
+
+		if (vector_index >= 0) {
+			this->Delete(answered_data.aid);
+
+			this->answered_data.push_back(answered_data);
+			record_change_count++;
+
+			this->Write();
+		}
+	}
+	
+	void DB_Answered::Update(vector<db_answered_data> answered_data) {
+		int vector_index;
+		for (int i = 0; i < (int) answered_data.size(); i++) {
+			vector_index = getVectorIndex(answered_data[i].aid);
+
+			if (vector_index >= 0) {
+				this->Delete(answered_data[i].aid);
+
+				this->answered_data.push_back(answered_data[i]);
+				record_change_count++;
+			} else {
+				this->Insert(answered_data);
+			}
+
+			this->Write();
+		}
+	}
+	
 	void DB_Answered::Delete(int aid) {
 		int vector_index = getVectorIndex(aid);
 

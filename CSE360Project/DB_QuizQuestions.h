@@ -11,8 +11,12 @@ namespace CSE360Project {
 		///BEGIN PUBLIC METHODS THAT MODIFY DATA - "this->Write()" must be added before each method exits."
 		void Delete(int question_id);
 		void DeleteQuiz(int qid);
+
 		int Insert(db_question_data *question_data);
 		void Insert(vector<db_question_data> question_data);
+
+		void Update(db_question_data question_data);
+		void Update(vector<db_question_data> question_data);
 		///END PUBLIC METHODS THAT MODIFY DATA
 
 		db_question_data getQuestionData(int question_id);

@@ -11,6 +11,7 @@ namespace CSE360Project {
 		void Delete(int cid); //Delete course ID
 		void DeleteUser(int uid); //Delete all courses belonging to user UID.
 		int Insert(db_course_data *course_data);
+		void Update(db_course_data course_data);
 		///END PUBLIC METHODS THAT MODIFY DATA
 
 		vector<db_course_data> getTaughtCourses(int uid);

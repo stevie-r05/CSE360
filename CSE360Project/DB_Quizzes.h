@@ -11,6 +11,7 @@ namespace CSE360Project {
 		void Delete(int qid);
 		void DeleteCourse(int cid);
 		int Insert(db_quiz_data *quiz_data);
+		void Update(db_quiz_data quiz_data);
 		///END PUBLIC METHODS THAT MODIFY DATA
 
 		time_t getOpenDate(int qid);
