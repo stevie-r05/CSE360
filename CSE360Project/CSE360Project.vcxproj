@@ -134,6 +134,7 @@
     <ClInclude Include="standard_functions.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="timingClass.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

@@ -31,6 +31,12 @@
     <Filter Include="Resource Files\Database Info Files">
       <UniqueIdentifier>{c80ed418-e87c-4685-bbf3-ff7ac4009309}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Classes">
+      <UniqueIdentifier>{7622182a-3ef5-40be-9131-712d4e9af3a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Classes">
+      <UniqueIdentifier>{762e4b77-82be-4151-adb5-6d9b1287042b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -148,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="DB.h">
       <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>Header Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
