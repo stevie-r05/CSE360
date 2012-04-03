@@ -41,9 +41,9 @@ namespace CSE360Project {
 		if (vector_index >= 0) {
 			course_data.erase(course_data.begin()+vector_index);
 			record_change_count++;
-		}
 
-		this->Write();
+			this->Write();
+		}
 	}
 
 	void DB_Courses::DeleteUser(int uid) {

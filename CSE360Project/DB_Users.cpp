@@ -45,9 +45,9 @@ namespace CSE360Project {
 		if (vector_index >= 0) {
 			user_data.erase(user_data.begin()+vector_index);
 			record_change_count++;
-		}
 
-		this->Write();
+			this->Write();
+		}
 	}
 
 	int DB_Users::Insert(db_users_data *user_data) {

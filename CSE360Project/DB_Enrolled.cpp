@@ -41,9 +41,9 @@ namespace CSE360Project {
 		if (vector_index >= 0) {
 			enrolled_data.erase(enrolled_data.begin()+vector_index);
 			record_change_count++;
-		}
 
 		this->Write();
+		}
 	}
 
 	void DB_Enrolled::DeleteUser(int uid) {

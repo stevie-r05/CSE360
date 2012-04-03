@@ -84,9 +84,9 @@ namespace CSE360Project {
 		if (vector_index >= 0) {
 			question_data.erase(question_data.begin()+vector_index);
 			record_change_count++;
-		}
 
-		//this->Write();
+			this->Write();
+		}
 	}
 
 	void DB_QuizQuestions::DeleteQuiz(int qid) {
@@ -97,7 +97,7 @@ namespace CSE360Project {
 			}
 		}
 
-		//this->Write();
+		this->Write();
 	}
 
 	vector<db_question_data> DB_QuizQuestions::getQuestions(int qid) {

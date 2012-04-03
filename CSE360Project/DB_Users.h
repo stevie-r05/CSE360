@@ -30,7 +30,6 @@ namespace CSE360Project {
 		void outputAllData();
 
 		virtual ~DB_Users();
-
 	private:
 		std::vector<db_users_data> user_data;
 

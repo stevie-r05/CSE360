@@ -59,9 +59,9 @@ namespace CSE360Project {
 		if (vector_index >= 0) {
 			answered_data.erase(answered_data.begin()+vector_index);
 			record_change_count++;
-		}
 
-		this->Write();
+			this->Write();
+		}
 	}
 	
 	void DB_Answered::DeleteQuiz(int qid) {
