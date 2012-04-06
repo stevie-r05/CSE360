@@ -9,6 +9,7 @@
 
 #include "stdafx.h"
 #include <string>
+#include "core_header.h"
 
 using namespace std;
 
@@ -16,10 +17,10 @@ namespace CSE360Project {
 
 	class User {
 	public:
-		User(int userID); // Used to initialize a user object from a retrieved uid on login.
+		User(int uID); // Used to initialize a user object from a retrieved uid on login.
 
 		// Methods are straight from the Visio diagram.
-		void setUserID(int userID);
+		void setUserID(int uID);
 		int getUserID();
 		void setUserName(string userName);
 		string getUserName();
