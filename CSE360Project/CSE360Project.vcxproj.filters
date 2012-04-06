@@ -158,6 +158,9 @@
     <ClInclude Include="User.h">
       <Filter>Header Files\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="core_header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">

@@ -6,10 +6,10 @@
 #include "DB.h"
 #include "DB_Users.h"
 #include "DB_Courses.h"
+#include "core_header.h"
 
 using namespace std;
 using namespace CSE360Project;
-
 
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
@@ -19,7 +19,7 @@ int main(array<System::String ^> ^args)
 	usrs->push_back(*(new db_users_data));
 	usrs->back().uid = 3;
 	/*COURSES DEBUG*/
-	DB *db = new DB();
+	db = new DB();
 
 	do {
 		cout << "--MENU--" << endl;
