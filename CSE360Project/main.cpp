@@ -1,12 +1,15 @@
 // CSE360Project.cpp : main project file.
-
+/*THESE TWO MUST BE INCLUDED IN EVERY FILE*/
 #include "stdafx.h"
+#include "core_header.h"
+/*THESE TWO MUST BE INCLUDED IN EVERY FILE*/
+
+
 #include "main_form.h"
 #include "timingClass.h"
 #include "DB.h"
 #include "DB_Users.h"
 #include "DB_Courses.h"
-#include "core_header.h"
 
 using namespace std;
 using namespace CSE360Project;
