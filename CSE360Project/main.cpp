@@ -17,12 +17,14 @@ using namespace CSE360Project;
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
 {
+	//Set the DB Variable with the new database.
+	db = new DB();
+
 	int choice;
 	vector<db_users_data> *usrs = new vector<db_users_data>;
 	usrs->push_back(*(new db_users_data));
 	usrs->back().uid = 3;
 	/*COURSES DEBUG*/
-	db = new DB();
 
 	do {
 		cout << "--MENU--" << endl;
