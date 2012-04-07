@@ -4,7 +4,7 @@
 
 // File created on 4 April 2012.
 
-#pragma once
+
 #include "stdafx.h"
 #include "Quiz.h"
 

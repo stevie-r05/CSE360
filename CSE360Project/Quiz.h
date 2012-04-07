@@ -7,7 +7,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include "core_header.h"
+
 
 using namespace std;
 

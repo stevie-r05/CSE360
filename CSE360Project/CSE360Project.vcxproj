@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="Course.cpp" />
     <ClCompile Include="DB.cpp" />
     <ClCompile Include="DB_Answered.cpp" />
     <ClCompile Include="DB_Courses.cpp" />
@@ -117,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core_header.h" />
+    <ClInclude Include="Course.h" />
     <ClInclude Include="database_structures.h" />
     <ClInclude Include="DateClass.h" />
     <ClInclude Include="date_constants.h" />
