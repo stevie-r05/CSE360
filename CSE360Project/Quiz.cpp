@@ -4,19 +4,24 @@
 
 // File created on 4 April 2012.
 
-
+#pragma once
 #include "stdafx.h"
+//#include "core_header.h"
 #include "Quiz.h"
+
 
 using namespace std;
 
 namespace CSE360Project{
 
+		//overloaded constructor #1 for taking a quiz sequence - pass it a quID and it will initialize its variables with all the data on a specific quiz 
 		Quiz::Quiz(int quizID){
 			this->quizID = quizID;
+			//db->quizzes->getQuizData(quizID);
 		}
 
 		void Quiz::setOpenDate(time_t openDate){
+			this->openDate = openDate;
 		}
 
 		time_t Quiz::getOpenDate(){
