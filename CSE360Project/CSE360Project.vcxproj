@@ -98,18 +98,22 @@
     <ClCompile Include="DB_Scores.cpp" />
     <ClCompile Include="DB_Template.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="DateClass.cpp" />
     <ClCompile Include="DB_Core.cpp" />
     <ClCompile Include="DB_Users.cpp" />
+    <ClCompile Include="Quiz.cpp" />
     <ClCompile Include="standard_functions.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="timingClass.cpp" />
-    <ClCompile Include="User.cpp" />
+    <ClCompile Include="User.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core_header.h" />
@@ -132,11 +136,14 @@
     <ClInclude Include="main_form.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Quiz.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="standard_functions.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="timingClass.h" />
-    <ClInclude Include="User.h" />
+    <ClInclude Include="User.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
