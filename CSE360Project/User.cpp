@@ -8,11 +8,13 @@
 #pragma once
 #include "stdafx.h"
 #include "User.h"
+#include "core_header.h"
 
 using namespace std;
 
-namespace CSE360Project
-{
+namespace CSE360Project {
+
+	
 	User::User(int uID)
 	{
 		userID = uID;
@@ -23,5 +25,6 @@ namespace CSE360Project
 		// See about using getUserData instead
 	}
 
-
+	User::~User() {
+	}
 }

@@ -7,6 +7,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include "core_header.h"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ namespace CSE360Project {
 	protected:
 		int courseID;
 		string courseName;
-		int quizList[];
+		int *quizList;
 
 	};
 }

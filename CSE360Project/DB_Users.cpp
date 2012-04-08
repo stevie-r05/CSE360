@@ -15,18 +15,18 @@ namespace CSE360Project {
 		database_info_file = database_file+".info";
 
 		//Load Data
-		this->LoadData<db_users_data>(user_data);
+		this->LoadData<db_user_data >(user_data);
 	}
 
 	void DB_Users::ReloadData() {
-		this->LoadData<db_users_data>(user_data);
+		this->LoadData<db_user_data >(user_data);
 	}
 
 	void DB_Users::ClearData() {
 		user_data.clear();
 	}
 	
-	void DB_Users::Update(db_users_data user_data) {
+	void DB_Users::Update(db_user_data user_data) {
 		int vector_index = getVectorIndex(user_data.uid);
 
 		if (vector_index >= 0) {
@@ -50,7 +50,7 @@ namespace CSE360Project {
 		}
 	}
 
-	int DB_Users::Insert(db_users_data *user_data) {
+	int DB_Users::Insert(db_user_data *user_data) {
 		//Auto-assign UID
 		user_data->uid = ++lastID;
 
@@ -75,7 +75,7 @@ namespace CSE360Project {
 		return (vector_index >= 0 && answer.compare(user_data[vector_index].securityAnswer) == 0);
 	}
 
-	user_roles_t DB_Users::getUserRole(int uid) {
+	user_role_t DB_Users::getUserRole(int uid) {
 		return user_data[getVectorIndex(uid)].userRole;
 	}
 
@@ -103,7 +103,7 @@ namespace CSE360Project {
 		return (vector_index >= 0 ? user_data[vector_index].uid : 0);
 	}
 	
-	db_users_data DB_Users::getUserData(int uid) {
+	db_user_data DB_Users::getUserData(int uid) {
 		int vector_index = getVectorIndex(uid);
 
 		return user_data[vector_index];
@@ -157,7 +157,7 @@ namespace CSE360Project {
 
 	void DB_Users::Write(bool force_write) {
 		if (record_change_count % record_change_mod_value == 0 || force_write)
-			this->WriteData<db_users_data>(user_data);
+			this->WriteData<db_user_data >(user_data);
 	}
 
 	DB_Users::~DB_Users() {

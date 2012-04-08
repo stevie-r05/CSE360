@@ -5,6 +5,7 @@
 // File created on 5 April 2012.
 
 #include "stdafx.h"
+#include "core_header.h"
 #include "Course.h"
 
 

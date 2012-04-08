@@ -14,6 +14,8 @@
 using namespace std;
 using namespace CSE360Project;
 
+DB *db;
+
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
 {
@@ -21,8 +23,8 @@ int main(array<System::String ^> ^args)
 	db = new DB();
 
 	int choice;
-	vector<db_users_data> *usrs = new vector<db_users_data>;
-	usrs->push_back(*(new db_users_data));
+	vector<db_user_data > *usrs = new vector<db_user_data >;
+	usrs->push_back(*(new db_user_data ));
 	usrs->back().uid = 3;
 	/*COURSES DEBUG*/
 
@@ -51,7 +53,7 @@ int main(array<System::String ^> ^args)
 			for (int j = 0; j < 3; j++) {
 				int i = 1;
 
-				db_users_data *user = db->newUserRow();
+				db_user_data *user = db->newUserRow();
 
 				switch (j % 3) {
 				case 1:
@@ -149,7 +151,7 @@ int main(array<System::String ^> ^args)
 				int uid;
 				cin >> uid;
 				if (uid != 0)
-					db_users_data user = db->users->getUserData(uid);
+					db_user_data user = db->users->getUserData(uid);
 			}
 		} else if (choice == 3) {
 			cout << "cid\tcourse name\ttaught by" << endl;
@@ -178,7 +180,7 @@ int main(array<System::String ^> ^args)
 			}
 
 		} else if (choice == 5) {
-			db_users_data user = db->users->getUserData(2);
+			db_user_data user = db->users->getUserData(2);
 			db->users->outputAllData();
 			
 			WriteStructValue(user.firstName, "Ryan");
@@ -226,7 +228,7 @@ int main(array<System::String ^> ^args)
 	a = "Well I'm as happy as a clam";
 	}
 
-	db_users_data *user = new db_users_data;
+	db_user_data *user = new db_user_data ;
 
 	WriteStructValue(user->username,"David");
 	WriteStructValue(user->password, "david_password");

@@ -1,5 +1,4 @@
 #pragma once
-#include "stdafx.h"
 #include "DB_Core.h"
 #include "DB_Answered.h"
 #include "DB_Courses.h"
@@ -33,7 +32,7 @@ namespace CSE360Project {
 		db_question_data *newQuestionRow();
 		db_quiz_data *newQuizRow();
 		db_score_data *newScoreRow();
-		db_users_data *newUserRow();
+		db_user_data *newUserRow();
 
 		virtual ~DB();
 

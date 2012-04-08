@@ -134,8 +134,8 @@ namespace CSE360Project {
 		return score;
 	}
 
-	db_users_data *DB::newUserRow() {
-		db_users_data *user = new db_users_data;
+	db_user_data *DB::newUserRow() {
+		db_user_data *user = new db_user_data ;
 		
 		WriteStructValue(user->username,"");
 		WriteStructValue(user->password,"");

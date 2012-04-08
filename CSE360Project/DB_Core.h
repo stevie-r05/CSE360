@@ -38,7 +38,7 @@ namespace CSE360Project {
 		string database_info_file;
 		string benchmark_file;
 		
-		//this->WriteData<db_users_data>(user_data);
+		//this->WriteData<db_user_data >(user_data);
 		template <class DB_DATA_TYPE>
 		void WriteData(vector<DB_DATA_TYPE> &data_vector) {
 			//Create timing class, and tic value.  Tic = start temporary timer variable.
@@ -68,7 +68,7 @@ namespace CSE360Project {
 			this->writeBenchmark(data_array_size,timing.toc());
 		}
 
-		//this->LoadData<vector<db_users_data>>(user_data);
+		//this->LoadData<vector<db_user_data >>(user_data);
 		template <class DB_DATA_TYPE>
 		void LoadData(vector<DB_DATA_TYPE> &data_vector) {// Read it back in\
 			//Clear Data Array

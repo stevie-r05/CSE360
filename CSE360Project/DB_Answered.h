@@ -11,7 +11,7 @@ namespace CSE360Project {
 		void Delete(int aid);
 		void DeleteQuiz(int qid);
 		void DeleteQuestion(int question_id);
-		void DeleteUser(int primary_id);
+		void DeleteUser(int uid);
 		void Insert(vector<db_answered_data> answered_data);
 		int Insert(db_answered_data *answered_data) ;
 		
