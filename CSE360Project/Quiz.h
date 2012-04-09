@@ -6,7 +6,7 @@
 
 #pragma once
 #include "stdafx.h"
-//#include "core_header.h"
+#include "core_header.h"
 
 
 using namespace std;
@@ -15,6 +15,8 @@ namespace CSE360Project {
 
 	class Quiz {
 	public:
+		
+		Quiz();
 		Quiz(int quizID);
 		void setOpenDate(time_t openDate);
 		time_t getOpenDate();
@@ -22,9 +24,9 @@ namespace CSE360Project {
 		time_t getCloseDate();
 		void setTimeLimit(int timeLimit);
 		int getTimeLimit();
-		void setQuestions(string questions[]); 
+		void setQuestions(vector<string> questions); 
 		string* getQuestions();
-		void setAnswers(string answers[]);
+		void setAnswers(vector<string> answers);
 		string* getAnswers();
 		bool submitAnswers(int quizID, int answerData []);
 		void addQuestion(string question);
@@ -35,7 +37,7 @@ namespace CSE360Project {
 		vector<db_question_data> questionData;
 		int timeLimit;
 		time_t openDate;
-		time_t closedate;
+		time_t closeDate;
 
 		void gradeQuiz();
 
