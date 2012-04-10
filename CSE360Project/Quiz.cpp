@@ -110,7 +110,10 @@ namespace CSE360Project{
 				newAnswer.answer = answerData[i];
 				answered_data.push_back(newAnswer);//add question struct to vector of questions
 			}
-			db->answered->Insert(answered_data);
+			db->answered->Insert(answered_data);//insert answered data into answered db
+			this->gradeQuiz(answered_data);//grade the quiz and return a score
+			db->scores->Insert(this->gradeQuiz(answered_data));//insert score data struct in scored DB
+
 			return 1;
 		}
 
@@ -133,10 +136,23 @@ namespace CSE360Project{
 
 			db->quizquestions->Insert(questionData);//send vector of quizquestion structs to quizquestions db for storage.
 
-
 			return 1;
 		}
 
-		void Quiz::gradeQuiz(){
+		db_score_data* Quiz::gradeQuiz(vector<db_answered_data> answered_data){
+			db_score_data* scoreData = new db_score_data;//define pointer for score data struct
+			double quizScore;
+			int incorrectCount=0;//calculate incorrect answers by comparing answered vector array with question vector array 
+			for(int i = 0; i<questionData.size(); i++){
+				
+				if(questionData[i].correct_answer =! answered_data[i].answer)
+					incorrectCount++;
+			}
+			
+			quizScore = incorrectCount/questionData.size();//could format this? 
+			scoreData->score = quizScore;//set score in struct
+			//need to set these options: int uid; int qid; int cid; in score data struct
+
+			return scoreData; //return pointer to scored data struct
 		}
 }

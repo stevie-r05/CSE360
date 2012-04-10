@@ -39,7 +39,7 @@ namespace CSE360Project {
 		time_t openDate;
 		time_t closeDate;
 
-		void gradeQuiz();
+		db_score_data* gradeQuiz(vector<db_answered_data> answered_data);
 
 			}; // end User class
 }
