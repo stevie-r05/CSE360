@@ -25,12 +25,12 @@ namespace CSE360Project {
 		void setTimeLimit(int timeLimit);
 		int getTimeLimit();
 		void setQuestions(vector<string> questions); 
-		string* getQuestions();
+		vector<db_question_data> getQuestions();
 		void setAnswers(vector<string> answers);
 		string* getAnswers();
-		bool submitAnswers(int quizID, int answerData []);
+		bool submitAnswers(int quizID, int answerData [], int uid);
 		void addQuestion(string question);
-		bool saveQuiz();
+		bool saveQuiz(int cid);
 
 	protected:
 		int quizID;

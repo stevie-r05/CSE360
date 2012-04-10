@@ -57,45 +57,38 @@ namespace CSE360Project{
 
 			for(int i = 0; i<questions.size(); i++){
 
-				char newQ[MAX_MEMO_FIELD_SIZE];//define temp char array to store question
-				strcpy (newQ, questions[i].c_str());//convert question to char array
-				db_question_data newQuestion;// = {0,0,"test","0","0","0","0",0,0,"0"};
-				//char test[10] = "test";
-				//for(int i = 0; i<7; i++){
-				//test[2] = {;
-				//}
-				//newQuestion.question = newQ;//add question to new db_question struct
-				/*questionData.push_back(newQ);//add question struct to vector of questions*/
+				db_question_data newQuestion; 
+				WriteStructValue(newQuestion.question,questions[i],true);//add question to new db_question struct
+				newQuestion.order = i;//set question order / #
+				questionData.push_back(newQuestion);//add question struct to vector of questions
 			}
 
 		}
 
-		string* Quiz::getQuestions(){
-			string placeholder = "test";
-			string* test = &placeholder;
-			return test;
+		vector<db_question_data> Quiz::getQuestions(){
+			questionData = db->quizquestions->getQuestions(quizID);
+			return questionData;
 		}
 
 		void Quiz::setAnswers(vector<string> answers){
 			
-			for(int i = 0; i<questionData.size(); i=i+4){
-								
-					/*char* newA1 = char[answers[i].size()+1];//define temp char array to store answer
-					strcpy (newA1, answers[i].c_str());//convert answer to char array
-					questionData[i].answer1 = newA1;//add answer to existing db_question struct
-					
-					char* newA2 = char[answers[i+1].size()+1];//define temp char array to store answer
-					strcpy (newA2, answers[i+1].c_str());//convert answer to char array
-					questionData[i].answer2 = newA2;//add answer to existing db_question struct
-					
-					char* newA3 = char[answers[i+2].size()+1];//define temp char array to store answer
-					strcpy (newA3, answers[i+2].c_str());//convert answer to char array
-					questionData[i].answer3 = newA3;//add answer to existing db_question struct
+			int count=0;
 
-					char* newA4 = char[answers[i+3].size()+1];//define temp char array to store answer
-					strcpy (newA4, answers[i+3].c_str());//convert answer to char array
-					questionData[i].answer4 = newA4;//add answer to existing db_question struct*/
-			
+			for(int i = 0; i<questionData.size(); i++){
+					
+				for(int j = 0; j<5; j++){
+					if(j==0)
+					WriteStructValue(questionData[i].answer1,answers[count],false);	
+					if(j==1)
+					WriteStructValue(questionData[i].answer2,answers[count],false);
+					if(j==2)
+					WriteStructValue(questionData[i].answer3,answers[count],false);
+					if(j==3)
+					WriteStructValue(questionData[i].answer4,answers[count],false);
+					if(j==4)
+					questionData[i].correct_answer=atoi(answers[count].c_str());//save the correct answer, convert it to an int from a string and save 
+					count++;
+				}
 			}
 		}
 
@@ -106,15 +99,41 @@ namespace CSE360Project{
 			return test;
 		}
 
-		bool Quiz::submitAnswers(int quizID, int answerData []){
+		bool Quiz::submitAnswers(int quizID, int answerData [], int uid){
 
+			vector<db_answered_data> answered_data;
+			for(int i = 0; i<questionData.size(); i++){//use size of question vector to step through answer array
+				db_answered_data newAnswer;
+				newAnswer.uid = uid;
+				newAnswer.qid = quizID;
+				newAnswer.question_id = questionData[i].question_id;
+				newAnswer.answer = answerData[i];
+				answered_data.push_back(newAnswer);//add question struct to vector of questions
+			}
+			db->answered->Insert(answered_data);
 			return 1;
 		}
 
 		void Quiz::addQuestion(string question){
 		}
 		
-		bool Quiz::saveQuiz(){
+		bool Quiz::saveQuiz(int cid){
+
+			db_quiz_data* quizDataPtr;
+			db_quiz_data quizData;
+			quizDataPtr = &quizData;
+			quizData.cid = cid;//initialize quiData struct
+			quizData.openDate = openDate;//initialize quiData struct
+			quizData.closeDate = closeDate;//initialize quiData struct
+			quizData.timeLimit = timeLimit;//initialize quiData struct
+			quizID = db->quizzes->Insert(quizDataPtr);//send to quizzes database and return the generated qid
+
+			for(int i = 0; i<questionData.size(); i++)//initialize quiz ID for each question data struct in the vector array
+				questionData[i].qid = quizID;
+
+			db->quizquestions->Insert(questionData);//send vector of quizquestion structs to quizquestions db for storage.
+
+
 			return 1;
 		}
 
