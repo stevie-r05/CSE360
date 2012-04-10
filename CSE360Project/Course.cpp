@@ -16,6 +16,13 @@ namespace CSE360Project {
 			
 		}
 
+		Course::Course(int courseID)
+		{
+			this->courseID = courseID;
+			this->courseName = db->courses->getCourseName(courseID);
+			// this->quizList = db->quizzes->getCourseQuizzes(courseID);	NOTE: Need to change quizList to a vector<int>
+		}
+
 		void Course::setName(string courseName){
 
 		}

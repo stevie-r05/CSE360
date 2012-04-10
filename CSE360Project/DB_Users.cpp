@@ -37,6 +37,10 @@ namespace CSE360Project {
 
 			this->Write();
 		}
+		else
+		{
+			this->Insert(&user_data);
+		}
 	}
 
 	void DB_Users::Delete(int uid) {

@@ -117,7 +117,20 @@ namespace CSE360Project {
 	}
 	*/
 
+	// Adds courseID to userCourses in User object, as well as DB_Enrolled. Need to check if userCourses is going to be kept.
+	void User::addCourseID(int courseID)
+	{
+		userCourses.push_back(courseID);
+		db->enrolled->Insert(userID, courseID);
+	}
 
+	// I'm assuming that what this does is saves the user to the database.
+
+	bool saveUser()
+	{
+		// TO EDIT
+		return true;
+	}
 
 	User::~User() {
 	}
