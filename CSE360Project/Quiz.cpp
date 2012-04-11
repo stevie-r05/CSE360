@@ -132,7 +132,7 @@ namespace CSE360Project{
 			quizData->openDate = openDate;//initialize quiData struct
 			quizData->closeDate = closeDate;//initialize quiData struct
 			quizData->timeLimit = timeLimit;//initialize quiData struct
-			quizID = db->quizzes->Insert(quizData);//send to quizzes database and return the generated qid
+			quizID = db->quizzes->Insert(quizData);// send to quizzes database and return the generated qid
 
 			for(int i = 0; i<questionData.size(); i++)//initialize quiz ID for each question data struct in the vector array
 				questionData[i].qid = quizID;
