@@ -14,7 +14,8 @@ using namespace std;
 namespace CSE360Project {
 	class Course {
 	public:
-		Course(); // Shouldn't we also need a constructor for Course(int cid)? To initialize the local Course class for an existing class...
+		Course();
+		Course(int courseID); // OVerloaded constructor for creating local object from DB_Courses
 		void setName(string courseName);
 		string getName();
 		void setStudents(int studentIDList[]);
