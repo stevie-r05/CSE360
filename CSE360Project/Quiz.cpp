@@ -16,7 +16,7 @@ namespace CSE360Project{
 
 		Quiz::Quiz(){
 			this->quizID = -1;
-			timeLimit = -1;//  initialize variables
+			timeLimit = -1;// initialize variables
 			openDate  = -1;
 			closeDate = -1;
 		}

@@ -41,5 +41,5 @@ namespace CSE360Project {
 
 		db_score_data* gradeQuiz(vector<db_answered_data> answered_data);
 
-			}; //   end User class
+			}; //  end User class
 }
