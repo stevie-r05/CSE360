@@ -17,7 +17,7 @@ namespace CSE360Project {
 	public:
 		
 		Quiz();
-		Quiz(int quizID);
+		Quiz(int quizID,int uid, int cid);
 		void setOpenDate(time_t openDate);
 		time_t getOpenDate();
 		void setCloseDate(time_t closeDate);
@@ -27,13 +27,13 @@ namespace CSE360Project {
 		void setQuestions(vector<string> questions); 
 		vector<db_question_data> getQuestions();
 		void setAnswers(vector<string> answers);
-		string* getAnswers();
+		vector<db_answered_data> getAnswers();
 		bool submitAnswers(int quizID, int answerData [], int uid);
 		void addQuestion(string question);
 		bool saveQuiz(int cid);
 
 	protected:
-		int quizID;
+		int quizID, uid, cid;
 		vector<db_question_data> questionData;
 		int timeLimit;
 		time_t openDate;

@@ -21,8 +21,10 @@ namespace CSE360Project{
 			closeDate = -1;
 		}
 		//overloaded constructor #1 for taking a quiz sequence - pass it a quID and it will initialize its variables with all the data on a specific quiz 
-		Quiz::Quiz(int quizID){
+		Quiz::Quiz(int quizID,int uid, int cid){
 			this->quizID = quizID;
+			this->uid = uid;
+			this->cid = cid;
 			db_quiz_data quizData = db->quizzes->getQuizData(quizID);//get info on quiz from quiz DB
 			timeLimit = quizData.timeLimit;//initialize variables
 			openDate  = quizData.openDate;
@@ -66,6 +68,7 @@ namespace CSE360Project{
 		}
 
 		vector<db_question_data> Quiz::getQuestions(){
+
 			questionData = db->quizquestions->getQuestions(quizID);
 			return questionData;
 		}
@@ -92,11 +95,9 @@ namespace CSE360Project{
 			}
 		}
 
-		string* Quiz::getAnswers(){
-
-			string placeholder = "test";
-			string* test = &placeholder;
-			return test;
+		vector<db_answered_data> Quiz::getAnswers(){
+		
+			return db->answered->getUsersQuizAnswers(uid, quizID);
 		}
 
 		bool Quiz::submitAnswers(int quizID, int answerData [], int uid){
@@ -111,25 +112,27 @@ namespace CSE360Project{
 				answered_data.push_back(newAnswer);//add question struct to vector of questions
 			}
 			db->answered->Insert(answered_data);//insert answered data into answered db
-			this->gradeQuiz(answered_data);//grade the quiz and return a score
-			db->scores->Insert(this->gradeQuiz(answered_data));//insert score data struct in scored DB
+			db->scores->Insert(this->gradeQuiz(answered_data));//grade the quiz and return a score insert score data struct in scored DB
 
 			return 1;
 		}
 
 		void Quiz::addQuestion(string question){
+
+			db_question_data newQuestion; 
+			WriteStructValue(newQuestion.question,question,true);//add question to new db_question struct
+			newQuestion.order = questionData.size();//set question order / #
+			questionData.push_back(newQuestion);//add question struct to vector of questions
 		}
 		
 		bool Quiz::saveQuiz(int cid){
 
-			db_quiz_data* quizDataPtr;
-			db_quiz_data quizData;
-			quizDataPtr = &quizData;
-			quizData.cid = cid;//initialize quiData struct
-			quizData.openDate = openDate;//initialize quiData struct
-			quizData.closeDate = closeDate;//initialize quiData struct
-			quizData.timeLimit = timeLimit;//initialize quiData struct
-			quizID = db->quizzes->Insert(quizDataPtr);//send to quizzes database and return the generated qid
+			db_quiz_data* quizData = new db_quiz_data;
+			quizData->cid = cid;//initialize quiData struct
+			quizData->openDate = openDate;//initialize quiData struct
+			quizData->closeDate = closeDate;//initialize quiData struct
+			quizData->timeLimit = timeLimit;//initialize quiData struct
+			quizID = db->quizzes->Insert(quizData);//send to quizzes database and return the generated qid
 
 			for(int i = 0; i<questionData.size(); i++)//initialize quiz ID for each question data struct in the vector array
 				questionData[i].qid = quizID;
@@ -140,9 +143,11 @@ namespace CSE360Project{
 		}
 
 		db_score_data* Quiz::gradeQuiz(vector<db_answered_data> answered_data){
+			
 			db_score_data* scoreData = new db_score_data;//define pointer for score data struct
 			double quizScore;
 			int incorrectCount=0;//calculate incorrect answers by comparing answered vector array with question vector array 
+			
 			for(int i = 0; i<questionData.size(); i++){
 				
 				if(questionData[i].correct_answer =! answered_data[i].answer)
@@ -151,8 +156,9 @@ namespace CSE360Project{
 			
 			quizScore = incorrectCount/questionData.size();//could format this? 
 			scoreData->score = quizScore;//set score in struct
-			//need to set these options: int uid; int qid; int cid; in score data struct
-
+			scoreData->uid = uid;
+			scoreData->cid = cid;
+			scoreData->qid = quizID;
 			return scoreData; //return pointer to scored data struct
 		}
 }
