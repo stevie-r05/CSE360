@@ -37,7 +37,9 @@ int main(array<System::String ^> ^args)
 		cout << "5 - Test User Update" << endl;
 		cout << "6 - Print Quiz Data" << endl;
 		cout << "7 - Print Quiz Question Data" << endl;
-		cout << "9 - RESET AND POPULATE" << endl;
+		cout << "8 - Create Example Quiz" << endl;
+		cout << "9 - Take and Grade Example Quiz" << endl;
+		cout << "10 - RESET AND POPULATE" << endl;
 		cout << "0 - Exit" << endl;
 		cout << "ANYTHING ELSE - menu with different commands" << endl;
 		cout << "---------POPULATE WITH DUMMY DATA---------" << endl;
@@ -45,7 +47,7 @@ int main(array<System::String ^> ^args)
 		cout << "? ";
 		cin >> choice;
 		cout << endl;
-		if (choice == 1 || choice == 9) {
+		if (choice == 1 || choice == 10) {
 			if (choice == 9) {
 				db->ResetDatabase(true);
 			}
@@ -196,8 +198,11 @@ int main(array<System::String ^> ^args)
 			db->quizzes->outputAllData();
 		} else if (choice == 7){
 			db->quizquestions->outputAllData();
+		} else if (choice == 8){//create example quiz
+			
+		}else if (choice == 9){//take example quiz
+			
 		}
-
 
 		/*cout << "---output usesrs---" << endl;
 		db->users->outputAllData();
