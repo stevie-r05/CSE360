@@ -5,7 +5,6 @@
 
 // Created on 6 April 2012.
 
-#pragma once
 #include "stdafx.h"
 #include "User.h"
 #include "core_header.h"

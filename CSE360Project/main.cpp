@@ -35,6 +35,8 @@ int main(array<System::String ^> ^args)
 		cout << "3 - List Courses (Enrolled/Taught)" << endl;
 		cout << "4 - List Enrolled/Taught Courses" << endl;
 		cout << "5 - Test User Update" << endl;
+		cout << "6 - Print Quiz Data" << endl;
+		cout << "7 - Print Quiz Question Data" << endl;
 		cout << "9 - RESET AND POPULATE" << endl;
 		cout << "0 - Exit" << endl;
 		cout << "ANYTHING ELSE - menu with different commands" << endl;
@@ -117,7 +119,7 @@ int main(array<System::String ^> ^args)
 					db_quiz_data *quiz_data = db->newQuizRow();
 					quiz_data->cid = db->courses->getLastID();
 					quiz_data->openDate = time(NULL);
-					quiz_data->closeDate = time(NULL) + j * 3000;
+					quiz_data->closeDate = time(NULL) + i * 3000;
 					quiz_data->timeLimit = 600;
 
 					db->quizzes->Insert(quiz_data);
@@ -190,6 +192,10 @@ int main(array<System::String ^> ^args)
 			WriteStructValue(user.lastName, "Smith");
 			db->users->Update(user);
 			db->users->outputAllData();
+		} else if (choice == 6){
+			db->quizzes->outputAllData();
+		} else if (choice == 7){
+			db->quizquestions->outputAllData();
 		}
 
 

@@ -46,7 +46,8 @@ namespace CSE360Project {
 		// Quiz Course::getQuiz();
 
 		vector<double> Course::getGrades(){
-			return NULL;
+			vector<double> wat;
+			return wat;
 		}
 
 		//Quiz Course::creatQuiz();

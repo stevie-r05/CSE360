@@ -6,7 +6,6 @@
 // File created on 3 April 2012.
 
 #pragma once
-
 #include "stdafx.h"
 #include "Course.h"
 
