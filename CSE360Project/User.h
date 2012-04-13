@@ -16,13 +16,14 @@ namespace CSE360Project {
 
 	class User {
 	public:
+		User();
 		User(int uID); // Used to initialize a user object from a retrieved uid on login.
 
 		// Methods are straight from the Visio diagram.
 		void setUserID(int uID);
 		int getUserID();
-		void setUserName(string userName);
-		string getUserName();
+		void setUsername(string username);
+		string getUsername();
 		void setPassword(string password);
 		string getPassword();
 		void setLastName(string lastName);
@@ -39,7 +40,7 @@ namespace CSE360Project {
 		Course getCourse(int courseID);
 		void addCourseID(int courseID);
 		bool saveUser();
-		bool login(string userName, string password);
+		bool login(string username, string password);
 		void logout();
 
 		virtual ~User();
@@ -47,7 +48,7 @@ namespace CSE360Project {
 	protected:
 
 		int userID;
-		string userName;
+		string username;
 		string password;
 		string lastName;
 		string firstName;

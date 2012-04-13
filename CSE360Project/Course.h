@@ -15,14 +15,14 @@ namespace CSE360Project {
 	class Course {
 	public:
 		Course();
-		Course(int courseID); // OVerloaded constructor for creating local object from DB_Courses
+		Course(int courseID); // Overloaded constructor for creating local object from DB_Courses
 		void setName(string courseName);
 		string getName();
 		void setStudents(int studentIDList[]);
 		string getStudents();
-		int* getQuizList();
+		vector<db_quiz_data> getQuizList();
 		// Quiz getQuiz();
-		double* getGrades();
+		vector<double> getGrades();
 		//Quiz creatQuiz();
 		void deleteQuiz();
 		void deleteStudents();
@@ -31,7 +31,7 @@ namespace CSE360Project {
 	protected:
 		int courseID;
 		string courseName;
-		int *quizList;
+		vector<db_quiz_data> quizList;
 
 	};
 }

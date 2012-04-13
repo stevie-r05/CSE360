@@ -20,7 +20,7 @@ namespace CSE360Project {
 		{
 			this->courseID = courseID;
 			this->courseName = db->courses->getCourseName(courseID);
-			// this->quizList = db->quizzes->getCourseQuizzes(courseID);	NOTE: Need to change quizList to a vector<int>
+			this->quizList = db->quizzes->getCourseQuizzes(courseID);	// EDITED: Changed quizList to a vector<db_quiz_data> to typematch gCQ method.
 		}
 
 		void Course::setName(string courseName){
@@ -39,14 +39,13 @@ namespace CSE360Project {
 			return "test";
 		}
 
-		int* Course::getQuizList(){
-			int* pointer;
-			return pointer;
+		vector<db_quiz_data> Course::getQuizList(){
+			return db->quizzes->getCourseQuizzes(courseID);
 		}
 
 		// Quiz Course::getQuiz();
 
-		double* Course::getGrades(){
+		vector<double> Course::getGrades(){
 			return NULL;
 		}
 

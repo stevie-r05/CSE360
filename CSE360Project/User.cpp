@@ -14,11 +14,14 @@ using namespace std;
 
 namespace CSE360Project {
 
-	
+	User::User()
+	{
+		userID = 0;
+	}
 	User::User(int uID)
 	{
 		userID = uID;
-		userName = db->users->getUsername(uID);
+		username = db->users->getUsername(uID);
 		firstName = db->users->getFirstname(uID);
 		lastName = db->users->getLastname(uID);
 		userRole = db->users->getUserRole(uID);
@@ -35,14 +38,14 @@ namespace CSE360Project {
 		return userID;
 	}
 
-	void User::setUserName(string userName)
+	void User::setUsername(string username)
 	{
-		this->userName = userName;
+		this->username = username;
 	}
 
-	string User::getUserName()
+	string User::getUsername()
 	{
-		return userName;
+		return username;
 	}
 
 	void User::setPassword(string password)
@@ -105,17 +108,15 @@ namespace CSE360Project {
 		return userRole;
 	}
 
-	//vector<db_course_data> User::getCourses() - Again, not sure if need to remove or not.
+	// vector<db_course_data> User::getCourses() - Again, not sure if need to remove or not.
 
-	/* 
-	NOTE: Needs the Course constructor to be modified to create an existing Course from the DB_Courses.
+	// NOTE: Needs the Course constructor to be modified to create an existing Course from the DB_Courses.
 	
 	Course User::getCourse(int courseID)
 	{
 		Course course = Course::Course(courseID);
 		return course;
 	}
-	*/
 
 	// Adds courseID to userCourses in User object, as well as DB_Enrolled. Need to check if userCourses is going to be kept.
 	void User::addCourseID(int courseID)
@@ -128,10 +129,29 @@ namespace CSE360Project {
 
 	bool saveUser()
 	{
-		// TO EDIT
+		// Check bool?
+		db_user_data toInsert;
+		toInsert->uid = userID;
+		toInsert->username = username;
+		toInsert->password = password;
+		toInsert->lastName = lastName;
+		toInsert->firstName = firstName;
+		toInsert->securityQuestion = securityQ;
+		toInsert->securityAnswer = securityA;
+		toInsert->userRole = userRole;
+
+		db->users->Update(toInsert);
 		return true;
+
+		// ADD: Check in UI for username existing
+	}
+
+	bool login(string username, string password)
+	{
+		// Move login function to Login UI?
 	}
 
 	User::~User() {
+
 	}
 }

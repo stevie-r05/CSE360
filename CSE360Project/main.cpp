@@ -58,14 +58,14 @@ int main(array<System::String ^> ^args)
 				switch (j % 3) {
 				case 1:
 					a = "Hey there how are you all doing on this fine day today?";
-					WriteStructValue(user->username,"David");
+					WriteStructValue(user->username,"David\0");
 					WriteStructValue(user->password, "david_password");
 					WriteStructValue(user->lastName, "Newton");
 					WriteStructValue(user->firstName, "David");
 					user->userRole = teacher;
 					break;
 				case 2:
-					WriteStructValue(user->username,"Ian");
+					WriteStructValue(user->username,"Ian\0");
 					WriteStructValue(user->password, "ian_password");
 					WriteStructValue(user->lastName, "Coast");
 					WriteStructValue(user->firstName, "Ian");
@@ -73,14 +73,17 @@ int main(array<System::String ^> ^args)
 					user->userRole = student;
 					break;
 				default:
-					WriteStructValue(user->username,"TaraM");
+					WriteStructValue(user->username,"TaraM\0");
 					WriteStructValue(user->password, "Tara_Password");
 					WriteStructValue(user->lastName, "Mendoza");
 					WriteStructValue(user->firstName, "Tara");
 					a = "Well I'm as happy as a clam";
 					user->userRole = student;
 				}
-
+				string thisString;
+				thisString = user->username;
+				cout << thisString << endl;
+				WriteStructValue(user->username, thisString);
 				WriteStructValue(user->securityQuestion, a);
 				WriteStructValue(user->securityAnswer, "Hi.");
 

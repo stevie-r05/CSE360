@@ -137,6 +137,7 @@ namespace CSE360Project {
 	db_user_data *DB::newUserRow() {
 		db_user_data *user = new db_user_data ;
 		
+		user->uid = 0;
 		WriteStructValue(user->username,"");
 		WriteStructValue(user->password,"");
 		WriteStructValue(user->lastName,"");
