@@ -10,6 +10,7 @@
 #include "DB.h"
 #include "DB_Users.h"
 #include "DB_Courses.h"
+#include "Quiz.h"
 
 using namespace std;
 using namespace CSE360Project;
@@ -199,6 +200,108 @@ int main(array<System::String ^> ^args)
 		} else if (choice == 7){
 			db->quizquestions->outputAllData();
 		} else if (choice == 8){//create example quiz
+
+			//create quiz object input CID = 1  for CSE 430
+			Quiz exampleQuiz(1);
+
+			//create questions and store in vector string array
+			vector<string>questions;
+			string question1 = "What is 2+2?";
+			questions.push_back(question1);
+			string question2 = "What is 2+3?";
+			questions.push_back(question2);
+			string question3 = "What is 2+4?";
+			questions.push_back(question3);
+			string question4 = "What is 2+5?";
+			questions.push_back(question4);
+			string question5 = "What is 2+6?";
+			questions.push_back(question5);
+
+			//send string vector array to quiz object where it will store and package the questions 
+			exampleQuiz.setQuestions(questions);
+
+			//create and set answers
+			vector<string> answers;
+			
+			string Answer1a = "4";
+			answers.push_back(Answer1a);
+			string Answer1b = "2";
+			answers.push_back(Answer1b);
+			string Answer1c = "3";
+			answers.push_back(Answer1c);
+			string Answer1d = "6";
+			answers.push_back(Answer1d);
+			string Answer1correct = "1";
+			answers.push_back(Answer1correct);
+
+			string Answer2a = "4";
+			answers.push_back(Answer2a);
+			string Answer2b = "5";
+			answers.push_back(Answer2b);
+			string Answer2c = "3";
+			answers.push_back(Answer2c);
+			string Answer2d = "6";
+			answers.push_back(Answer2d);
+			string Answer2correct = "2";
+			answers.push_back(Answer2correct);
+
+			string Answer3a = "3";
+			answers.push_back(Answer3a);
+			string Answer3b = "1";
+			answers.push_back(Answer3b);
+			string Answer3c = "4";
+			answers.push_back(Answer3c);
+			string Answer3d = "6";
+			answers.push_back(Answer3d);
+			string Answer3correct = "4";
+			answers.push_back(Answer3correct);
+
+			string Answer4a = "6";
+			answers.push_back(Answer4a);
+			string Answer4b = "8";
+			answers.push_back(Answer4b);
+			string Answer4c = "7";
+			answers.push_back(Answer4c);
+			string Answer4d = "5";
+			answers.push_back(Answer4d);
+			string Answer4correct = "3";
+			answers.push_back(Answer4correct);
+
+			string Answer5a = "7";
+			answers.push_back(Answer5a);
+			string Answer5b = "8";
+			answers.push_back(Answer5b);
+			string Answer5c = "3";
+			answers.push_back(Answer5c);
+			string Answer5d = "6";
+			answers.push_back(Answer5d);
+			string Answer5correct = "2";
+			answers.push_back(Answer5correct);
+
+			//set answers in quiz object
+			exampleQuiz.setAnswers(answers);
+
+			time_t openDate= time (NULL); 
+			exampleQuiz.setOpenDate(openDate);
+
+			time_t closeDate= time (NULL);
+			exampleQuiz.setCloseDate(closeDate);
+
+			exampleQuiz.setTimeLimit(30);
+
+			exampleQuiz.saveQuiz();
+
+			//display quizquestions DB and QuizAnswers DB to check if everything was stored properly
+			cout << "Displaying Quiz ID:  " << exampleQuiz.quizID << endl;
+			vector<db_question_data> displayQuestions = db->quizquestions->getQuestions(exampleQuiz.quizID);
+			for (int i = 0; i < (int) displayQuestions.size(); i++) {
+				cout <<"question: "<< i+1 <<". "<<displayQuestions[i].question << endl;
+				cout <<"A"<<". "<<displayQuestions[i].answer1 << endl;
+				cout <<"B"<<". "<<displayQuestions[i].answer2 << endl;
+				cout <<"C"<<". "<<displayQuestions[i].answer3 << endl;
+				cout <<"D"<<". "<<displayQuestions[i].answer4 << endl;
+				cout <<"answer: "<<displayQuestions[i].correct_answer << endl;
+			}
 			
 		}else if (choice == 9){//take example quiz
 			

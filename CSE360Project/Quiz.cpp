@@ -14,11 +14,12 @@ using namespace std;
 
 namespace CSE360Project{
 
-		Quiz::Quiz(){
-			this->quizID = -1;
-			timeLimit = -1;// initialize variables
-			openDate  = -1;
-			closeDate = -1;
+		Quiz::Quiz(int cid){
+			this->cid = cid;
+			this->quizID = 0;
+			timeLimit = 0;// initialize variables
+			openDate  = 0;
+			closeDate = 0;
 		}
 		//overloaded constructor #1 for taking a quiz sequence - pass it a quID and it will initialize its variables with all the data on a specific quiz 
 		Quiz::Quiz(int quizID,int uid, int cid){
@@ -73,7 +74,7 @@ namespace CSE360Project{
 			return questionData;
 		}
 
-		void Quiz::setAnswers(vector<string> answers){
+		void Quiz::setAnswers(vector<string> answers){//used when creating a quiz to set the multiple choice answers and the correct answer
 			
 			int count=0;
 
@@ -125,7 +126,7 @@ namespace CSE360Project{
 			questionData.push_back(newQuestion);//add question struct to vector of questions
 		}
 		
-		bool Quiz::saveQuiz(int cid){
+		bool Quiz::saveQuiz(){
 
 			db_quiz_data* quizData = new db_quiz_data;
 			quizData->cid = cid;//initialize quiData struct
