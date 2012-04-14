@@ -304,8 +304,53 @@ int main(array<System::String ^> ^args)
 			}
 			
 		}else if (choice == 9){//take example quiz
-			
-		}
+
+			//create new quiz object to store data
+			Quiz Quiz(27,3, 1);
+			//create question data struct vector array for questions
+			vector<db_question_data> displayQuestions = Quiz.getQuestions();
+			//create dynamic array to hold answers
+			int *answers = new int[displayQuestions.size()];
+			string temp;
+
+			//display questions sequencially on the screen
+			for (int i = 0; i < (int) displayQuestions.size(); i++) {
+		
+				cout <<"question: "<< i+1 <<". "<<displayQuestions[i].question << endl;
+				cout <<"A"<<". "<<displayQuestions[i].answer1 << endl;
+				cout <<"B"<<". "<<displayQuestions[i].answer2 << endl;
+				cout <<"C"<<". "<<displayQuestions[i].answer3 << endl;
+				cout <<"D"<<". "<<displayQuestions[i].answer4 << endl;
+				cout <<"Please enter the correct answer: ";
+				
+				//make sure the correct characters/strings are used by the quia taker 
+				do{
+					cin >>temp;
+					if(temp == "A" || temp == "B" || temp == "C" || temp == "D"){
+					break;
+					}
+					 cout<<"Incorrect character entered please enter A, B, C, or D: ";
+				}while(true);
+
+				//save answer to answer int []
+				if(temp == "A")
+					answers[i] = 1;
+				if(temp == "B")
+					answers[i] = 2;
+				if(temp == "C")
+					answers[i] = 3;
+				if(temp == "D")
+					answers[i] = 4;
+			}//end foor loop
+
+			//submit and grade quiz
+			Quiz.submitAnswers(answers);
+
+			//this is not working it keeps retunring a 0.  I have checkedevrything in the quiz class and it all works
+			double grade = db->scores->getUserQuizScore(3, 27);
+			cout<<"The grade for this quiz is: "<<grade<< endl;
+
+		}//end else
 
 		/*cout << "---output usesrs---" << endl;
 		db->users->outputAllData();
@@ -324,6 +369,7 @@ int main(array<System::String ^> ^args)
 
 	} while (choice != 0);
 
+	db->ResetDatabase(true);   
 	delete db;
 
 	/*DB_Users *db = new DB_Users();

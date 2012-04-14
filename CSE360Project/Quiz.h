@@ -28,7 +28,7 @@ namespace CSE360Project {
 		vector<db_question_data> getQuestions();
 		void setAnswers(vector<string> answers);
 		vector<db_answered_data> getAnswers();
-		bool submitAnswers(int quizID, int answerData [], int uid);
+		bool submitAnswers(int answerData []);
 		void addQuestion(string question);
 		bool saveQuiz();
 
