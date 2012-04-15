@@ -77,7 +77,7 @@ namespace CSE360Project {
 		return firstName;
 	}
 
-	void User::setSecurityQ(string securityQ);
+	void User::setSecurityQ(string securityQ)
 	{
 		this->securityQ = securityQ;
 	}
@@ -125,19 +125,18 @@ namespace CSE360Project {
 	}
 
 	// I'm assuming that what this does is saves the user to the database.
-
-	bool saveUser()
+	bool User::saveUser()
 	{
 		// Check bool?
 		db_user_data toInsert;
-		toInsert->uid = userID;
-		toInsert->username = username;
-		toInsert->password = password;
-		toInsert->lastName = lastName;
-		toInsert->firstName = firstName;
-		toInsert->securityQuestion = securityQ;
-		toInsert->securityAnswer = securityA;
-		toInsert->userRole = userRole;
+		toInsert.uid = userID;
+		WriteStructValue(toInsert.username,username);
+		WriteStructValue(toInsert.password,password);
+		WriteStructValue(toInsert.lastName,lastName);
+		WriteStructValue(toInsert.firstName,firstName);
+		WriteStructValue(toInsert.securityQuestion,securityQ);
+		WriteStructValue(toInsert.securityAnswer,securityA);
+		toInsert.userRole = userRole;
 
 		db->users->Update(toInsert);
 		return true;
@@ -145,9 +144,11 @@ namespace CSE360Project {
 		// ADD: Check in UI for username existing
 	}
 
-	bool login(string username, string password)
+	bool User::login(string username, string password)
 	{
 		// Move login function to Login UI?
+
+		return true;
 	}
 
 	User::~User() {

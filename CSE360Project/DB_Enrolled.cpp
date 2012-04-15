@@ -151,7 +151,7 @@ namespace CSE360Project {
 				cout << endl << endl;
 			}
 		} else {
-			cout << "Course Data is empty." << endl;
+			cout << "Enrolled Data is empty." << endl;
 		}
 	}
 

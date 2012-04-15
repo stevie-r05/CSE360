@@ -40,7 +40,8 @@ int main(array<System::String ^> ^args)
 		cout << "7 - Print Quiz Question Data" << endl;
 		cout << "8 - Create Example Quiz" << endl;
 		cout << "9 - Take and Grade Example Quiz" << endl;
-		cout << "10 - RESET AND POPULATE" << endl;
+		cout << "10 - List Data" << endl;
+		cout << "11 - RESET AND POPULATE" << endl;
 		cout << "0 - Exit" << endl;
 		cout << "ANYTHING ELSE - menu with different commands" << endl;
 		cout << "---------POPULATE WITH DUMMY DATA---------" << endl;
@@ -48,8 +49,8 @@ int main(array<System::String ^> ^args)
 		cout << "? ";
 		cin >> choice;
 		cout << endl;
-		if (choice == 1 || choice == 10) {
-			if (choice == 9) {
+		if (choice == 1 || choice == 11) {
+			if (choice == 11) {
 				db->ResetDatabase(true);
 			}
 
@@ -303,10 +304,10 @@ int main(array<System::String ^> ^args)
 				cout <<"answer: "<<displayQuestions[i].correct_answer << endl;
 			}
 			
-		}else if (choice == 9){//take example quiz
+		} else if (choice == 9) {//take example quiz
 
 			//create new quiz object to store data
-			Quiz Quiz(27,3, 1);
+			Quiz Quiz(5,3, 1);
 			//create question data struct vector array for questions
 			vector<db_question_data> displayQuestions = Quiz.getQuestions();
 			//create dynamic array to hold answers
@@ -330,7 +331,7 @@ int main(array<System::String ^> ^args)
 					break;
 					}
 					 cout<<"Incorrect character entered please enter A, B, C, or D: ";
-				}while(true);
+				} while(true);
 
 				//save answer to answer int []
 				if(temp == "A")
@@ -347,9 +348,46 @@ int main(array<System::String ^> ^args)
 			Quiz.submitAnswers(answers);
 
 			//this is not working it keeps retunring a 0.  I have checkedevrything in the quiz class and it all works
-			double grade = db->scores->getUserQuizScore(3, 27);
-			cout<<"The grade for this quiz is: "<<grade<< endl;
+			double grade = db->scores->getUserQuizScore(3, 5);
+			cout<<"The grade for this quiz is: " << grade << endl;
 
+		} else if (choice == 10) {
+			cout << endl;
+			cout << "Select which database you'd like to output." << endl;
+			cout << "1 - Answered" << endl;
+			cout << "2 - Courses" << endl;
+			cout << "3 - Enrolled" << endl;
+			cout << "4 - Quiz Questions" << endl;
+			cout << "5 - Quizzes" << endl;
+			cout << "6 - Scores" << endl;
+			cout << "7 - Users" << endl;
+			cout << "? " << endl;
+			
+			cin >> choice;
+			cout << endl;
+			switch (choice) {
+			case 1:
+				db->answered->outputAllData();
+				break;
+			case 2:
+				db->courses->outputAllData();
+				break;
+			case 3:
+				db->enrolled->outputAllData();
+				break;
+			case 4:
+				db->quizquestions->outputAllData();
+				break;
+			case 5:
+				db->quizzes->outputAllData();
+				break;
+			case 6:
+				db->scores->outputAllData();
+				break;
+			case 7:
+				db->users->outputAllData();
+				break;
+			}
 		}//end else
 
 		/*cout << "---output usesrs---" << endl;
@@ -369,7 +407,7 @@ int main(array<System::String ^> ^args)
 
 	} while (choice != 0);
 
-	db->ResetDatabase(true);   
+	//db->ResetDatabase(true);   
 	delete db;
 
 	/*DB_Users *db = new DB_Users();
@@ -416,12 +454,13 @@ int main(array<System::String ^> ^args)
 
 
 
-	// Enabling Windows XP visual effects before any controls are created
+	/*// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 
 
 
 	// Create the main window and run it
 	Application::Run(gcnew main_form());
+	*/
 	return 0;
 }
