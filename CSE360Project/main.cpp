@@ -1,5 +1,5 @@
 // CSE360Project.cpp : main project file.
-/*THESE TWO MUST BE INCLUDED IN EVERY FILE*/
+/*THESE TWO MUST BE INCLUDED IN EVERY FILE*/ 
 #include "stdafx.h"
 #include "core_header.h"
 /*THESE TWO MUST BE INCLUDED IN EVERY FILE*/

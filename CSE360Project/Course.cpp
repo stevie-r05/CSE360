@@ -2,7 +2,7 @@
 
 // Quiz.h is the header file for the Quiz.cpp file, which will is used to hold information on a specific quiz
 
-// File created on 5 April 2012.
+// File created on 5 April 2012. 
 
 #include "stdafx.h"
 #include "core_header.h"
