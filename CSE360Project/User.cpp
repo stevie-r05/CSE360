@@ -147,7 +147,6 @@ namespace CSE360Project {
 	bool User::login(string username, string password)
 	{
 		// Move login function to Login UI?
-
 		return true;
 	}
 

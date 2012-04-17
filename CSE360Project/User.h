@@ -44,7 +44,7 @@ namespace CSE360Project {
 
 		virtual ~User();
 	
-	protected:
+	public:
 
 		int userID;
 		string username;

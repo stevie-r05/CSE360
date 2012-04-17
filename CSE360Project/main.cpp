@@ -11,6 +11,7 @@
 #include "DB_Users.h"
 #include "DB_Courses.h"
 #include "Quiz.h"
+#include "User.cpp"
 
 using namespace std;
 using namespace CSE360Project;
@@ -42,7 +43,8 @@ int main(array<System::String ^> ^args)
 		cout << "9 - Take and Grade Example Quiz" << endl;
 		cout << "10 - Test Course Class" << endl;
 		cout << "11 - List Data" << endl;
-		cout << "12 - RESET AND POPULATE" << endl;
+		cout << "12 - Test Login Functionality" << endl;
+		cout << "13 - RESET AND POPULATE" << endl;
 		cout << "0 - Exit" << endl;
 		cout << "ANYTHING ELSE - menu with different commands" << endl;
 		cout << "---------POPULATE WITH DUMMY DATA---------" << endl;
@@ -50,8 +52,8 @@ int main(array<System::String ^> ^args)
 		cout << "? ";
 		cin >> choice;
 		cout << endl;
-		if (choice == 1 || choice == 11) {
-			if (choice == 12) {
+		if (choice == 1 || choice == 13) {
+			if (choice == 13) {
 				db->ResetDatabase(true);
 			}
 
@@ -409,7 +411,28 @@ int main(array<System::String ^> ^args)
 				db->users->outputAllData();
 				break;
 			}
-		}//end else
+		} else if (choice == 12){//Test Login and User Functionality
+			string uName;
+			string pWord;
+			cout << "Username: ";
+			cin >> uName;
+			cout << "Password: ";
+			cin >> pWord;
+			if (db->users->validateUser(uName,pWord)){
+				int uID = db->users->getUID(uName);
+				User localUser(uID);
+				cout << "Login Successful." << endl;
+				cout << "Username: " << localUser.username << endl;
+				cout << "First Name: " << localUser.firstName << endl;
+				cout << "Last Name: " << localUser.lastName << endl;
+				cout << "User Role: " << localUser.userRole << endl;
+			}
+			else{
+				cout << "Login Failed. Check username/password combination." << endl;
+			}
+		}
+		
+		//end else
 
 		/*cout << "---output usesrs---" << endl;
 		db->users->outputAllData();
