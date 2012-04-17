@@ -40,8 +40,9 @@ int main(array<System::String ^> ^args)
 		cout << "7 - Print Quiz Question Data" << endl;
 		cout << "8 - Create Example Quiz" << endl;
 		cout << "9 - Take and Grade Example Quiz" << endl;
-		cout << "10 - List Data" << endl;
-		cout << "11 - RESET AND POPULATE" << endl;
+		cout << "10 - Test Course Class" << endl;
+		cout << "11 - List Data" << endl;
+		cout << "12 - RESET AND POPULATE" << endl;
 		cout << "0 - Exit" << endl;
 		cout << "ANYTHING ELSE - menu with different commands" << endl;
 		cout << "---------POPULATE WITH DUMMY DATA---------" << endl;
@@ -50,7 +51,7 @@ int main(array<System::String ^> ^args)
 		cin >> choice;
 		cout << endl;
 		if (choice == 1 || choice == 11) {
-			if (choice == 11) {
+			if (choice == 12) {
 				db->ResetDatabase(true);
 			}
 
@@ -352,6 +353,26 @@ int main(array<System::String ^> ^args)
 			cout<<"The grade for this quiz is: " << grade << endl;
 
 		} else if (choice == 10) {
+
+			cout << endl;
+			cout << "1 - Create a Course" << endl;
+			cout << "2 - Load a Course" << endl;
+			cout << "3 - Exit to Previous Menu" << endl;
+			cin >> choice;
+			cout << endl;
+			switch (choice) {
+			case 1:
+
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				break;
+			}
+
+		}else if (choice == 11) {
+			
 			cout << endl;
 			cout << "Select which database you'd like to output." << endl;
 			cout << "1 - Answered" << endl;

@@ -14,16 +14,16 @@ using namespace std;
 namespace CSE360Project {
 	class Course {
 	public:
-		Course();
+		Course(int userID, string courseName);//overloaded constructor to create a course called from teacher class
 		Course(int courseID); // Overloaded constructor for creating local object from DB_Courses
 		void setName(string courseName);
 		string getName();
 		void setStudents(int studentIDList[]);
-		string getStudents();
+		vector<db_enrolled_data> getStudents();
 		vector<db_quiz_data> getQuizList();
-		// Quiz getQuiz();
-		vector<double> getGrades();
-		//Quiz creatQuiz();
+		// Quiz getQuiz(); handled by UI
+		vector<db_score_data> getGrades();
+		//Quiz creatQuiz();handled by UI
 		void deleteQuiz();
 		void deleteStudents();
 		int addCourseData(int userID, string courseName);

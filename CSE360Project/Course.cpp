@@ -12,8 +12,13 @@
 namespace CSE360Project {
 
 	
-		Course::Course(){
+		Course::Course(int userID, string courseName){//overloaded constructor to create a course called from teacher class
 			
+			this->courseName = courseName;
+			db_course_data *newCourse = new db_course_data;
+			newCourse->uid=userID;
+			WriteStructValue(newCourse->courseName, courseName, false);
+			courseID = db->courses->Insert(newCourse);
 		}
 
 		Course::Course(int courseID)
@@ -24,19 +29,25 @@ namespace CSE360Project {
 		}
 
 		void Course::setName(string courseName){
-
+			this->courseName = courseName;
 		}
 
 		string Course::getName(){
-			return "test";
+			return courseName;
 		}
 
 		void Course::setStudents(int studentIDList[]){
 
+			for (int i=0;i<sizeof studentIDList/sizeof(int); i++){
+
+				db->enrolled->Insert(studentIDList[i], courseID);
+			}
+
 		}
 
-		string Course::getStudents(){
-			return "test";
+		vector<db_enrolled_data>  Course::getStudents(){
+			vector<db_enrolled_data> enrolled;
+			return enrolled;
 		}
 
 		vector<db_quiz_data> Course::getQuizList(){
@@ -45,8 +56,8 @@ namespace CSE360Project {
 
 		// Quiz Course::getQuiz();
 
-		vector<double> Course::getGrades(){
-			vector<double> wat;
+		vector<db_score_data> Course::getGrades(){
+			vector<db_score_data> wat;
 			return wat;
 		}
 
