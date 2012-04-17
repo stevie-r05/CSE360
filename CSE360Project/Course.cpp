@@ -50,29 +50,47 @@ namespace CSE360Project {
 			return enrolled;
 		}
 
-		vector<db_quiz_data> Course::getQuizList(){
-			return db->quizzes->getCourseQuizzes(courseID);
+		vector<db_quiz_data> Course::getQuizList(){			
+			vector<db_quiz_data> updatedQuizList = db->quizzes->getCourseQuizzes(courseID);//get quiz list from db
+			this->quizList = updatedQuizList;//update quizlist instance variable in course object
+			return updatedQuizList;//return quizlist
 		}
 
-		// Quiz Course::getQuiz();
+		Quiz* Course::getQuiz(int quizID,int uid, int cid){
+
+			Quiz *selectedQuiz = new Quiz(quizID,uid,cid);
+			return selectedQuiz;
+		}
 
 		vector<db_score_data> Course::getGrades(){
-			vector<db_score_data> wat;
-			return wat;
+			vector<db_score_data> classScores;
+			classScores = db->scores->getClassScores(courseID);
+			return classScores;
 		}
 
-		//Quiz Course::creatQuiz();
+		Quiz* Course::creatQuiz(){
 
-		void Course::deleteQuiz(){
+			Quiz* newQuiz = new Quiz(courseID);
+			return newQuiz;
+		}
+
+		void Course::deleteQuiz(int qid){
+
+			db->DeleteQuiz(qid);//delete quiz
+			this->quizList = db->quizzes->getCourseQuizzes(courseID);//update quizlist instance variable in course object
+		}
+
+		void Course::deleteStudents(int uid[]){
+
+			for (int i=0;i<sizeof uid/sizeof(int); i++){//delete students from DB
+			db->enrolled->Unenroll(uid[i], courseID);
+			}
 
 		}
 
-		void Course::deleteStudents(){
-
-		}
-
-		int Course::addCourseData(int userID, string courseName){
+		/*int Course::addCourseData(int userID, string courseName){
 			return 1;
-		}
+		}*///this is taken care of by the constructor and is no longer needed
+
 
 }

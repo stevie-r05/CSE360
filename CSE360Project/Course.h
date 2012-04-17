@@ -8,7 +8,7 @@
 #pragma once
 #include "stdafx.h"
 #include "core_header.h"
-
+#include "Quiz.h"
 using namespace std;
 
 namespace CSE360Project {
@@ -21,12 +21,12 @@ namespace CSE360Project {
 		void setStudents(int studentIDList[]);
 		vector<db_enrolled_data> getStudents();
 		vector<db_quiz_data> getQuizList();
-		// Quiz getQuiz(); handled by UI
+		Quiz* Course::getQuiz(int quizID,int uid, int cid);
 		vector<db_score_data> getGrades();
-		//Quiz creatQuiz();handled by UI
-		void deleteQuiz();
-		void deleteStudents();
-		int addCourseData(int userID, string courseName);
+		Quiz* creatQuiz();
+		void deleteQuiz(int qid);
+		void deleteStudents(int uid[]);
+		//int addCourseData(int userID, string courseName);//this is taken care of by the constructor and is no longer needed
 
 	protected:
 		int courseID;
