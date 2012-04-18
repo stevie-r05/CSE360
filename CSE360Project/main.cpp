@@ -48,7 +48,8 @@ int main(array<System::String ^> ^args)
 		cout << "10 - Test Course Class" << endl;
 		cout << "11 - List Data" << endl;
 		cout << "12 - Test Login Functionality" << endl;
-		cout << "13 - RESET AND POPULATE" << endl;
+		cout << "13 - Run the Prototype Program" << endl;
+		cout << "14 - RESET AND POPULATE" << endl;
 		cout << "0 - Exit" << endl;
 		cout << "ANYTHING ELSE - menu with different commands" << endl;
 		cout << "---------POPULATE WITH DUMMY DATA---------" << endl;
@@ -57,7 +58,7 @@ int main(array<System::String ^> ^args)
 		cin >> choice;
 		cout << endl;
 		if (choice == 1 || choice == 13) {
-			if (choice == 13) {
+			if (choice == 14) {
 				db->ResetDatabase(true);
 			}
 
@@ -481,9 +482,9 @@ int main(array<System::String ^> ^args)
 			else{
 				cout << "Login Failed. Check username/password combination." << endl;
 			}
-		}
-		
-		//end else
+		}else if (choice == 13){//RUN THE PROTOTYPE PROGRAM
+
+		}//end else
 
 		/*cout << "---output usesrs---" << endl;
 		db->users->outputAllData();
