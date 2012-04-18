@@ -19,12 +19,22 @@ namespace CSE360Project {
 	}
 	User::User(int uID)
 	{
-		userID = uID;
-		username = db->users->getUsername(uID);
-		firstName = db->users->getFirstname(uID);
-		lastName = db->users->getLastname(uID);
-		userRole = db->users->getUserRole(uID);
-		// See about using getUserData instead
+		db_user_data userData = db->users->getUserData(uID);
+		userID = userData.uid;
+		username = userData.username;
+		firstName = userData.firstName;
+		lastName = userData.lastName;
+		securityQ = userData.securityQuestion; 
+		securityA = userData.securityAnswer;
+		password = userData.password;
+		userRole = userData.userRole;
+
+		if(userRole == 0){//if its a student load enrolled courses
+		enrolledCourses = db->enrolled->getEnrolledCourses(uID); 
+		}else{//if teacher load taught courses
+			taughtCourses = db->courses->getTaughtCourses(uID);
+		}
+		
 	}
 
 	void User::setUserID(int uID)
@@ -120,8 +130,8 @@ namespace CSE360Project {
 	// Adds courseID to userCourses in User object, as well as DB_Enrolled. Need to check if userCourses is going to be kept.
 	void User::addCourseID(int courseID)
 	{
-		userCourses.push_back(courseID);
-		db->enrolled->Insert(userID, courseID);
+		//enrolledCourses.push_back(courseID);
+		//db->enrolled->Insert(userID, courseID);
 	}
 
 	// I'm assuming that what this does is saves the user to the database.
@@ -146,7 +156,7 @@ namespace CSE360Project {
 
 	bool User::login(string username, string password)
 	{
-		// Move login function to Login UI?
+		// Move login function to Login UI?//I agree - D.N.
 		return true;
 	}
 

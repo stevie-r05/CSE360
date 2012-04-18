@@ -53,9 +53,9 @@ namespace CSE360Project {
 		string firstName;
 		string securityQ;
 		string securityA;
-		user_role_t userRole; // Change in Visio to struct user_role_t? Right now it's a string.
-		vector<int> userCourses; // Need to change in Visio, or decide what to do with it, at least. Will we actually have this?
-
+		user_role_t userRole; 
+		vector<db_enrolled_data> enrolledCourses; 
+		vector<db_course_data> taughtCourses;//for simplicity I'm combining the teacher and user objects for now
 	}; // end User class
 
 }
