@@ -11,7 +11,7 @@
 #include "DB_Users.h"
 #include "DB_Courses.h"
 #include "Quiz.h"
-#include "User.cpp"
+#include "User.h"
 #include "DB_Courses.h"
 
 using namespace std;
@@ -25,8 +25,11 @@ int main(array<System::String ^> ^args)
 	//Set the DB Variable with the new database.
 	db = new DB();
 
-	//instantiate a course object for the course menu
-	Course* newCourse;
+	//declare variables used in switch statements
+	Course *newCourse;
+	User *localUser;
+	string uName;
+	string pWord;
 
 	int choice;
 	vector<db_user_data > *usrs = new vector<db_user_data >;
@@ -483,6 +486,38 @@ int main(array<System::String ^> ^args)
 				cout << "Login Failed. Check username/password combination." << endl;
 			}
 		}else if (choice == 13){//RUN THE PROTOTYPE PROGRAM
+
+			cout << "Welcome to the Just-In-Time Classroom Companion" << endl;
+			cout << "Please choose from the following options:" << endl;
+			cout << "1 - Login" << endl;
+			cout << "2 - Register" << endl;
+			cout << "3 - Quit" << endl;
+
+			switch (choice) {//LOGIN MENU
+					case 1:
+						cout << "Username: ";
+						cin >> uName;
+						cout << "Password: ";
+						cin >> pWord;
+						if (db->users->validateUser(uName,pWord)){
+							int uID = db->users->getUID(uName);
+							localUser = new User(uID);
+							cout << "Login Successful." << endl;
+							cout << "Username: " << localUser->username << endl;
+							cout << "First Name: " << localUser->firstName << endl;
+							cout << "Last Name: " << localUser->lastName << endl;
+							cout << "User Role: " << localUser->userRole << endl;
+						}
+						else{
+							cout << "Login Failed. Check username/password combination." << endl;
+						}
+						break;
+					case 2:
+				
+						break;
+					case 3:
+						break;
+			}//END LOGIN MENU
 
 		}//end else
 
