@@ -35,12 +35,17 @@ namespace CSE360Project {
 		string getSecurityA();
 		void setUserRole(user_role_t userRole);
 		user_role_t getUserRole();
-		vector<db_course_data> getCourses(); // We need to check out this method; were we going to get rid of it?
-		Course getCourse(int courseID);
-		void addCourseID(int courseID);
+		vector<db_enrolled_data> getEnrolledCourses(); // We need to check out this method; were we going to get rid of it?//I think we keep it so we can access the list of courses
+		vector<db_course_data> getTaughtCourses();
+		Course* getCourse(int courseID);
+		//void addCourseID(int courseID);
 		bool saveUser();
-		bool login(string username, string password);
-		void logout();
+		//bool login(string username, string password);
+		//void logout();
+
+		//added teacher methods
+		void deleteCourse(int cid);
+		Course* createCourse(string courseName);
 
 		virtual ~User();
 	

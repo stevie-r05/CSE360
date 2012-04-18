@@ -117,22 +117,32 @@ namespace CSE360Project {
 		return userRole;
 	}
 
-	// vector<db_course_data> User::getCourses() - Again, not sure if need to remove or not.
+	vector<db_enrolled_data> User::getEnrolledCourses(){ //- Again, not sure if need to remove or not.
+
+			return enrolledCourses; 
+
+	}
+
+	vector<db_course_data> User::getTaughtCourses(){ //- Again, not sure if need to remove or not.
+
+			return taughtCourses;
+	}
 
 	// NOTE: Needs the Course constructor to be modified to create an existing Course from the DB_Courses.
 	
-	Course User::getCourse(int courseID)
+	Course* User::getCourse(int courseID)
 	{
-		Course course = Course::Course(courseID);
+		Course *course =  new Course(courseID);
 		return course;
 	}
 
 	// Adds courseID to userCourses in User object, as well as DB_Enrolled. Need to check if userCourses is going to be kept.
-	void User::addCourseID(int courseID)
+	// To simplify I'm going to make it so the teacher is th eonly one who enrolles people in courses.  Students cannot enroll themselves.  Taking this method out.
+	/*void User::addCourseID(int courseID)
 	{
 		//enrolledCourses.push_back(courseID);
 		//db->enrolled->Insert(userID, courseID);
-	}
+	}*/
 
 	// I'm assuming that what this does is saves the user to the database.
 	bool User::saveUser()
@@ -154,11 +164,25 @@ namespace CSE360Project {
 		// ADD: Check in UI for username existing
 	}
 
-	bool User::login(string username, string password)
+	/*bool User::login(string username, string password)
 	{
 		// Move login function to Login UI?//I agree - D.N.
 		return true;
+	}*/
+
+	
+	//added teacher methods
+	void User::deleteCourse(int cid){
+		db->DeleteCourse(cid);
+		taughtCourses = db->courses->getTaughtCourses(userID);//update taughtCourses vector list in User Object
 	}
+	
+	Course* User::createCourse(string courseName){
+		Course *newCourse = new Course(userID, courseName);
+		taughtCourses = db->courses->getTaughtCourses(userID);//update taughtCourses vector list in User Object
+		return newCourse;
+	}
+
 
 	User::~User() {
 
