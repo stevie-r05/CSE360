@@ -12,6 +12,7 @@
 #include "DB_Courses.h"
 #include "Quiz.h"
 #include "User.cpp"
+#include "DB_Courses.h"
 
 using namespace std;
 using namespace CSE360Project;
@@ -23,6 +24,9 @@ int main(array<System::String ^> ^args)
 {
 	//Set the DB Variable with the new database.
 	db = new DB();
+
+	//instantiate a course object for the course menu
+	Course* newCourse;
 
 	int choice;
 	vector<db_user_data > *usrs = new vector<db_user_data >;
@@ -354,25 +358,72 @@ int main(array<System::String ^> ^args)
 			double grade = db->scores->getUserQuizScore(3, 5);
 			cout<<"The grade for this quiz is: " << grade << endl;
 
-		} else if (choice == 10) {
+		} else if (choice == 10) {//COURSE CLASS TEST MENU
 
 			cout << endl;
 			cout << "1 - Create a Course" << endl;
-			cout << "2 - Load a Course" << endl;
-			cout << "3 - Exit to Previous Menu" << endl;
+			cout << "2 - List Courses" << endl;
+			cout << "3 - Load a Course" << endl;
+			cout << "4 - Exit to Previous Menu" << endl;
 			cin >> choice;
 			cout << endl;
 			switch (choice) {
-			case 1:
+			case 1://CREATE COURSE SUB MENU
+				newCourse = new Course(1, "CSE 360");
+				cout << "Course: "<<newCourse->getName()<<" created"<<endl;
+				cout << endl;
+				cout << "1 - Set Students" << endl;
+				cout << "2 - Get Students" << endl;
+				cout << "3 - Delete Students" << endl;
+				cout << "4 - Create a Quiz" << endl;
+				cout << "5 - Delete a Quiz" << endl;
+				cout << "6 - Exit to Previous Menu" << endl;
+				cin >> choice;
+				cout << endl;
 
+				switch (choice) {//CREATE COURSE SUB MENU
+					case 1:
+						cout << "Enter student ID's" << endl;
+						break;
+					case 2:
+				
+						break;
+					case 3:
+				
+						break;
+					case 4:
+				
+						break;
+					case 5:
+				
+						break;
+					case 6:
+						free(newCourse);//free memmory 
+						break;
+				}//END CREATE COURSE SUB MENU
 				break;
 			case 2:
-				
+				db->courses->outputAllData();
 				break;
-			case 3:
+			case 3://edit/view a course options
+				cout << "Enter CourseID" << endl;
+				cin >> choice;
+				cout << endl;
+				newCourse = new Course(choice);
+				cout << "Course: "<<newCourse->getName()<<" created"<<endl;
+				cout << endl;
+				cout << "1 - Create a Course" << endl;
+				cout << "2 - List Courses" << endl;
+				cout << "3 - Load a Course" << endl;
+				cout << "4 - Exit to Previous Menu" << endl;
+				cin >> choice;
+				cout << endl;
+
+
+				break;
+			case 4:
 				break;
 			}
-
 		}else if (choice == 11) {
 			
 			cout << endl;
