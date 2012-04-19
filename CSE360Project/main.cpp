@@ -30,6 +30,10 @@ int main(array<System::String ^> ^args)
 	User *localUser;
 	string uName;
 	string pWord;
+	vector<db_enrolled_data> enrolledCourses;
+	vector<db_course_data> taughtCourses;
+	int cid;
+	vector<db_quiz_data> quizList;
 
 	int choice;
 	vector<db_user_data > *usrs = new vector<db_user_data >;
@@ -60,7 +64,7 @@ int main(array<System::String ^> ^args)
 		cout << "? ";
 		cin >> choice;
 		cout << endl;
-		if (choice == 1 || choice == 13) {
+		if (choice == 1 || choice == 14) {
 			if (choice == 14) {
 				db->ResetDatabase(true);
 			}
@@ -428,7 +432,7 @@ int main(array<System::String ^> ^args)
 			case 4:
 				break;
 			}
-		}else if (choice == 11) {
+		}else if (choice == 11) {//OUTPUT DATABASES MENU
 			
 			cout << endl;
 			cout << "Select which database you'd like to output." << endl;
@@ -486,39 +490,66 @@ int main(array<System::String ^> ^args)
 				cout << "Login Failed. Check username/password combination." << endl;
 			}
 		}else if (choice == 13){//RUN THE PROTOTYPE PROGRAM
+			
+			do{
+				cout << "Welcome to the Just-In-Time Classroom Companion" << endl;
+				cout << "Please choose from the following options:" <<"\n"<< endl;
+				cout << "1 - Login" << endl;
+				cout << "2 - Register" << endl;
+				cout << "3 - Quit" << "\n"<< endl;
+				cin >> choice;
 
-			cout << "Welcome to the Just-In-Time Classroom Companion" << endl;
-			cout << "Please choose from the following options:" << endl;
-			cout << "1 - Login" << endl;
-			cout << "2 - Register" << endl;
-			cout << "3 - Quit" << endl;
-
-			switch (choice) {//LOGIN MENU
-					case 1:
+				switch (choice) {//LOGIN MENU
+					case 1://LOGIN
 						cout << "Username: ";
 						cin >> uName;
 						cout << "Password: ";
 						cin >> pWord;
-						if (db->users->validateUser(uName,pWord)){
+						
+						if (db->users->validateUser(uName,pWord)){//check if login is valid
 							int uID = db->users->getUID(uName);
 							localUser = new User(uID);
-							cout << "Login Successful." << endl;
-							cout << "Username: " << localUser->username << endl;
+							cout <<"\n" << "Login Successful." <<"\n"<<  endl;
 							cout << "First Name: " << localUser->firstName << endl;
 							cout << "Last Name: " << localUser->lastName << endl;
-							cout << "User Role: " << localUser->userRole << endl;
+							
+							if(localUser->userRole==0){//if user is a student
+								cout << "User Role: Student"<< "\n"<< endl;
+								cout << "Currently Enrolled Courses: " <<endl;
+								enrolledCourses = localUser->getEnrolledCourses();
+								cout << "Course ID:" <<"   Course Name"<<endl;
+								for(int i=0; i<enrolledCourses.size();i++){//print out enrolled courses
+									cout <<enrolledCourses[i].cid<<"\t"<<"\t"<<db->courses->getCourseName(enrolledCourses[i].cid) <<endl;
+								}
+								cout<<"\n";
+								cout << "Please Enter a Course ID to View Open and Completed Quizzes: " <<endl;
+								cin >> cid;
+								
+								newCourse = localUser->getCourse(cid);
+								quizList = newCourse->getQuizList();
+								cout << "Quiz ID"<<"\t"<<"Open Date"<<"\t"<<"Closed Date"<<"\t"<<"Grade"<< endl;
+								for(int i=0; i<quizList.size();i++){//print out enrolled courses
+									cout <<quizList[i].qid<<"\t"<<quizList[i].openDate<<"\t"<<db->scores->getUserQuizScore(localUser->userID, quizList[i].qid)<<"\t"<<endl;
+								}
+								cout<<"\n";
+
+							}else{//else if user is a teacher
+								cout << "User Role: Teacher"<< endl;
+							}//end else
+
+
 						}
-						else{
+						else{//if login is not valid
 							cout << "Login Failed. Check username/password combination." << endl;
-						}
+						}//end else
 						break;
-					case 2:
+					case 2://REGISTER
 				
 						break;
-					case 3:
+					case 3://QUIT
 						break;
-			}//END LOGIN MENU
-
+					}//end switch for login
+			}while(choice!=3);//end do-while 
 		}//end else
 
 		/*cout << "---output usesrs---" << endl;
