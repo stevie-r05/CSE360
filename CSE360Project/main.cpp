@@ -28,11 +28,12 @@ int main(array<System::String ^> ^args)
 	//declare variables used in switch statements
 	Course *newCourse;
 	User *localUser;
+	Quiz *newQuiz;
 	string uName;
 	string pWord;
 	vector<db_enrolled_data> enrolledCourses;
 	vector<db_course_data> taughtCourses;
-	int cid;
+	int cid, qid;
 	vector<db_quiz_data> quizList;
 
 	int choice;
@@ -514,6 +515,7 @@ int main(array<System::String ^> ^args)
 							cout << "Last Name: " << localUser->lastName << endl;
 							
 							if(localUser->userRole==0){//if user is a student
+								
 								cout << "User Role: Student"<< "\n"<< endl;
 								cout << "Currently Enrolled Courses: " <<endl;
 								enrolledCourses = localUser->getEnrolledCourses();
@@ -522,9 +524,12 @@ int main(array<System::String ^> ^args)
 									cout <<enrolledCourses[i].cid<<"\t"<<"\t"<<db->courses->getCourseName(enrolledCourses[i].cid) <<endl;
 								}
 								cout<<"\n";
-								cout << "Please Enter a Course ID to View Open and Completed Quizzes: " <<endl;
+								cout << "Enter a Course ID to View Open and Completed Quizzes or Enter -1 to Logout: " <<endl;
 								cin >> cid;
-								
+								if(cid == -1){//logout
+									break;
+									cout<<"\n";
+								}
 								newCourse = localUser->getCourse(cid);
 								quizList = newCourse->getQuizList();
 								cout << "Quiz ID"<<"\t"<<"Open Date"<<"\t"<<"Closed Date"<<"\t"<<"Grade"<< endl;
@@ -532,6 +537,13 @@ int main(array<System::String ^> ^args)
 									cout <<quizList[i].qid<<"\t"<<quizList[i].openDate<<"\t"<<db->scores->getUserQuizScore(localUser->userID, quizList[i].qid)<<"\t"<<endl;
 								}
 								cout<<"\n";
+								cout << "Enter a Quiz ID to View / Take a Quiz for this Course, or Enter -1 to Logout: " <<endl;
+								cin >> qid;
+								if(qid == -1){//logout
+									break;
+									cout<<"\n";
+								}
+								newQuiz = newCourse->getQuiz(qid,uID,cid);
 
 							}else{//else if user is a teacher
 								cout << "User Role: Teacher"<< endl;
