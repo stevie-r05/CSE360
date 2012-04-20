@@ -36,7 +36,7 @@ namespace CSE360Project{
 			this->openDate = openDate;
 		}
 
-		time_t Quiz::getOpenDate(){		
+		time_t Quiz::getOpenDate(){	
 			return openDate;
 		}
 
@@ -157,7 +157,7 @@ namespace CSE360Project{
 			}
 
 			quizScore = (double)(questionData.size()-incorrectCount)/(double)questionData.size();//grade quiz
-			cout << "Score: " << quizScore << endl;
+			//cout << "Score: " << quizScore << endl;
 			scoreData->score = quizScore;//set score in struct
 			scoreData->uid = uid;
 			scoreData->cid = cid;

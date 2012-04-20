@@ -17,6 +17,8 @@
 using namespace std;
 using namespace CSE360Project;
 
+string ConvertDatetoStr(time_t time);
+
 DB *db;
 
 [STAThreadAttribute]
@@ -517,26 +519,29 @@ int main(array<System::String ^> ^args)
 							if(localUser->userRole==0){//if user is a student
 								
 								cout << "User Role: Student"<< "\n"<< endl;
-								cout << "Currently Enrolled Courses: " <<endl;
+								cout << "Currently Enrolled Courses: "<< "\n" <<endl;
 								enrolledCourses = localUser->getEnrolledCourses();
 								cout << "Course ID:" <<"   Course Name"<<endl;
 								for(int i=0; i<enrolledCourses.size();i++){//print out enrolled courses
 									cout <<enrolledCourses[i].cid<<"\t"<<"\t"<<db->courses->getCourseName(enrolledCourses[i].cid) <<endl;
 								}
 								cout<<"\n";
+								
 								cout << "Enter a Course ID to View Open and Completed Quizzes or Enter -1 to Logout: " <<endl;
 								cin >> cid;
 								if(cid == -1){//logout
 									break;
 									cout<<"\n";
 								}
+								cout<<"\n";
 								newCourse = localUser->getCourse(cid);
 								quizList = newCourse->getQuizList();
-								cout << "Quiz ID"<<"\t"<<"Open Date"<<"\t"<<"Closed Date"<<"\t"<<"Grade"<< endl;
+								cout << "Quiz ID"<<"\t"<<"Open Date"<<"\t"<<"\t"<<"\t"<<"Closed Date"<<"\t"<<"\t"<<"\t"<<"Grade"<< endl;
 								for(int i=0; i<quizList.size();i++){//print out enrolled courses
-									cout <<quizList[i].qid<<"\t"<<quizList[i].openDate<<"\t"<<db->scores->getUserQuizScore(localUser->userID, quizList[i].qid)<<"\t"<<endl;
+									cout <<quizList[i].qid<<"\t"<<ConvertDatetoStr(quizList[i].openDate)<<"\t"<<ConvertDatetoStr(quizList[i].closeDate)<<"\t"<<db->scores->getUserQuizScore(localUser->userID, quizList[i].qid)<<"\t"<<endl;
 								}
 								cout<<"\n";
+								
 								cout << "Enter a Quiz ID to View / Take a Quiz for this Course, or Enter -1 to Logout: " <<endl;
 								cin >> qid;
 								if(qid == -1){//logout
@@ -544,6 +549,55 @@ int main(array<System::String ^> ^args)
 									cout<<"\n";
 								}
 								newQuiz = newCourse->getQuiz(qid,uID,cid);
+
+								if(newQuiz->openDate >= newQuiz->closeDate && db->scores->getUserQuizScore(localUser->userID,qid)==0){//if the quiz is open and there is no score then show take quiz ui
+
+									//create question data struct vector array for questions
+									vector<db_question_data> displayQuestions = newQuiz->getQuestions();
+									//create dynamic array to hold answers
+									int *answers = new int[displayQuestions.size()];
+									string temp;
+
+									//display questions sequencially on the screen
+									for (int i = 0; i < (int) displayQuestions.size(); i++) {
+		
+										cout <<"question: "<< i+1 <<". "<<displayQuestions[i].question << endl;
+										cout <<"A"<<". "<<displayQuestions[i].answer1 << endl;
+										cout <<"B"<<". "<<displayQuestions[i].answer2 << endl;
+										cout <<"C"<<". "<<displayQuestions[i].answer3 << endl;
+										cout <<"D"<<". "<<displayQuestions[i].answer4 << endl;
+										cout <<"\n"<<"\n"<<"Please enter the correct answer: ";
+				
+										//make sure the correct characters/strings are used by the quiz taker 
+										do{
+											cin >>temp;
+											if(temp == "A" || temp == "B" || temp == "C" || temp == "D"){
+											break;
+											}
+											 cout<<"Incorrect character entered please enter A, B, C, or D: ";
+										} while(true);
+
+										//save answer to answer int []
+										if(temp == "A")
+											answers[i] = 1;
+										if(temp == "B")
+											answers[i] = 2;
+										if(temp == "C")
+											answers[i] = 3;
+										if(temp == "D")
+											answers[i] = 4;
+
+										cout <<"\n"<<"\n";
+									}//end foor loop
+
+									//submit and grade quiz
+									newQuiz->submitAnswers(answers);
+
+									//get grade
+									cout<<"\n"<<"\n"<<"The grade for this quiz is: " << db->scores->getUserQuizScore(localUser->userID,qid) << endl;
+
+								}else{//else if its closed or there is a score show detailed answers and questions
+								}
 
 							}else{//else if user is a teacher
 								cout << "User Role: Teacher"<< endl;
@@ -637,4 +691,16 @@ int main(array<System::String ^> ^args)
 	Application::Run(gcnew main_form());
 	*/
 	return 0;
+}
+
+
+string ConvertDatetoStr(time_t time){
+
+			string DateStr;
+			struct tm * timeinfo;
+
+			timeinfo = localtime ( &time );
+			DateStr=asctime (timeinfo);
+			DateStr.erase (DateStr.size()-1,1);
+			return DateStr;
 }
