@@ -494,30 +494,38 @@ int main(array<System::String ^> ^args)
 			}
 		}else if (choice == 13){//RUN THE PROTOTYPE PROGRAM
 			
-			do{
+			do{	system("CLS");
+				for(int j = 0;j<8;j++)
+					cout<<endl;
 				cout << "Welcome to the Just-In-Time Classroom Companion" << endl;
 				cout << "Please choose from the following options:" <<"\n"<< endl;
 				cout << "1 - Login" << endl;
 				cout << "2 - Register" << endl;
 				cout << "3 - Quit" << "\n"<< endl;
+
 				cin >> choice;
 
-				switch (choice) {//LOGIN MENU
-					case 1://LOGIN
-						cout << "Username: ";
-						cin >> uName;
-						cout << "Password: ";
-						cin >> pWord;
+				if (choice==1) {//LOGIN MENU
+					system("CLS");
+					for(int j = 0;j<10;j++)
+						cout<<endl;
+					cout << "Username: ";
+					cin >> uName;
+					cout << "Password: ";
+					cin >> pWord;
 						
-						if (db->users->validateUser(uName,pWord)){//check if login is valid
-							int uID = db->users->getUID(uName);
-							localUser = new User(uID);
-							cout <<"\n" << "Login Successful." <<"\n"<<  endl;
-							cout << "First Name: " << localUser->firstName << endl;
-							cout << "Last Name: " << localUser->lastName << endl;
+					if (db->users->validateUser(uName,pWord)){//check if login is valid
+						int uID = db->users->getUID(uName);
+						localUser = new User(uID);
 							
-							if(localUser->userRole==0){//if user is a student
-								
+							if(localUser->userRole==0){//if user is a student			
+					
+								do{//ENROLLED COURSES MENU
+								system("CLS");
+								for(int j = 0;j<5;j++)
+												cout<<endl;
+								cout << "First Name: " << localUser->firstName << endl;
+								cout << "Last Name: " << localUser->lastName << endl;
 								cout << "User Role: Student"<< "\n"<< endl;
 								cout << "Currently Enrolled Courses: "<< "\n" <<endl;
 								enrolledCourses = localUser->getEnrolledCourses();
@@ -527,95 +535,101 @@ int main(array<System::String ^> ^args)
 								}
 								cout<<"\n";
 								
-								cout << "Enter a Course ID to View Open and Completed Quizzes or Enter -1 to Logout: " <<endl;
+								cout << "Enter a course ID to view open and completed quizzes, or enter \"0\" to go to logout: " <<endl;
 								cin >> cid;
-								if(cid == -1){//logout
+								if(cid == 0){//logout
 									break;
 									cout<<"\n";
-								}
-								cout<<"\n";
-								newCourse = localUser->getCourse(cid);
-								quizList = newCourse->getQuizList();
-								cout << "Quiz ID"<<"\t"<<"Open Date"<<"\t"<<"\t"<<"\t"<<"Closed Date"<<"\t"<<"\t"<<"\t"<<"Grade"<< endl;
-								for(int i=0; i<quizList.size();i++){//print out enrolled courses
-									cout <<quizList[i].qid<<"\t"<<ConvertDatetoStr(quizList[i].openDate)<<"\t"<<ConvertDatetoStr(quizList[i].closeDate)<<"\t"<<db->scores->getUserQuizScore(localUser->userID, quizList[i].qid)<<"\t"<<endl;
 								}
 								cout<<"\n";
 								
-								cout << "Enter a Quiz ID to View / Take a Quiz for this Course, or Enter -1 to Logout: " <<endl;
-								cin >> qid;
-								if(qid == -1){//logout
-									break;
-									cout<<"\n";
-								}
-								newQuiz = newCourse->getQuiz(qid,uID,cid);
+								newCourse = localUser->getCourse(cid);//show quizzes in course
+								quizList = newCourse->getQuizList();
+								do{//QUIZ MENU
+									system("CLS");
+									for(int i = 0;i<8;i++)
+										cout<<endl;
+									cout << "Quiz ID"<<"\t"<<"Open Date"<<"\t"<<"\t"<<"\t"<<"Closed Date"<<"\t"<<"\t"<<"\t"<<"Grade"<< endl;
+									for(int i=0; i<quizList.size();i++){//print out quizzes courses
+										cout <<quizList[i].qid<<"\t"<<ConvertDatetoStr(quizList[i].openDate)<<"\t"<<ConvertDatetoStr(quizList[i].closeDate)<<"\t"<<db->scores->getUserQuizScore(localUser->userID, quizList[i].qid)<<"\t";
+									}
+									cout<<"\n";									
+									cout << "Enter a quiz ID to view/take a quiz for this course,  or enter \"0\" to go to the previous menu: " <<endl;
+									cin >> qid;
+									if(qid == 0){//logout
+										break;
+										cout<<"\n";
+									}
+									newQuiz = newCourse->getQuiz(qid,uID,cid);
 
-								if(newQuiz->openDate >= newQuiz->closeDate && db->scores->getUserQuizScore(localUser->userID,qid)==0){//if the quiz is open and there is no score then show take quiz ui
+									if(newQuiz->openDate >= newQuiz->closeDate && db->scores->getUserQuizScore(localUser->userID,qid)==0){//if the quiz is open and there is no score then show take quiz ui
+										//create question data struct vector array for questions
+										vector<db_question_data> displayQuestions = newQuiz->getQuestions();
+										//create dynamic array to hold answers
+										int *answers = new int[displayQuestions.size()];
+										string temp;
 
-									//create question data struct vector array for questions
-									vector<db_question_data> displayQuestions = newQuiz->getQuestions();
-									//create dynamic array to hold answers
-									int *answers = new int[displayQuestions.size()];
-									string temp;
-
-									//display questions sequencially on the screen
-									for (int i = 0; i < (int) displayQuestions.size(); i++) {
-		
-										cout <<"question: "<< i+1 <<". "<<displayQuestions[i].question << endl;
-										cout <<"A"<<". "<<displayQuestions[i].answer1 << endl;
-										cout <<"B"<<". "<<displayQuestions[i].answer2 << endl;
-										cout <<"C"<<". "<<displayQuestions[i].answer3 << endl;
-										cout <<"D"<<". "<<displayQuestions[i].answer4 << endl;
-										cout <<"\n"<<"\n"<<"Please enter the correct answer: ";
+										//display questions sequencially on the screen
+										for (int i = 0; i < (int) displayQuestions.size(); i++) {
+											system("CLS");
+											for(int j = 0;j<8;j++)
+												cout<<endl;
+											cout <<"Question "<< i+1 <<". "<<displayQuestions[i].question <<"\n"<< endl;
+											cout <<"A"<<". "<<displayQuestions[i].answer1 << endl;
+											cout <<"B"<<". "<<displayQuestions[i].answer2 << endl;
+											cout <<"C"<<". "<<displayQuestions[i].answer3 << endl;
+											cout <<"D"<<". "<<displayQuestions[i].answer4 << endl;
+											cout <<"\n"<<"\n"<<"Please enter the correct answer: ";
 				
-										//make sure the correct characters/strings are used by the quiz taker 
-										do{
-											cin >>temp;
-											if(temp == "A" || temp == "B" || temp == "C" || temp == "D"){
-											break;
-											}
-											 cout<<"Incorrect character entered please enter A, B, C, or D: ";
-										} while(true);
+											//make sure the correct characters/strings are used by the quiz taker 
+											do{
+												cin >>temp;
+												if(temp == "A" || temp == "B" || temp == "C" || temp == "D"){
+												break;
+												}
+												cout<<"Incorrect character entered please enter A, B, C, or D: ";
+											} while(true);
 
-										//save answer to answer int []
-										if(temp == "A")
-											answers[i] = 1;
-										if(temp == "B")
-											answers[i] = 2;
-										if(temp == "C")
-											answers[i] = 3;
-										if(temp == "D")
-											answers[i] = 4;
+											//save answer to answer int []
+											if(temp == "A")
+												answers[i] = 1;
+											if(temp == "B")
+												answers[i] = 2;
+											if(temp == "C")
+												answers[i] = 3;
+											if(temp == "D")
+												answers[i] = 4;
 
-										cout <<"\n"<<"\n";
-									}//end foor loop
+											cout <<"\n"<<"\n";
+										}//end foor loop
 
 									//submit and grade quiz
 									newQuiz->submitAnswers(answers);
 
 									//get grade
-									cout<<"\n"<<"\n"<<"The grade for this quiz is: " << db->scores->getUserQuizScore(localUser->userID,qid) << endl;
-
+									system("CLS");
+									//cout<<"\n"<<"\n"<<"The grade for this quiz is: " << db->scores->getUserQuizScore(localUser->userID,qid) <<"\n"<<"\n"<<endl;
 								}else{//else if its closed or there is a score show detailed answers and questions
 								}
 
-							}else{//else if user is a teacher
-								cout << "User Role: Teacher"<< endl;
-							}//end else
+							} while(true);//QUIZ MENU
+						} while(true);//ENROLLED COURSES MENU
+
+					}else{//else if user is a teacher
+						cout << "User Role: Teacher"<< endl;
+					}//end else
 
 
-						}
-						else{//if login is not valid
-							cout << "Login Failed. Check username/password combination." << endl;
-						}//end else
-						break;
-					case 2://REGISTER
+				}else{//if login is not valid
+					cout << "Login Failed. Check username/password combination." << endl;
+				}//end else
+			}//LOGIN MENU
+			if (choice==2) {//REGISTER
+			}
 				
-						break;
-					case 3://QUIT
-						break;
-					}//end switch for login
-			}while(choice!=3);//end do-while 
+		}while(choice!=3);//end do-while 
+		
+
 		}//end else
 
 		/*cout << "---output usesrs---" << endl;
