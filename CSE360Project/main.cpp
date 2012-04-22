@@ -36,7 +36,7 @@ int main(array<System::String ^> ^args)
 	string courseName;
 	vector<db_enrolled_data> enrolledCourses;
 	vector<db_course_data> taughtCourses;
-	int cid, qid;
+	int cid, qid, studentID;
 	vector<db_quiz_data> quizList;
 
 	int choice;
@@ -672,6 +672,40 @@ int main(array<System::String ^> ^args)
 									cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
 									getline (cin,courseName);
 									newCourse = localUser->createCourse(courseName);//create course through user object retunr course
+
+									do{
+										system("CLS");
+										for(int j = 0;j<7;j++)
+											cout<<endl;
+										cout << "Enroll students menu for course: "<<courseName<<"\n"<<"\n"<<endl;	
+										cout << "- Enter \"-1\" when done"<<endl;
+										cout << "- Enter \"-2\" to see a list of current users"<<"\n"<<"\n"<<endl;									
+										cout << "Please enter a student ID to add student to course:"<<endl;
+										cin>>studentID;
+										if(studentID == -1)
+											break;
+										if(studentID == -2){
+											system("CLS");
+											for(int j = 0;j<8;j++)
+												cout<<endl;
+											db->users->outputAllData();
+											cout<<"Hit enter to return to enroll menu";
+											cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
+											cin.get();
+										}
+										//db->enrolled->Insert(studentID,newCourse->courseID);
+										//cout<<"User added successfully"<<endl;
+										//cout<<"db->users->getUsername(studentID) = "<<db->users->getUsername(studentID);
+										if(db->users->getUsername(studentID).compare("none")==0){//confirm the ID matches a users
+										cout<<"User does not exist"<<endl;
+										cout<<"Hit enter continue";
+										cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
+										cin.get();
+										}else {
+											db->enrolled->Insert(studentID,newCourse->courseID);
+											cout<<"User added successfully"<<endl;
+										}
+									}while(true);
 									break;
 								}while(true);
 							}

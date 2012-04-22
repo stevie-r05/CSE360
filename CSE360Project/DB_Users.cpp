@@ -84,7 +84,11 @@ namespace CSE360Project {
 	}
 
 	string DB_Users::getUsername(int uid) {
+		if(uid >= user_data.size()){
+			return "none";
+		}else{
 		return user_data[ getVectorIndex(uid) ].username;
+		}
 	}
 
 	string DB_Users::getFirstname(int uid) {

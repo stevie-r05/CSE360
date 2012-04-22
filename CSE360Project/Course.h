@@ -14,6 +14,7 @@ using namespace std;
 namespace CSE360Project {
 	class Course {
 	public:
+		int courseID;
 		Course(int userID, string courseName);//overloaded constructor to create a course called from teacher class
 		Course(int courseID); // Overloaded constructor for creating local object from DB_Courses
 		void setName(string courseName);
@@ -29,7 +30,7 @@ namespace CSE360Project {
 		//int addCourseData(int userID, string courseName);//this is taken care of by the constructor and is no longer needed
 
 	protected:
-		int courseID;
+
 		string courseName;
 		vector<db_quiz_data> quizList;
 
