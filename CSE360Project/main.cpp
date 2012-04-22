@@ -75,14 +75,14 @@ int main(array<System::String ^> ^args)
 				db->ResetDatabase(true);
 			}
 
-			//Create 3 dummy users
+			//Create 4 dummy users
 			string a;
-			for (int j = 0; j < 3; j++) {
+			for (int j = 0; j < 4; j++) {
 				int i = 1;
 
 				db_user_data *user = db->newUserRow();
 
-				switch (j % 3) {
+				switch (j % 4) {
 				case 1:
 					a = "Hey there how are you all doing on this fine day today?";
 					WriteStructValue(user->username,"David\0");
@@ -96,6 +96,14 @@ int main(array<System::String ^> ^args)
 					WriteStructValue(user->password, "ian_password");
 					WriteStructValue(user->lastName, "Coast");
 					WriteStructValue(user->firstName, "Ian");
+					a = "I'm well thanks";
+					user->userRole = student;
+					break;
+				case 3:
+					WriteStructValue(user->username,"Stevie\0");
+					WriteStructValue(user->password, "stevie_password");
+					WriteStructValue(user->lastName, "Robinson");
+					WriteStructValue(user->firstName, "Stevie");
 					a = "I'm well thanks";
 					user->userRole = student;
 					break;
@@ -139,8 +147,99 @@ int main(array<System::String ^> ^args)
 
 				db->courses->Insert(course);
 
+				for(int i=1;i<4;i++){
+				//create quiz and add to each course
+				Quiz exampleQuiz(i);
+
+				//create questions and store in vector string array
+				vector<string>questions;
+				string question1 = "What is 2+2?";
+				questions.push_back(question1);
+				string question2 = "What is 2+3?";
+				questions.push_back(question2);
+				string question3 = "What is 2+4?";
+				questions.push_back(question3);
+				string question4 = "What is 2+5?";
+				questions.push_back(question4);
+				string question5 = "What is 2+6?";
+				questions.push_back(question5);
+
+				//send string vector array to quiz object where it will store and package the questions 
+				exampleQuiz.setQuestions(questions);
+
+				//create and set answers
+				vector<string> answers;
+			
+				string Answer1a = "4";
+				answers.push_back(Answer1a);
+				string Answer1b = "2";
+				answers.push_back(Answer1b);
+				string Answer1c = "3";
+				answers.push_back(Answer1c);
+				string Answer1d = "6";
+				answers.push_back(Answer1d);
+				string Answer1correct = "1";
+				answers.push_back(Answer1correct);
+
+				string Answer2a = "4";
+				answers.push_back(Answer2a);
+				string Answer2b = "5";
+				answers.push_back(Answer2b);
+				string Answer2c = "3";
+				answers.push_back(Answer2c);
+				string Answer2d = "6";
+				answers.push_back(Answer2d);
+				string Answer2correct = "2";
+				answers.push_back(Answer2correct);
+
+				string Answer3a = "3";
+				answers.push_back(Answer3a);
+				string Answer3b = "1";
+				answers.push_back(Answer3b);
+				string Answer3c = "4";
+				answers.push_back(Answer3c);
+				string Answer3d = "6";
+				answers.push_back(Answer3d);
+				string Answer3correct = "4";
+				answers.push_back(Answer3correct);
+
+				string Answer4a = "6";
+				answers.push_back(Answer4a);
+				string Answer4b = "8";
+				answers.push_back(Answer4b);
+				string Answer4c = "7";
+				answers.push_back(Answer4c);
+				string Answer4d = "5";
+				answers.push_back(Answer4d);
+				string Answer4correct = "3";
+				answers.push_back(Answer4correct);
+
+				string Answer5a = "7";
+				answers.push_back(Answer5a);
+				string Answer5b = "8";
+				answers.push_back(Answer5b);
+				string Answer5c = "3";
+				answers.push_back(Answer5c);
+				string Answer5d = "6";
+				answers.push_back(Answer5d);
+				string Answer5correct = "2";
+				answers.push_back(Answer5correct);
+
+				//set answers in quiz object
+				exampleQuiz.setAnswers(answers);
+
+				time_t openDate= time (NULL); 
+				exampleQuiz.setOpenDate(openDate);
+
+				time_t closeDate= time (NULL)+7200;
+				exampleQuiz.setCloseDate(closeDate);
+
+				exampleQuiz.setTimeLimit(3000);
+
+				exampleQuiz.saveQuiz();
+				}
 				//for each course insert 1 or 2 quizzes
-				for (int j = 0; j < i % 2 + 1; j++) {
+				/*for (int j = 0; j < i % 2 + 1; j++) {
 					db_quiz_data *quiz_data = db->newQuizRow();
 					quiz_data->cid = db->courses->getLastID();
 					quiz_data->openDate = time(NULL);
@@ -163,7 +262,7 @@ int main(array<System::String ^> ^args)
 
 						db->quizquestions->Insert(question);
 					}
-				}
+				}*/
 			}
 			
 			uid = db->users->getUID("Ian");
@@ -618,7 +717,7 @@ int main(array<System::String ^> ^args)
 									//get grade
 									system("CLS");
 									//cout<<"\n"<<"\n"<<"The grade for this quiz is: " << db->scores->getUserQuizScore(localUser->userID,qid) <<"\n"<<"\n"<<endl;
-								}else{//else if its closed or there is a score show detailed answers and questions
+								}else if(db->scores->getUserQuizScore(localUser->userID,qid)!=-1){//else if its closed or there is a score show detailed answers and questions
 									system("CLS");
 									//create question data struct vector array for questions
 									vector<db_question_data> displayQuestions = newQuiz->getQuestions();
@@ -741,7 +840,7 @@ int main(array<System::String ^> ^args)
 											
 											cout << "Enroll students menu for course: "<<courseName<<"\n"<<"\n"<<endl;	
 											cout << "- Enter \"1\" to add a student"<<endl;
-											cout << "- Enter \"2\" to see a list of current users"<<endl;
+											cout << "- Enter \"2\" to see a list of current students"<<endl;
 											cout << "- Enter \"0\" to go to previous menu"<<"\n"<<"\n"<<endl;									
 											cin>>choice;
 											
@@ -751,10 +850,18 @@ int main(array<System::String ^> ^args)
 												system("CLS");
 												for(int j = 0;j<8;j++)
 													cout<<endl;
-												db->users->outputAllData();
-												cout<<"Hit enter to return to enroll menu";
+												vector<db_enrolled_data> enrolledStudents = newCourse->getStudents();
+												cout << "Current students enrolled in course: "<<courseName<<"\n"<<"\n"<<endl;
+												cout<<"Student ID#"<<endl;
+										
+												for(int i=0; i<enrolledStudents.size();i++){//list quizzes for each student in course			
+													cout <<enrolledStudents[i].uid<<endl;
+												}//end forloop
+
+												cout<<"\n"<<"Hit enter to return to enroll menu";
 												cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
 												cin.get();
+
 											}else if(choice == 1) {
 												cout<<"Please enter student ID to add"<<endl;
 												cin>>studentID;
@@ -789,8 +896,15 @@ int main(array<System::String ^> ^args)
 												system("CLS");
 												for(int j = 0;j<8;j++)
 													cout<<endl;
-												db->users->outputAllData();
-												cout<<"Hit enter to return to enroll menu";
+												vector<db_enrolled_data> enrolledStudents = newCourse->getStudents();
+												cout << "Current students enrolled in course: "<<courseName<<"\n"<<"\n"<<endl;
+												cout<<"Student ID#"<<endl;
+										
+												for(int i=0; i<enrolledStudents.size();i++){//list quizzes for each student in course			
+													cout <<enrolledStudents[i].uid<<endl;
+												}//end forloop
+
+												cout<<"\n"<<"Hit enter to return to enroll menu";
 												cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
 												cin.get();
 											} else{
@@ -836,6 +950,8 @@ int main(array<System::String ^> ^args)
 											cout<<"\n";
 											}else if(choice == 1){//create quiz menu
 												newQuiz = newCourse->creatQuiz();
+												vector<string>questions;
+												vector<string> answers;
 												system("CLS");
 													for(int j = 0;j<8;j++)
 														cout<<endl;
@@ -884,7 +1000,7 @@ int main(array<System::String ^> ^args)
 
 													cout <<"\n"<< "Please enter number of questions"<<endl;
 													scanf ("%d",&numQuestions);
-											
+													cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
 												for(int k=0;k<numQuestions;k++){
 													system("CLS");
 													for(int j = 0;j<8;j++)
@@ -892,26 +1008,29 @@ int main(array<System::String ^> ^args)
 													cout << "Creat a quiz menu for course: "<<newCourse->getName()<<"\n"<<"\n"<<endl;	
 			
 													cout << "Please enter question:"<<endl;
-													question.clear();
-													cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
+													//question="";
+													string question;
+													
 													getline (cin,question);
 													questions.push_back(question);
-													
+													//answer ="";
 													for(int i=1;i<6;i++){//get answers
+														string answer;
 														if(i<5){
 															cout <<"\n"<< "Please enter answer choice "<<i<<endl;
-															cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
+															//cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
 															getline (cin,answer);
 															answers.push_back(answer);
 														}else{
 															cout <<"\n"<< "Please enter correct choice "<<i<<endl;
-															cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
+															//cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
 															getline (cin,answer);
 															answers.push_back(answer);
 														}
+														//answer="";
 													}
 
-												}//end do loop enter questions and answers
+												}//end for loop enter questions and answers
 
 												//send string vector array to quiz object where it will store and package the questions 
 												newQuiz->setQuestions(questions);
@@ -919,7 +1038,10 @@ int main(array<System::String ^> ^args)
 												newQuiz->setAnswers(answers);
 												//save quiz
 												newQuiz->saveQuiz();
-											
+												
+												//clear vector containor
+												questions.clear();
+												answers.clear();
 											}else if(choice == 2){//delete a quiz menu
 												cout<<"\n";									
 												cout << "Please enter quiz ID to delete:"<<endl;
@@ -953,7 +1075,26 @@ int main(array<System::String ^> ^args)
 									}//end menu to view/edit quizzes for the course
 
 									if(choice == 4){//teacher/course content menu/view gradebook option
-									}
+										vector<db_enrolled_data> enrolledStudents = newCourse->getStudents();
+										vector<db_quiz_data> courseQuizList = newCourse->getQuizList();
+										cout<<"Student ID#\tQ1(%)\tQ1(%)\tQ2(%)\tQ3(%)\tQ4(%)\tQ5(%)\tQ6(%)"<<"\n"<<endl;
+										
+										for(int i=0; i<enrolledStudents.size();i++){//list quizzes for each student in course and grades			
+												cout <<enrolledStudents[i].uid<<"\t"<<"\t";
+												for(int j=0; j<courseQuizList.size();j++){
+													if(db->scores->getUserQuizScore(enrolledStudents[i].uid, courseQuizList[j].qid) ==-1){
+														cout<<"0"<<"\t";
+													}else{
+														cout<<db->scores->getUserQuizScore(enrolledStudents[i].uid, courseQuizList[j].qid)<<"\t";
+													}
+												}
+												cout<<"\n"<<"\n";
+										}//end forloop 
+
+										cout<<"Hit enter to continue";
+										cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
+										cin.get();
+									}//end if for(choice == 4)teacher/course content menu/view gradebook option
 
 								}while(true);//end do loop view/edit course content teacher menu
 							}

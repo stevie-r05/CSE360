@@ -47,6 +47,7 @@ namespace CSE360Project {
 
 		vector<db_enrolled_data>  Course::getStudents(){
 			vector<db_enrolled_data> enrolled;
+			enrolled = db->enrolled->getEnrolledUsers(courseID);
 			return enrolled;
 		}
 
