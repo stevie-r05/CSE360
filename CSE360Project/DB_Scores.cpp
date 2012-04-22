@@ -162,7 +162,7 @@ namespace CSE360Project {
 			}
 		}
 
-		return 0.0;
+		return -1;
 	}
 
 	void DB_Scores::outputAllData() {
