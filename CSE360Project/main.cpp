@@ -657,13 +657,19 @@ int main(array<System::String ^> ^args)
 							}
 							cout<<"\n";
 								
-							cout << "- Enter course ID to view course content."<<"\n"<<"- Type \"-1\" to create a course."<<"\n"<<"- Enter \"0\" to logout." <<endl;
+							cout << "- Enter course ID to view/edit course content."<<endl;
+							cout<<"- Type \"-2\" to delete a course."<<endl;
+							cout<<"- Type \"-1\" to create a course."<<endl;
+							cout<<"- Enter \"0\" to logout." <<endl;
 							cin >> cid;
 							if(cid == 0){//logout
 								break;
 								cout<<"\n";
-							}
-							if(cid == -1){//create a course
+							}else if(cid == -2){
+								cout << "Please enter the course ID to delete"<<endl;
+								cin>>cid;
+								localUser->deleteCourse(cid);//delete course by calling delet method in user 
+							}else if(cid == -1){//create a course
 								do{
 									system("CLS");
 									for(int j = 0;j<8;j++)
@@ -674,6 +680,53 @@ int main(array<System::String ^> ^args)
 									newCourse = localUser->createCourse(courseName);//create course through user object retunr course
 
 									do{
+										system("CLS");
+										for(int j = 0;j<7;j++)
+											cout<<endl;
+										cout << "Enroll students menu for course: "<<courseName<<"\n"<<"\n"<<endl;	
+										cout << "- Enter \"-1\" when done"<<endl;
+										cout << "- Enter \"-2\" to see a list of current users"<<"\n"<<"\n"<<endl;									
+										cout << "Please enter a student ID to add student to course:"<<endl;
+										cin>>studentID;
+										if(studentID == -1){
+											break;
+										}else if(studentID == -2){
+											system("CLS");
+											for(int j = 0;j<8;j++)
+												cout<<endl;
+											db->users->outputAllData();
+											cout<<"Hit enter to return to enroll menu";
+											cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
+											cin.get();
+										} else{
+											if(db->users->getUsername(studentID).compare("none")==0){//confirm the ID matches a users
+												cout<<"User does not exist"<<endl;
+												cout<<"Hit enter continue";
+												cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
+												cin.get();
+												}else {
+													db->enrolled->Insert(studentID,newCourse->courseID);
+													cout<<"User added successfully"<<endl;
+												}
+										}
+									}while(true);
+									break;
+								}while(true);
+							}else{//view/edit course content teacher
+								do{
+									system("CLS");
+									newCourse = localUser->getCourse(cid);//instantiate existing course
+									for(int j = 0;j<8;j++)
+										cout<<endl;
+									cout << "Edit menu for course: "<<newCourse->getName()<<"\n"<<"\n"<<endl;	
+									cout << "- Enter \"1\" to add students to the course"<<endl;
+									cout << "- Enter \"2\" to delete students from the course"<<endl;
+									cout << "- Enter \"3\" to view/edit quizzes for the course"<<endl;
+									cout << "- Enter \"4\" to view roster/gradebook for the course"<<endl;
+									cout << "- Enter \"0\" to go back to the previous menu"<<endl;
+									cin>>choice;
+
+									if(choice == 1){//menu to add students to course
 										system("CLS");
 										for(int j = 0;j<7;j++)
 											cout<<endl;
@@ -693,9 +746,7 @@ int main(array<System::String ^> ^args)
 											cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
 											cin.get();
 										}
-										//db->enrolled->Insert(studentID,newCourse->courseID);
-										//cout<<"User added successfully"<<endl;
-										//cout<<"db->users->getUsername(studentID) = "<<db->users->getUsername(studentID);
+
 										if(db->users->getUsername(studentID).compare("none")==0){//confirm the ID matches a users
 										cout<<"User does not exist"<<endl;
 										cout<<"Hit enter continue";
@@ -705,9 +756,68 @@ int main(array<System::String ^> ^args)
 											db->enrolled->Insert(studentID,newCourse->courseID);
 											cout<<"User added successfully"<<endl;
 										}
-									}while(true);
-									break;
-								}while(true);
+									}//end menu to add students to course
+									
+									if(choice == 2){//menu to delete students from the course
+										system("CLS");
+										for(int j = 0;j<7;j++)
+											cout<<endl;
+										cout << "Delete students menu for course: "<<courseName<<"\n"<<"\n"<<endl;	
+										cout << "- Enter \"-1\" when done"<<endl;
+										cout << "- Enter \"-2\" to see a list of current users"<<"\n"<<"\n"<<endl;									
+										cout << "Please enter a student ID to delete student from course:"<<endl;
+										cin>>studentID;
+										if(studentID == -1){
+											break;
+										}else if(studentID == -2){
+											system("CLS");
+											for(int j = 0;j<8;j++)
+												cout<<endl;
+											db->users->outputAllData();
+											cout<<"Hit enter to return to enroll menu";
+											cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
+											cin.get();
+										} else{
+
+											if(db->users->getUsername(studentID).compare("none")==0){//confirm the ID matches a users
+												cout<<"User does not exist"<<endl;
+												cout<<"Hit enter continue";
+												cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
+												cin.get();
+											}else {
+												db->enrolled->Unenroll(studentID,newCourse->courseID);
+												cout<<"User deleted successfully"<<endl;
+											}
+										}
+									}// end menu to delete students from the course
+
+									if(choice == 3){//menu to view/edit quizzes for the course for teacher
+		
+										quizList = newCourse->getQuizList();//get quizzes for course
+										do{//QUIZ MENU
+											system("CLS");
+											for(int i = 0;i<8;i++)
+												cout<<endl;
+											cout << "Quiz ID"<<"\t"<<"Open Date"<<"\t"<<"\t"<<"\t"<<"Closed Date"<< endl;
+											for(int i=0; i<quizList.size();i++){//print out quizzes for course			
+												cout <<quizList[i].qid<<"\t"<<ConvertDatetoStr(quizList[i].openDate)<<"\t"<<endl;
+											}
+											cout<<"\n";									
+											cout << "- Enter \"-1\" to create a quiz for this course"<<endl;
+											cout << "- Enter \"-2\" to delete a quiz for this course"<<endl;
+											cout << "- Enter \"-3\" to view a quiz for this course"<<endl;
+											cout<< "- Enter \"0\" to go to the previous menu: " <<endl;
+											cin >> qid;
+											if(qid == 0){//logout
+												break;
+											cout<<"\n";
+											}
+											newQuiz = newCourse->getQuiz(qid,uID,cid);
+										}while(true);//end while for quiz menu teacher
+
+									}//end menu to view/edit quizzes for the course
+
+								}while(true);//end do loop view/edit course content teacher menu
 							}
 							cout<<"\n";
 						}while(true);//end first do-while loop
