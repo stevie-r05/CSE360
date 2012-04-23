@@ -604,7 +604,6 @@ int main(array<System::String ^> ^args)
 				cout << "1 - Login" << endl;
 				cout << "2 - Register" << endl;
 				cout << "3 - Quit" << "\n"<< endl;
-
 				cin >> choice;
 
 				if (choice==1) {//LOGIN MENU
@@ -852,10 +851,10 @@ int main(array<System::String ^> ^args)
 													cout<<endl;
 												vector<db_enrolled_data> enrolledStudents = newCourse->getStudents();
 												cout << "Current students enrolled in course: "<<courseName<<"\n"<<"\n"<<endl;
-												cout<<"Student ID#"<<endl;
+												cout<<"Student ID#"<<"\t"<<"Username"<<endl;
 										
 												for(int i=0; i<enrolledStudents.size();i++){//list quizzes for each student in course			
-													cout <<enrolledStudents[i].uid<<endl;
+													cout <<enrolledStudents[i].uid<<"\t"<<"\t"<<db->users->getUsername(enrolledStudents[i].uid)<<endl;
 												}//end forloop
 
 												cout<<"\n"<<"Hit enter to return to enroll menu";
@@ -898,10 +897,10 @@ int main(array<System::String ^> ^args)
 													cout<<endl;
 												vector<db_enrolled_data> enrolledStudents = newCourse->getStudents();
 												cout << "Current students enrolled in course: "<<courseName<<"\n"<<"\n"<<endl;
-												cout<<"Student ID#"<<endl;
+												cout<<"Student ID#"<<"\t"<<"Username"<<endl;
 										
 												for(int i=0; i<enrolledStudents.size();i++){//list quizzes for each student in course			
-													cout <<enrolledStudents[i].uid<<endl;
+													cout <<enrolledStudents[i].uid<<"\t"<<"\t"<<db->users->getUsername(enrolledStudents[i].uid)<<endl;
 												}//end forloop
 
 												cout<<"\n"<<"Hit enter to return to enroll menu";
@@ -1108,6 +1107,42 @@ int main(array<System::String ^> ^args)
 				}//end else
 			}//LOGIN MENU
 			if (choice==2) {//REGISTER
+
+				system("CLS");
+				for(int j = 0;j<7;j++)
+					cout<<endl;
+				string userName, firstName, lastName, passWord, secQ, secA, userRole;
+				user_role_t userType;
+				 
+				cout << "REGISTRATION"<<"\n"<<"\n"<<endl;	
+				cout << "Please enter your first name"<<endl;
+				cin>>firstName;
+				cout << "Please enter your last name"<<endl;
+				cin>>lastName;
+				cout << "Please enter a username"<<endl;
+				cin>>userName;
+				cout << "Please enter a password"<<endl;
+				cin>>passWord;
+				cout << "Please enter a security question"<<endl;
+				cin.ignore();//flushout any left over "/n" so the prompt will stop at getline.
+				getline (cin,secQ);
+				cout << "Please enter a security answer"<<endl;
+				getline (cin,secA);
+				cout << "Please enter account type (student or teacher)"<<endl;
+				cin>>userRole;
+				if(userRole.compare("student")==0){
+					userType =student;
+				}else{
+					userType =teacher;
+				}
+
+				db_user_data *user = db->newUserRow();
+				WriteStructValue(user->username,userName);
+				WriteStructValue(user->password, passWord);
+				WriteStructValue(user->lastName, lastName);
+				WriteStructValue(user->firstName, firstName);
+				user->userRole = userType;
+				db->users->Insert(user);
 			}
 				
 		}while(choice!=3);//end do-while 
