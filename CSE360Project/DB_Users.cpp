@@ -87,7 +87,7 @@ namespace CSE360Project {
 		int vector_index = getVectorIndex(uid);
 
 		if (vector_index == -1)
-			return "string"
+			return "none"
 
 		return user_data[vector_index].username;
 		//There is no guarantee size will b eless than uid, what happens if we delete a user?
