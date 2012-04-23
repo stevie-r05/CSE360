@@ -84,11 +84,18 @@ namespace CSE360Project {
 	}
 
 	string DB_Users::getUsername(int uid) {
-		if(uid > user_data.size()){
-			return "none";
-		}else{
-		return user_data[ getVectorIndex(uid) ].username;
-		}
+		int vector_index = getVectorIndex(uid);
+
+		if (vector_index == -1)
+			return "string"
+
+		return user_data[vector_index].username;
+		//There is no guarantee size will b eless than uid, what happens if we delete a user?
+		//if(uid > user_data.size()){
+			//return "none";
+		//}else{
+		//return user_data[ getVectorIndex(uid) ].username;
+		//}
 	}
 
 	string DB_Users::getFirstname(int uid) {
