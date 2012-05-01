@@ -58,7 +58,7 @@ namespace CSE360Project{
 
 		void Quiz::setQuestions(vector<string> questions){
 
-			for(int i = 0; i<questions.size(); i++){
+			for(int i = 0; i < (int) questions.size(); i++){
 
 				db_question_data newQuestion; 
 				WriteStructValue(newQuestion.question,questions[i],true);//add question to new db_question struct
@@ -78,7 +78,7 @@ namespace CSE360Project{
 			
 			int count=0;
 
-			for(int i = 0; i<questionData.size(); i++){
+			for(int i = 0; i < (int) questionData.size(); i++){
 					
 				for(int j = 0; j<5; j++){
 					if(j==0)
@@ -104,7 +104,7 @@ namespace CSE360Project{
 		bool Quiz::submitAnswers(int answerData []){
 
 			vector<db_answered_data> answered_data;
-			for(int i = 0; i<questionData.size(); i++){//use size of question vector to step through answer array
+			for(int i = 0; i < (int) questionData.size(); i++){//use size of question vector to step through answer array
 				db_answered_data newAnswer;
 				newAnswer.uid = uid;
 				newAnswer.qid = quizID;
@@ -136,7 +136,7 @@ namespace CSE360Project{
 			quizData->timeLimit = timeLimit;//initialize quiData struct
 			quizID = db->quizzes->Insert(quizData);// send to quizzes database and return the generated qid
 
-			for(int i = 0; i<questionData.size(); i++)//initialize quiz ID for each question data struct in the vector array
+			for(int i = 0; i < (int) questionData.size(); i++)//initialize quiz ID for each question data struct in the vector array
 				questionData[i].qid = quizID;
 
 			db->quizquestions->Insert(questionData);//send vector of quizquestion structs to quizquestions db for storage.
@@ -150,7 +150,7 @@ namespace CSE360Project{
 			double quizScore;
 			int incorrectCount=0;//calculate incorrect answers by comparing answered vector array with question vector array 
 			
-			for(int i = 0; i<questionData.size(); i++){
+			for(int i = 0; i < (int) questionData.size(); i++){
 				if(questionData[i].correct_answer != answered_data[i].answer){
 					incorrectCount++;
 				}
